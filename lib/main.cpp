@@ -1,8 +1,7 @@
 #include "CTextToCPP.h"
 #include <iostream>
-#include <boost/program_options.hpp>
-
-namespace po = boost::program_options;
+#include <unistd.h>
+#include <getopt.h>
 
 // Color escape sequences
 const std::string RESET_COLOR = "\033[0m";
@@ -14,29 +13,38 @@ int main(int argc, char *argv[])
     std::string inputFileName;
     std::string outputDir;
 
-    po::options_description desc("Options");
-    desc.add_options()("output-dir,o", po::value<std::string>(&outputDir)->required(), "Output directory")("help,h", "Print help message");
+    struct option longOptions[] = {
+        {"output-dir", required_argument, nullptr, 'o'},
+        {"help", no_argument, nullptr, 'h'},
+        {nullptr, 0, nullptr, 0}};
 
-    po::positional_options_description positionalOptions;
-    positionalOptions.add("input-file", 1);
-
-    po::variables_map vm;
-    po::store(po::command_line_parser(argc, argv).options(desc).positional(positionalOptions).run(), vm);
-
-    if (vm.count("help"))
+    int opt;
+    while ((opt = getopt_long(argc, argv, "o:h", longOptions, nullptr)) != -1)
     {
-        std::cout << "Usage: program_name [options] input-file\n";
-        std::cout << desc << std::endl;
-        std::cout << "Authors: Anna-Sophie Schneider, Julia Egger, Jonas Lehmann, Christian Kerhault, Jamie Fisher\n";
-        std::cout << "Contact: kerhault.chris-it22.@it.dhbw-ravensburg.de\n";
-        return 0;
+        switch (opt)
+        {
+        case 'o':
+            outputDir = optarg;
+            break;
+        case 'h':
+            std::cout << "Usage: program_name [options] input-file\n";
+            std::cout << "-o, --output-dir <dir>  Output directory\n";
+            std::cout << "-h, --help              Print help message\n";
+            std::cout << "Authors: Anna-Sophie Schneider, Julia Egger, Jonas Lehmann, Christian Kerhault, Jamie Fisher\n";
+            std::cout << "Contact: kerhault.chris-it22.@it.dhbw-ravensburg.de\n";
+            return 0;
+        case '?':
+            std::cout << "Usage: program_name [options] input-file\n";
+            return 1;
+        }
     }
-    if (vm.count("input-file") && vm.count("output-dir"))
+
+    if (optind < argc)
     {
+        inputFileName = argv[optind];
+
         try
         {
-            inputFileName = vm["input-file"].as<std::string>();
-
             CTextToCPP codeGenerator;
             codeGenerator.generateCode(inputFileName, outputDir);
 
@@ -50,7 +58,6 @@ int main(int argc, char *argv[])
     else
     {
         std::cout << "Usage: program_name [options] input-file\n";
-        std::cout << desc << std::endl;
     }
 
     return 0;
