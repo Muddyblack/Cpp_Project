@@ -17,6 +17,11 @@
 
                                                                                       version 0.0.1
 </pre>
+  
+<p align="center">
+  <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg?" alt="cosmetic"/>
+  <img src="https://img.shields.io/badge/license-GPL-blue?" alt="cosmetic"/>
+</p>
 
 <a href="https://github.com/Muddyblack/GenTxtSrcCode/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Muddyblack/GenTxtSrcCode" />
