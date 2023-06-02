@@ -21,6 +21,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg?" alt="cosmetic"/>
   <img src="https://img.shields.io/badge/license-GPL-blue?" alt="cosmetic"/>
+  <a href="https://github.com/Muddyblack/GenTxtSrcCode/releases" rel="noopener noreferrer"><img src="https://img.shields.io/github/v/release/Muddyblack/GenTxtSrcCode" ></a>
 </p>
 
 <a href="https://github.com/Muddyblack/GenTxtSrcCode/graphs/contributors">
