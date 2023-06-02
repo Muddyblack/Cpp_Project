@@ -1,3 +1,10 @@
+#libs
+boost/
+lib/
+
+#VSCOE
+.vscode/
+
 # Prerequisites
 *.d
 

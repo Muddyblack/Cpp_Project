@@ -1,14 +1,15 @@
-//https://theboostcpplibraries.com/boost.lexical_cast
-#include<iostream>
+// https://theboostcpplibraries.com/boost.lexical_cast
+#include <iostream>
 #include <boost/lexical_cast.hpp>
-#include<string>
+#include <string>
 
 using namespace std;
 using namespace boost;
 
 const string s = {"123"};
 
-int main() {
+int main()
+{
     try
     {
         const int i = boost::lexical_cast<int>(s);
@@ -21,4 +22,3 @@ int main() {
 
     return 0;
 }
-
