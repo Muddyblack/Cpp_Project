@@ -1,4 +1,33 @@
-# Cpp_Project
+<p align="center">
+  <img src="https://forthebadge.com/images/badges/made-with-c-plus-plus.svg" alt="cosmetic"/>
+  <img src="https://forthebadge.com/images/badges/not-a-bug-a-feature.svg" alt="cosmetic"/>
+  <img src="https://ForTheBadge.com/images/badges/uses-git.svg" alt="cosmetic"/>
+  <img src="https://ForTheBadge.com/images/badges/built-with-love.svg" alt="cosmetic"/>
+  <img src="https://forthebadge.com/images/badges/powered-by-coders-sweat.svg" alt="cosmetic"/>
+</p>
+
+<pre align="center">
+
+    ___                        ____            _       ___                        ___                   _             
+  ,"___".    ____     _ ___   /_  _\  _   _   FJ_     F __".   _ ___    ____    ,"___".    ____      ___FJ     ____   
+  FJ---L]   F __ J   J '__ J  [J  L] J \ / F J  _|   J (___|  J '__ ", F ___J.  FJ---L]   F __ J    F __  L   F __ J  
+ J |  [""L | _____J  | |__| |  |  |   \ ' /  | |-'   J\___ \  | |__|-J| |---LJ J |   LJ  | |--| |  | |--| |  | _____J 
+ | \___] | F L___--. F L  J J  F  J  .' . `. F |__-..--___) \ F L  `-'F L___--.| \___--. F L__J J  F L__J J  F L___--.
+ J\_____/FJ\______/FJ__L  J__LJ____LJ__/:\__L\_____/J\______JJ__L    J\______/FJ\_____/FJ\______/FJ\____,__LJ\______/F
+  J_____F  J______F |__L  J__||____||__/ \__|J_____F J______F|__L     J______F  J_____F  J______F  J____,__F J______F 
+                                                                                                                      
+
+                                                                                                 version 0.0.1
+</pre>
+
+<a href="https://github.com/Muddyblack/GenTxtSrcCode/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Muddyblack/GenTxtSrcCode" />
+</a>
+
+## Table of Contents
+
+- [Startup](#startup)
+- [Libraries](#libraries)
 
 ## Documentation
 
@@ -24,3 +53,7 @@ To start working on this project so everybody has a similar version follow this 
 ### Linux
 
 ---Coming Soon---
+
+## Libraries
+
+- [Boost](https://www.boost.org/users/download/)
