@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "build",
+        "type": "shell",
+        "command": "g++",
+        "args": [
+          "-o",
+          "${fileDirname}/${fileBasenameNoExtension}",
+          "${file}",
+          "-l",
+          "boost_program_options-mgw13-mt-d-x64-1_82"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      }
+    ]
+  }
+  
