@@ -10,45 +10,51 @@ const std::string RED_COLOR = "\033[31m";
 
 int main(int argc, char *argv[])
 {
-    std::string inputFileName;
     std::string outputDir;
+    std::string outputType;
 
     struct option longOptions[] = {
         {"output-dir", required_argument, nullptr, 'o'},
+        {"output-type", required_argument, nullptr, 't'},
         {"help", no_argument, nullptr, 'h'},
         {nullptr, 0, nullptr, 0}};
 
     int opt;
-    while ((opt = getopt_long(argc, argv, "o:h", longOptions, nullptr)) != -1)
+    while ((opt = getopt_long(argc, argv, "o:t:h", longOptions, nullptr)) != -1)
     {
         switch (opt)
         {
         case 'o':
             outputDir = optarg;
             break;
+        case 't':
+            outputType = optarg;
+            break;
         case 'h':
-            std::cout << "Usage: program_name [options] input-file\n";
-            std::cout << "-o, --output-dir <dir>  Output directory\n";
-            std::cout << "-h, --help              Print help message\n";
+            std::cout << "Usage: program_name [options] input-file1 input-file2 ...\n";
+            std::cout << "-o, --output-dir <dir>    Output directory\n";
+            std::cout << "-t, --output-type <type>  Output file type (C or CPP)\n";
+            std::cout << "-h, --help                Print help message\n";
             std::cout << "Authors: Anna-Sophie Schneider, Julia Egger, Jonas Lehmann, Christian Kerhault, Jamie Fisher\n";
             std::cout << "Contact: kerhault.chris-it22.@it.dhbw-ravensburg.de\n";
             return 0;
         case '?':
-            std::cout << "Usage: program_name [options] input-file\n";
+            std::cout << "Usage: program_name [options] input-file1 input-file2 ...\n";
             return 1;
         }
     }
 
     if (optind < argc)
     {
-        inputFileName = argv[optind];
-
         try
         {
             CTextToCPP codeGenerator;
-            codeGenerator.generateCode(inputFileName, outputDir);
-
-            std::cout << GREEN_COLOR << "Code generation successful!" << RESET_COLOR << std::endl;
+            for (int i = optind; i < argc; ++i)
+            {
+                std::string inputFileName = argv[i];
+                codeGenerator.generateCode(inputFileName, outputDir, outputType);
+                std::cout << GREEN_COLOR << "Code generation successful for file: " << inputFileName << RESET_COLOR << std::endl;
+            }
         }
         catch (const std::exception &e)
         {
@@ -57,7 +63,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-        std::cout << "Usage: program_name [options] input-file\n";
+        std::cout << "Usage: program_name [options] input-file1 input-file2 ...\n";
     }
 
     return 0;
