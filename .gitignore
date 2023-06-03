@@ -1,6 +1,5 @@
 #doc
-doc/doc_website
-doc/latex
+
 
 #libs
 boost/
