@@ -2,20 +2,21 @@
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/jothepro/doxygen-awesome-css)](https://github.com/jothepro/doxygen-awesome-css/releases/latest)
 [![GitHub](https://img.shields.io/github/license/jothepro/doxygen-awesome-css)](https://github.com/jothepro/doxygen-awesome-css/blob/main/LICENSE)
+![GitHub Repo stars](https://img.shields.io/github/stars/jothepro/doxygen-awesome-css)
 
-<div style="margin: -1% -4.4%;">
+<div class="title_screenshot">
 
-[![Screenshot of Doxygen Awesome CSS](img/screenshot.png)](https://jothepro.github.io/doxygen-awesome-css/)
+![Screenshot of Doxygen Awesome CSS](img/screenshot.png)
 
 </div>
 
-**Doxygen Awesome** is a custom **CSS theme for doxygen** html-documentation with lots of customization parameters.
+**Doxygen Awesome** is a custom **CSS theme for Doxygen HTML-documentation** with lots of customization parameters.
 
 ## Motivation
 
-I really like how the doxygen html-documentation is structured! But IMHO it looks a bit outdated.
+I really like how the Doxygen HTML-documentation is structured! But IMHO it looks a bit outdated.
 
-This theme is an attemt to update the visuals of doxygen without changing it's overall layout too much.
+This theme is an attempt to update the visuals of Doxygen without changing its overall layout too much.
 
 ## Features
 
@@ -24,206 +25,142 @@ This theme is an attemt to update the visuals of doxygen without changing it's o
 - 🧩 No changes to the HTML structure of Doxygen required
 - 📱 Improved mobile usability
 - 🌘 Dark mode support!
-- 🥇 Works best with **doxygen 1.9.1**
- 
-## Installation
-
-Copy the `css` files from this repository into your project or add this repository as submodule and check out the latest release:
-
-```bash
-git submodule add https://github.com/jothepro/doxygen-awesome-css.git
-cd doxygen-awesome-css
-git checkout v1.5.0
-```
-
-Then make the option `HTML_EXTRA_STYLESHEET` in your Doxyfile point to the `css` files:
-
-```
-# Doxyfile
-# ...
-HTML_EXTRA_STYLESHEET  = doxygen-awesome-css/doxygen-awesome.css
-```
-
-### Variants
-
-There is two variants of the theme.
-
-![theme variations](img/theme-variations.drawio.svg)
-
-1. **Base theme**:
-```
-# Doxyfile
-GENERATE_TREEVIEW      = YES # optional. Also works without treeview
-HTML_EXTRA_STYLESHEET  = doxygen-awesome-css/doxygen-awesome.css
-```
-
-2. **Sidebar-only theme** (experimental):
-```
-# Doxyfile
-GENERATE_TREEVIEW      = YES # required!
-HTML_EXTRA_STYLESHEET  = doxygen-awesome-css/doxygen-awesome.css doxygen-awesome-css/doxygen-awesome-sidebar-only.css
-```
-
-### Dark Mode Toggle (Experimental)
-
-The theme comes with an experimental feature that adds a button to enable and disable the dark theme variant manually.
-
-It requires customizations in both the header & footer html template.
-
-```bash
-# Create default header & footer templates 
-doxygen -w html header.html footer.html
-```
-
-```
-# Doxyfile
-
-# Include the required Javascript
-HTML_EXTRA_FILES       = doxygen-awesome-css/doxygen-awesome-darkmode-toggle.js
-
-# Add the additional CSS. This is ONLY required for the sidebar-only theme variant!
-HTML_EXTRA_STYLESHEET  = doxygen-awesome-css/doxygen-awesome.css \ 
-                         doxygen-awesome-css/doxygen-awesome-sidebar-only.css \
-                         doxygen-awesome-css/doxygen-awesome-sidebar-only-darkmode-toggle.css
-
-# set custom header & footer templates
-HTML_HEADER            = header.html
-HTML_FOOTER            = footer.html
-```
-
-
-```html
-<!-- header.html -->
-<html>
-    <head>
-        <!-- import the script somewhere in the head -->
-        <script type="text/javascript" src="$relpath^doxygen-awesome-darkmode-toggle.js"></script>
-    </head>
-    <body>
-<!-- footer.html -->
-    </body>
-    <!-- add the button to toggle the theme -->
-    <script>
-    $(document).ready(function(){
-        toggleButton = document.createElement('doxygen-awesome-dark-mode-toggle')
-        toggleButton.title = "Toggle Light/Dark Mode"
-        document.getElementById("MSearchBox").parentNode.appendChild(toggleButton)
-    })
-    </script>
-</html>
-```
+- 🥇 Works best with **doxygen 1.9.1** - **1.9.4** and **1.9.6** - **1.9.7**
 
 ## Examples
 
-- Sidebar-Only theme: [Documentation of this repository](https://jothepro.github.io/doxygen-awesome-css/)
-- Base theme: [libsl3](https://a4z.github.io/libsl3/)
+Some websites using this theme:
 
+- [Documentation of this repository](https://jothepro.github.io/doxygen-awesome-css/)
+- [wxWidgets](https://docs.wxwidgets.org/3.2/)
+- [OpenCV 5.x](https://docs.opencv.org/5.x/)
+- [Zephyr](https://docs.zephyrproject.org/latest/doxygen/html/index.html)
+- [FELTOR](https://mwiesenberger.github.io/feltor/dg/html/modules.html)
+- [Spatial Audio Framework (SAF)](https://leomccormack.github.io/Spatial_Audio_Framework/index.html)
+- [libCloudSync](https://jothepro.github.io/libCloudSync/)
+- [libsl3](https://a4z.github.io/libsl3/)
 
-## Configuration
+## Installation
 
-### CSS Variables
+To use the theme when generating your documentation, bring the required CSS and JS files from this repository into your project.
 
-This theme is highly customizable because a lot of things are parameterized with CSS variables. The following
-list of parameters is not complete! You can easily modify any variable with the developer tools of your browser to find
-out what it does.
+This can be done in several ways:
 
-To customize the existing theme, add your own `custom.css` and overwrite the variables there:
+- manually copying the files
+- adding the project as a Git submodule
+- adding the project as a npm/xpm dependency
+- installing the theme system wide
+
+All theme files are located in the root of this repository and start with the prefix `doxygen-awesome-`. You may not need all of them. Follow the install instructions to figure out what files are required for your setup.
+
+### Git submodule
+
+For projects which use git, add the repository as a submodule and check out the desired release:
+
+```sh
+git submodule add https://github.com/jothepro/doxygen-awesome-css.git
+cd doxygen-awesome-css
+git checkout v2.2.1
 ```
-HTML_EXTRA_STYLESHEET  = doxygen-awesome-theme/doxygen-awesome.css custom.css
+
+### npm/xpm dependency
+
+In the npm ecosystem, this project can be added as a development dependency
+to your project:
+
+```sh
+cd your-project
+npm install https://github.com/jothepro/doxygen-awesome-css#v2.2.1 --save-dev
+
+ls -l node_module/@jothepro/doxygen-awesome-css
 ```
 
-```css
-/* custom.css */
-html {
-    /* define light-mode variable overrides here */
-}
+Similarly, in the [xPack](https://xpack.github.io) ecosystem, this project can be added
+as a development dependency to an [`xpm`](https://xpack.github.io/xpm/)
+managed project.
 
-@media (prefers-color-scheme: dark) {
-    html:not(.light-mode) {
-        /* define dark-mode variable overrides here if you DON'T use doxygen-awesome-darkmode-toggle.js */
-    }
-}
+### System-wide
 
-html.dark-mode {
-    /* define dark-mode variable overrides here if you DO use doxygen-awesome-darkmode-toggle.js */
-}
-```
+You can even install the theme system-wide by running `make install`. The files will be installed to `/usr/local/share/` by default, but you can customize the install location with `make PREFIX=/my/custom/path install`.
 
-| Parameter                         | Default (Light)                                             | Default (Dark)                                              |
-| :-------------------------------- | :---------------------------------------------------------- | ----------------------------------------------------------- |
-| **Color Scheme**:<br>primary theme color. This will affect the entire websites color scheme: links, arrows, labels, ...                                     |||
-| `--primary-color`                 | <span style="background:#1779c4;color:white">#1779c4</span> | <span style="background:#1982d2;color:white">#1982d2</span> |
-| `--primary-dark-color`            | <span style="background:#00559f;color:white">#00559f</span> | <span style="background:#5ca8e2;color:white">#5ca8e2</span> |
-| `--primary-light-color`           | <span style="background:#7aabd6;color:black">#7aabd6</span> | <span style="background:#4779ac;color:white">#4779ac</span> |
-| `--primary-lighter-color`         | <span style="background:#cae1f1;color:black">#cae1f1</span> | <span style="background:#191e21;color:white">#191e21</span> |
-| `--primary-lightest-color`        | <span style="background:#e9f1f8;color:black">#e9f1f8</span> | <span style="background:#191a1c;color:white">#191a1c</span> |
-| **Spacing:**<br>default spacings. Most ui components reference these values for spacing, to provide uniform spacing on the page.                            |||
-| `--spacing-small`                 | `5px`                                                       |                                                             |
-| `--spacing-medium`                | `10px`                                                      |                                                             |
-| `--spacing-large`                 | `16px`                                                      |                                                             |
-| **Border Radius**:<br>border radius for all rounded ui components. Will affect many components, like dropdowns, memitems, codeblocks, ...                   |||
-| `--border-radius-small`           | `4px`                                                       |                                                             |
-| `--border-radius-medium`          | `6px`                                                       |                                                             |
-| `--border-radius-large`           | `8px`                                                       |                                                             |
-| **Content Width**:<br>The content is centered and constraint in it's width. To make the content fill the whole page, set the following variable to `auto`.  |||
-| `--content-maxwidth`              | `900px`                                                     |                                                             |
-| **Code Fragment Colors**:<br>Color-Scheme of multiline codeblocks                                                                                           |||
-| `--fragment-background`           | <span style="background:#282c34;color:white">#282c34</span> |                                                             |
-| `--fragment-foreground`           | <span style="background:#fff;wolor:black">#fff</span>       |                                                             |
-| **Arrow Opacity**:<br>By default the arrows in the sidebar are only visible on hover. You can override this behaviour so they are visible all the time.     |||
-| `--side-nav-arrow-opacity`        | `0`                                                         |                                                             |
-| `--side-nav-arrow-hover-opacity`  | `0.9`                                                       |                                                             |
-| **Darkmode Toggle Icon**:<br>If you have enabled the darkmode toggle button, you can define the icon that is shown for the current mode.                    |||
-| `--darkmode-toggle-button-icon`   | ☀️                                                           | 🌛                                                          |
-| ...and many more                                                                                                                                            |||
+### Choosing a layout
 
-If you miss a configuration option or find a bug, please consider [opening an issue](https://github.com/jothepro/doxygen-awesome-css/issues)!
+There is two layout options. Choose one of them and configure Doxygen accordingly:
 
-### Doxygen generator
+<div class="darkmode_inverted_image">
 
-The theme overrides most colors with the `--primary-color-*` variables.
+![Available theme variants](img/theme-variants.drawio.svg)
 
-But there is a few small images and graphics that the theme cannot adjust or replace. To make these blend in better with
-the rest, it is recommended to adjust the [doxygen color settings](https://www.doxygen.nl/manual/customize.html#minor_tweaks_colors) 
-to something that matches the chosen color-scheme.
+</div>
 
-For the default color-scheme, these values work out quite well:
+<div class="tabbed">
 
-```
-# Doxyfile
-HTML_COLORSTYLE_HUE    = 209
-HTML_COLORSTYLE_SAT    = 255
-HTML_COLORSTYLE_GAMMA  = 113
-```
+- <b class="tab-title">1️⃣ Base Theme </b>
+    Comes with the typical Doxygen titlebar. Optionally the treeview in the sidebar can be enabled. 
+
+    Required files: `doxygen-awesome.css`
+
+    Required `Doxyfile` configuration:
+    ```
+    GENERATE_TREEVIEW      = YES # optional. Also works without treeview
+    DISABLE_INDEX = NO
+    FULL_SIDEBAR = NO
+    HTML_EXTRA_STYLESHEET  = doxygen-awesome-css/doxygen-awesome.css
+    HTML_COLORSTYLE        = LIGHT # required with Doxygen >= 1.9.5
+    ```
+
+- <b class="tab-title">2️⃣ Sidebar-Only Theme </b>
+    Hides the top titlebar to give more space to the content. The treeview must be enabled in order for this theme to work.
+
+    Required files: `doxygen-awesome.css`, `doxygen-awesome-sidebar-only.css`
+
+    Required `Doxyfile` configuration:
+    ```
+
+    GENERATE_TREEVIEW      = YES # required!
+    DISABLE_INDEX          = NO
+    FULL_SIDEBAR           = NO
+    HTML_EXTRA_STYLESHEET  = doxygen-awesome-css/doxygen-awesome.css \
+                            doxygen-awesome-css/doxygen-awesome-sidebar-only.css
+    HTML_COLORSTYLE        = LIGHT # required with Doxygen >= 1.9.5
+    ```
+
+</div>
+
+**Caution**: 
+- This theme is not compatible with the `FULL_SIDEBAR = YES` option provided by Doxygen!
+- `HTML_COLORSTYLE` must be set to `LIGHT` since Doxygen 1.9.5!
+
+### Further installation instructions:
+
+- [Installing extensions](docs/extensions.md)
+- [Customizing the theme (colors, spacing, border-radius, ...)](docs/customization.md)
+- [Tips and Tricks for further configuration](docs/tricks.md)
 
 ## Browser support
 
 Tested with
 
-- Chrome 91, Chrome 91 for Android, Chrome 87 for iOS
-- Safari 14, Safari for iOS 14
-- Firefox 89, Firefox Daylight 89 for Android, Firefox Daylight 33 for iOS
+- Chrome 110, Chrome 109 for Android, Chrome 110 for iOS
+- Safari 16, Safari for iOS 16
+- Firefox 110, Firefox 110 for Android, Firefox 109 for iOS
+- Edge 110
 
-## Tips & Tricks
 
-### Class Diagrams with Graphviz
-
-To get the best looking class diagrams for your documentation, generate them with Graphviz as vector graphics with transparent background:
-
-```
-# Doxyfile
-HAVE_DOT = YES
-DOT_IMAGE_FORMAT = svg
-DOT_TRANSPARENT = YES
-```
-
-### Share your own theme customizations
-
-If you customized the theme with custom colors, spacings, font-sizes, etc. and you want to share your creation with others, you can to this [here](https://github.com/jothepro/doxygen-awesome-css/discussions/13).
-
-I am always curious to learn about how you made the theme look even better!
+The theme does not strive to be backwards compatible to (significantly) older browser versions.
 
 
 ## Credits
 
-This theme is heavily inspired by the beautiful [vuepress](https://vuepress.vuejs.org/) static site generator default theme!
+Thanks for all the bug reports and inspiring feedback on github!
+
+Special thanks to all the contributors:
+<br><br>
+<a href="https://github.com/jothepro/doxygen-awesome-css/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=jothepro/doxygen-awesome-css" />
+</a>
+
+<span class="next_section_button">
+
+Read Next: [Extensions](docs/extensions.md)
+</span>
