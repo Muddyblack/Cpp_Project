@@ -63,3 +63,4 @@ To start working on this project so everybody has a similar version follow this 
 ## Libraries
 
 - [Boost](https://www.boost.org/users/download/)
+- [doxygen](https://www.doxygen.nl/download.html)
