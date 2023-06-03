@@ -1,7 +1,8 @@
-#include "CTextToCPP.h"
 #include <iostream>
 #include <fstream>
 #include <boost/program_options.hpp>
+
+#include <CTextToCPP.h>
 
 namespace po = boost::program_options;
 
