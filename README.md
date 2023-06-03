@@ -17,7 +17,7 @@
 
                                                                                       version 0.0.1
 </pre>
-  
+
 <p align="center">
   <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg?" alt="cosmetic"/>
   <img src="https://img.shields.io/badge/license-GPL-blue?" alt="cosmetic"/>
@@ -43,7 +43,7 @@ To start working on this project so everybody has a similar version follow this 
 
 ### Windows
 
--  Download the 64-Bit Mingw from [here](https://winlibs.com/)
+- Download the 64-Bit Mingw from [here](https://winlibs.com/)
 - Extract the `mingw` to the place you want it to be
 - Add `Path_to_mingw/mingw/bin` to your environment variables
 - Download and extract [Boost](https://www.boost.org/users/download/)
@@ -51,12 +51,19 @@ To start working on this project so everybody has a similar version follow this 
 - `bootstrap.bat mingw`
 - `./b2 toolset=gcc` (this will take a looong time)
 - (Optional) Copy the `boost` folder to `mingw/include` and the `stage/lib` folder to `mingw`
-- Create a `.vscode` folder in the Project. You can use the stuff from the `.vscode example`
-- Modify it to your needs. You can use now `ctrl+shift+B` for fast compiling
+- Install VS-Code
+- Add `C/C++ Extension Pack` Extension
+- Add `Cmake Tools` Extension
+- Use `ctrl+shift+p` and select `CMake: Configure` and after `CMake: Build`
 
 ### Linux
 
----Coming Soon---
+- `sudo apt update`
+- `sudo apt install libboost-all-dev`
+- Install VS-Code
+- Add `C/C++ Extension Pack` Extension
+- Add `Cmake Tools` Extension
+- Use `ctrl+shift+p` and select `CMake: Configure` and after `CMake: Build`
 
 ## Libraries
 
