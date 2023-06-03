@@ -1,4 +1,9 @@
-#include "ProjectPathFinder.h"
+/**
+ * @file ProjectPathFinder.h
+ * @brief Contains functions and classes for retrieving the project path.
+ */
+
+#include <ProjectPathFinder.h>
 
 #ifdef _WIN32
 #include <windows.h>

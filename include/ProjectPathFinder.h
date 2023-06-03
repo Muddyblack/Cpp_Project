@@ -1,3 +1,8 @@
+/**
+ * @file ProjectPathFinder.h
+ * @brief Contains functions and classes for retrieving the project path.
+ */
+
 #pragma once
 
 #include <iostream>
