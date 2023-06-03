@@ -1,41 +1,63 @@
 /**
-    @file main.cpp
-    @brief Main entry point for the Generating program.
-    This program generates C/C++ code from text input files in respect of the passed parameters.
-    This file mages all these parameters and helps the user to understand how all of this works.
-*/
+ * @file main.cpp
+ * @brief Main entry point for the Generating program.
+ * This program generates C/C++ code from text input files in respect of the passed parameters.
+ * This file mages all these parameters and helps the user to understand how all of this works.
+ */
 
 #include "CTextToCPP.h"
+#include "ProjectPathFinder.h"
 #include <iostream>
 #include <unistd.h>
 #include <getopt.h>
 
 // Color escape sequences
-const std::string RESET_COLOR = "\033[0m";         // Reset color escape sequence
-const std::string GREEN_COLOR = "\033[32m";        // Green color escape sequence
-const std::string RED_COLOR = "\033[31m";          // Red color escape sequence
-const std::string CYAN_COLOR = "\033[36m";         // Cyan color escape sequence
-const std::string BLACK_COLOR = "\033[30m";        // Black color escape sequence
-const std::string STRONG_GREEN_COLOR = "\033[92m"; // Strong green color escape sequence
+const std::string RESET_COLOR = "\033[0m";           /**< Reset color escape sequence */
+const std::string GREEN_COLOR = "\033[32m";          /**< Green color escape sequence */
+const std::string RED_COLOR = "\033[31m";            /**< Red color escape sequence */
+const std::string CYAN_COLOR = "\033[36m";           /**< Cyan color escape sequence */
+const std::string BLACK_COLOR = "\033[30m";          /**< Black color escape sequence */
+const std::string BLUE_COLOR = "\033[38;5;19m";      /**< Blue color escape sequence */
+const std::string STRONG_GREEN_COLOR = "\033[1;32m"; /**< Strong green color escape sequence */
+
+// Project infomations
+const std::string PROJECT_NAME = "GenTxtSrcCode";
+ProjectPathFinder pathFinder("GenTxtSrcCode");
+const std::string PROJECT_PATH = pathFinder.GetProjectFolderPath();
 
 /**
-    @brief Main function.
+ * @brief Print program arguments beautifully.
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line arguments.
+ */
+void printArguments(const std::string &outputDir, const std::string &headerDir, const std::string &sourceDir, const std::string &outputType, const std::string &outputFilename, bool namespaceName, int signPerLine)
+{
+    std::cout << "Program arguments:\n";
+    std::cout << "Output Directory: " << CYAN_COLOR << outputDir << RESET_COLOR << std::endl;
+    std::cout << "Header Directory: " << CYAN_COLOR << headerDir << RESET_COLOR << std::endl;
+    std::cout << "Source Directory: " << CYAN_COLOR << sourceDir << RESET_COLOR << std::endl;
+    std::cout << "Output Type: " << CYAN_COLOR << outputType << RESET_COLOR << std::endl;
+    std::cout << "Output Filename: " << CYAN_COLOR << outputFilename << RESET_COLOR << std::endl;
+    std::cout << "Namespace Name: " << CYAN_COLOR << (namespaceName ? "Yes" : "No") << RESET_COLOR << std::endl;
+    std::cout << "Sign Per Line: " << CYAN_COLOR << signPerLine << RESET_COLOR << std::endl;
+    std::cout << std::endl;
+}
 
-    @param argc Number of command-line arguments.
-
-    @param argv Array of command-line arguments.
-
-    @return 0 on success, 1 on failure.
-*/
+/**
+ * @brief Main function.
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line arguments.
+ * @return 0 on success, 1 on failure.
+ */
 int main(int argc, char *argv[])
 {
-    std::string outputDir;      // Output directory
-    std::string headerDir;      // Header file directory
-    std::string sourceDir;      // Source file directory
-    std::string outputType;     // Output file type (C or CPP)
-    std::string outputFilename; // Output filename (without extension)
-    std::string namespaceName;  // Namespace yes or no
-    int signPerLine = -1;       // Number of characters per line
+    std::string outputDir = PROJECT_PATH + "output\\"; /**< Output directory */
+    std::string headerDir = outputDir + "include\\";   /**< Header file directory */
+    std::string sourceDir = outputDir + "lib\\";       /**< Source file directory */
+    std::string outputType = "CPP";                    /**< Output file type (C or CPP) */
+    std::string outputFilename = "main";               /**< Output filename (without extension) */
+    bool namespaceName;                                /**< Namespace yes or no (only for CPP) */
+    int signPerLine = -1;                              /**< Number of characters per line */
 
     struct option longOptions[] = {
         {"output-dir", required_argument, nullptr, 'O'},
@@ -83,18 +105,17 @@ int main(int argc, char *argv[])
             std::cout << "                                                                                                           \n"
                       << RESET_COLOR << std::endl;
 
-            std::cout
-                << "Usage: program_name [options] input-file1 input-file2 ...\n\n";
-            std::cout << "-O, --output-dir <dir>    Output directory\n";
-            std::cout << "-H, --headerdir <dir>     Header file directory\n";
-            std::cout << "-S, --sourcedir <dir>     Source file directory\n";
-            std::cout << "-t, --output-type <type>  Output file type (C or CPP)\n";
-            std::cout << "-f, --output-filename <name>  Output filename (without extension)\n";
-            std::cout << "-n, --namespace <name>    Namespace yes/no\n";
-            std::cout << "-l, --signperline <number>  Number of characters per line\n";
-            std::cout << "-h, --help                Print help message\n";
+            std::cout << "Usage: program_name [options] input-file1 input-file2 ...\n\n";
+            std::cout << "-O, --output-dir <dir>    " << BLUE_COLOR << "Output directory" << RESET_COLOR << "\n";
+            std::cout << "-H, --headerdir <dir>     " << BLUE_COLOR << "Header file directory" << RESET_COLOR << "\n";
+            std::cout << "-S, --sourcedir <dir>     " << BLUE_COLOR << "Source file directory" << RESET_COLOR << "\n";
+            std::cout << "-t, --output-type <type>  " << BLUE_COLOR << "Output file type (C or CPP)" << RESET_COLOR << "\n";
+            std::cout << "-f, --output-filename <name>  " << BLUE_COLOR << "Output filename (without extension)" << RESET_COLOR << "\n";
+            std::cout << "-n, --namespace <name>    " << BLUE_COLOR << "Namespace yes/no" << RESET_COLOR << "\n";
+            std::cout << "-l, --signperline <number>  " << BLUE_COLOR << "Number of characters per line" << RESET_COLOR << "\n";
+            std::cout << "-h, --help                " << BLUE_COLOR << "Print help message" << RESET_COLOR << "\n";
 
-            std::cout << STRONG_GREEN_COLOR << "\n\n################################################################################\n";
+            std::cout << GREEN_COLOR << "\n\n################################################################################\n";
             std::cout << "#                                                                              #\n";
             std::cout << "#                            Authors and Contact                               #\n";
             std::cout << "#                                                                              #\n";
@@ -111,6 +132,8 @@ int main(int argc, char *argv[])
             return 1;
         }
     }
+
+    printArguments(outputDir, headerDir, sourceDir, outputType, outputFilename, namespaceName, signPerLine);
 
     if (optind < argc)
     {
