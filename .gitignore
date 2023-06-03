@@ -1,5 +1,10 @@
+#doc
+doc/html
+doc/latex
+
 #libs
 boost/
+build/
 
 #VSCOE
 .vscode/
