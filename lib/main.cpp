@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <regex>
+#include <filesystem>
 
 #include <CTextToCPP.h>
 #include <ProjectPathFinder.h>
@@ -52,27 +53,36 @@ private:
         {nullptr, 0, nullptr, 0}};
 
     /**
-     * @brief Checks if a given path is a valid one for the current system
+     * Checks and edits a given file path.
      *
-     * @param path The path to be validated.
-     * @return true if it is a correct path, false otherwise
+     * @param path The file path to check and edit.
+     * @return The edited file path.
      */
-    void isValidPath(const std::string &opt_name, const std::string &path)
+    std::string checkPath(const std::string &path)
     {
-        std::regex pathRegex;
-#ifdef _WIN32
-        // Windows path regex
-        pathRegex = std::regex("^[a-zA-Z]:\\\\?[a-zA-Z0-9_\\-.\\s]*$");
-#else
-        // POSIX path regex
-        pathRegex = std::regex("^/([a-zA-Z0-9_\\-.\\s]+/)*[a-zA-Z0-9_\\-.\\s]+$");
-#endif
+        std::filesystem::path fsPath(path);
 
-        if (std::regex_match(path, pathRegex) == false)
+        // Special cases: "." and "directiry" are considered relative paths
+        if (fsPath == "." || fsPath == "directiry")
         {
-            std::cout << ORANGE_COLOR << opt_name << ": " << BLUE_COLOR << path << ORANGE_COLOR << "\nThis is not a valid Path!" << RESET_COLOR << std::endl;
-            exit(1);
+            fsPath = std::filesystem::current_path();
         }
+        else if (!fsPath.is_absolute())
+        {
+            fsPath = std::filesystem::absolute(fsPath);
+        }
+
+        std::string sanitizedPath = fsPath.string();
+
+        // Replace forward slashes and single backslashes with double backslashes
+        size_t found = sanitizedPath.find_first_of("/\\");
+        while (found != std::string::npos)
+        {
+            sanitizedPath.replace(found, 1, "\\\\");
+            found = sanitizedPath.find_first_of("/\\", found + 2);
+        }
+
+        return sanitizedPath;
     }
 
     /**
@@ -160,16 +170,16 @@ private:
             switch (opt)
             {
             case 'O':
-                outputDir = optarg;
-                isValidPath(optionName, outputDir);
+                outputDir = checkPath(optarg);
+                // isValidPath(optionName, outputDir);
                 break;
             case 'H':
-                headerDir = optarg;
-                isValidPath(optionName, headerDir);
+                headerDir = checkPath(optarg);
+                // isValidPath(optionName, headerDir);
                 break;
             case 'S':
-                sourceDir = optarg;
-                isValidPath(optionName, sourceDir);
+                sourceDir = checkPath(optarg);
+                // isValidPath(optionName, sourceDir);
                 break;
             case 't':
                 outputType = optarg;
@@ -244,6 +254,7 @@ public:
     GenTxtSrcCode(int argc, char *argv[]) : argc(argc), argv(argv)
     {
         parseOptions();
+        printArguments();
         codeGeneration();
     }
 };
