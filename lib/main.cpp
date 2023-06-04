@@ -38,7 +38,7 @@ private:
     std::string sourceDir = outputDir + "lib\\";       /**< Source file directory */
     std::string outputType = "cpp";                    /**< Output file type (C or CPP) */
     std::string outputFilename = "main";               /**< Output filename (without extension) */
-    std::string namespaceName = NULL;                  /**< Namespace yes or no (only for CPP) */
+    std::string namespaceName = "";                    /**< Namespace yes or no (only for CPP) */
     bool checkArgs = true;
     int signPerLine = 60; /**< Number of characters per line */
 

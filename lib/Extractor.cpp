@@ -1,5 +1,11 @@
 #include <extractor.h>
 
+/**
+ * Strips leading and trailing whitespace characters from a given string.
+ *
+ * @param str The input string to be stripped.
+ * @return The input string with leading and trailing whitespace removed.
+ */
 std::string stripString(const std::string &str)
 {
     if (str.empty())
@@ -25,6 +31,12 @@ std::string stripString(const std::string &str)
     return result;
 }
 
+/**
+ * Removes leading and trailing quotation marks from a given string.
+ *
+ * @param str The input string to remove quotation marks from.
+ * @return The input string with leading and trailing quotation marks removed.
+ */
 std::string removeLeadTailQuotes(const std::string &str)
 {
     if (str.empty())
@@ -49,6 +61,13 @@ std::string removeLeadTailQuotes(const std::string &str)
     return stripString(result);
 }
 
+/**
+ * Extracts options and variables from an input string and populates the provided maps and vector.
+ *
+ * @param inputString The input string containing options and variables.
+ * @param options The map to store extracted options (key-value pairs).
+ * @param variables The vector of maps to store extracted variables (key-value pairs).
+ */
 void extractOptionsAndVariables(const std::string &inputString, std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables)
 {
     typedef boost::tokenizer<boost::char_separator<char>> tokenizer;
