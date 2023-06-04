@@ -38,9 +38,9 @@ private:
     std::string sourceDir = outputDir + "lib\\";       /**< Source file directory */
     std::string outputType = "cpp";                    /**< Output file type (C or CPP) */
     std::string outputFilename = "main";               /**< Output filename (without extension) */
-    bool namespaceName = false;                        /**< Namespace yes or no (only for CPP) */
+    std::string namespaceName = NULL;                  /**< Namespace yes or no (only for CPP) */
     bool checkArgs = true;
-    int signPerLine = -1; /**< Number of characters per line */
+    int signPerLine = 60; /**< Number of characters per line */
 
     // Options
     const static int options_amount = 10;
@@ -50,7 +50,7 @@ private:
         {"sourcedir", required_argument, nullptr, 'S'},
         {"output-type", required_argument, nullptr, 't'},
         {"output-filename", required_argument, nullptr, 'f'},
-        {"namespace", no_argument, nullptr, 'n'},
+        {"namespace", required_argument, nullptr, 'n'},
         {"signperline", required_argument, nullptr, 'l'},
         {"check", no_argument, nullptr, 'C'},
         {"help", no_argument, nullptr, 'h'},
@@ -191,6 +191,19 @@ private:
         }
     }
 
+    void isValidNamespace(const std::string &ns)
+    {
+        // Regular expression pattern for valid C++ namespace
+        std::regex pattern("^(::)?[a-zA-Z_][a-zA-Z0-9_]*(::[a-zA-Z_][a-zA-Z0-9_]*)*$");
+
+        // Check if the string matches the pattern
+        if (std::regex_match(ns, pattern) == false)
+        {
+            std::cout << BLUE_COLOR << ns << RED_COLOR << " is not a valid namespace!" << RESET_COLOR << std::endl;
+            exit(1);
+        }
+    }
+
     /**
      * @brief Parses the command-line options and sets the corresponding member variables.
      */
@@ -198,7 +211,7 @@ private:
     {
         int opt;
         int option_index;
-        while ((opt = getopt_long(argc, argv, "O:H:S:t:f:nl:Ch", longOptions, &option_index)) != -1)
+        while ((opt = getopt_long(argc, argv, "O:H:S:t:f:n:l:Ch", longOptions, &option_index)) != -1)
         {
             std::string optionName;
             if (option_index > options_amount - 1 || option_index < 0)
@@ -236,7 +249,8 @@ private:
             case 'n':
                 if (outputType == "cpp")
                 {
-                    namespaceName = true;
+                    namespaceName = optarg;
+                    isValidNamespace(namespaceName);
                 }
                 break;
             case 'l':
@@ -249,7 +263,7 @@ private:
                 printHelpText();
                 exit(0);
             case '?':
-                if ((optopt == 'O' || optopt == 'H' || optopt == 'S' || optopt == 't' || optopt == 'f' || optopt == 'l'))
+                if ((optopt == 'O' || optopt == 'H' || optopt == 'S' || optopt == 't' || optopt == 'f' || optopt == 'n' || optopt == 'l'))
                 {
                     std::cout << ORANGE_COLOR << "OK ... option " << optionName << "' without argument"
                               << RESET_COLOR << std::endl;
