@@ -198,7 +198,7 @@ private:
     {
         int opt;
         int option_index;
-        while ((opt = getopt_long(argc, argv, "O:H:S:t:f:nl:h", longOptions, &option_index)) != -1)
+        while ((opt = getopt_long(argc, argv, "O:H:S:t:f:nl:Ch", longOptions, &option_index)) != -1)
         {
             std::string optionName;
             if (option_index > options_amount - 1 || option_index < 0)
