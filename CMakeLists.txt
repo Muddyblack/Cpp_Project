@@ -11,8 +11,8 @@ include_directories(./include)
 
 
 # Program Executables
-add_executable(GenTxtSrcCode ./lib/main.cpp ./lib/CTextToCPP.cpp ./lib/ProjectPathFinder.cpp)
-
+add_executable(GenTxtSrcCode ./lib/main.cpp  ./lib/ProjectPathFinder.cpp) #./lib/CTextToCPP.cpp
+#add_executable(CTextToCPP ./lib/CTextToCPP.cpp ./lib/Extractor.cpp)
 
 # Test Executables
 #add_executable(TESTProjectPath ./tests/TESTProjectPathFinder.cpp ./lib/ProjectPathFinder.cpp)

@@ -1,12 +1,6 @@
 #ifndef EXTRACTOR_H
 #define EXTRACTOR_H
 
-#include <iostream>
-#include <vector>
-#include <map>
-#include <fstream>
-#include <boost/tokenizer.hpp>
-
 std::string stripString(const std::string &str);
 
 std::string removeLeadTailQuotes(const std::string &str);

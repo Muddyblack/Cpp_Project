@@ -1,5 +1,10 @@
-#include <extractor.h>
+#include <iostream>
+#include <vector>
+#include <map>
+#include <fstream>
+#include <boost/tokenizer.hpp>
 
+#include <Extractor.h>
 /**
  * Strips leading and trailing whitespace characters from a given string.
  *

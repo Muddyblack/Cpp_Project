@@ -292,11 +292,11 @@ private:
         {
             try
             {
-                CTextToCPP codeGenerator;
+                // CTextToCPP codeGenerator;
                 for (int i = optind; i < argc; ++i)
                 {
                     std::string inputFileName = argv[i];
-                    codeGenerator.generateCode(inputFileName, outputDir, outputType);
+                    // codeGenerator.generateCode(inputFileName, outputDir, outputType);
                     std::cout << GREEN_COLOR << "Code generation successful for file: " << inputFileName << RESET_COLOR << std::endl;
                 }
             }
