@@ -7,11 +7,12 @@
  */
 
 #include <iostream>
-#include <conio.h>
 #include <unistd.h>
 #include <getopt.h>
 #include <regex>
 #include <filesystem>
+
+#include <cstdio>
 
 #include <CTextToCPP.h>
 #include <ProjectPathFinder.h>
@@ -324,7 +325,7 @@ public:
         {
             printArguments();
             std::cout << GREEN_COLOR << "Press any key to continue..." << RESET_COLOR << std::endl;
-            _getch(); // Wait for any key
+            getchar(); // Wait for any key
         }
         codeGeneration();
     }
