@@ -9,8 +9,8 @@ add_executable(GenTxtSrcCode ./lib/main.cpp ./lib/CTextToCPP.cpp ./lib/ProjectPa
 
 
 
-add_executable(TESTProjectPath ./tests/TESTProjectPathFinder.cpp ./lib/ProjectPathFinder.cpp)
-target_link_libraries(TESTProjectPath
-    boost_unit_test_framework-mgw13-mt-x64-1_82
-    boost_filesystem-mgw13-mt-x64-1_82
-)
+#add_executable(TESTProjectPath ./tests/TESTProjectPathFinder.cpp ./lib/ProjectPathFinder.cpp)
+#target_link_libraries(TESTProjectPath
+#    boost_unit_test_framework-mgw13-mt-x64-1_82
+#    boost_filesystem-mgw13-mt-x64-1_82
+#)

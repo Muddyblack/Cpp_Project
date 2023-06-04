@@ -39,17 +39,7 @@ private:
     int signPerLine = -1;                              /**< Number of characters per line */
 
     // Options
-    const static int options_amount = 9;
-    const struct option longOptions[options_amount] = {
-        {"output-dir", required_argument, nullptr, 'O'},
-        {"headerdir", required_argument, nullptr, 'H'},
-        {"sourcedir", required_argument, nullptr, 'S'},
-        {"output-type", required_argument, nullptr, 't'},
-        {"output-filename", required_argument, nullptr, 'f'},
-        {"namespace", required_argument, nullptr, 'n'},
-        {"signperline", required_argument, nullptr, 'l'},
-        {"help", no_argument, nullptr, 'h'},
-        {nullptr, 0, nullptr, 0}};
+    struct option longOptions[9];
 
     /**
      * @brief Checks if a given path is a valid one for the current system
@@ -142,34 +132,22 @@ private:
     void parseOptions()
     {
         int opt;
-        int option_index;
-        while ((opt = getopt_long(argc, argv, "O:H:S:t:f:nl:h", longOptions, &option_index)) != -1)
+        while ((opt = getopt_long(argc, argv, "O:H:S:t:f:n:l:h", longOptions, nullptr)) != -1)
         {
-            std::string optionName;
-            if (option_index > options_amount - 1 || option_index < 0)
-            {
-                optionName = "-";
-                optionName += static_cast<char>(optopt);
-                std::cout << optionName << std::endl;
-            }
-            else
-            {
-                optionName = "--";
-                optionName += longOptions[option_index].name;
-            }
+            std::string long_opt = longOptions[opt].name;
             switch (opt)
             {
             case 'O':
                 outputDir = optarg;
-                isValidPath(optionName, outputDir);
+                isValidPath(long_opt, outputDir);
                 break;
             case 'H':
                 headerDir = optarg;
-                isValidPath(optionName, headerDir);
+                isValidPath(long_opt, headerDir);
                 break;
             case 'S':
                 sourceDir = optarg;
-                isValidPath(optionName, sourceDir);
+                isValidPath(long_opt, sourceDir);
                 break;
             case 't':
                 outputType = optarg;
@@ -187,20 +165,20 @@ private:
                 printHelpText();
                 exit(0);
             case '?':
-                if ((optopt == 'O' || optopt == 'H' || optopt == 'S' || optopt == 't' || optopt == 'f' || optopt == 'n' || optopt == 'l'))
+                if ((optopt == 'O' || optopt == 'H' || optopt == 'S' || optopt == 't' || optopt == 'f' || optopt == 'n' || optopt == 'l' || optopt == 'h') && isprint(optopt))
                 {
-                    std::cout << ORANGE_COLOR << "OK ... option " << optionName << "' without argument"
+                    std::cout << ORANGE_COLOR << "OK ... option '-" << static_cast<char>(optopt) << "' without argument"
                               << RESET_COLOR << std::endl;
                     exit(1);
                 }
                 else if (isprint(optopt))
                 {
-                    std::cerr << RED_COLOR << "ERR ... Unknown option: " << optionName << RESET_COLOR << std::endl;
+                    std::cerr << RED_COLOR << "ERR ... Unknown option -" << static_cast<char>(optopt) << RESET_COLOR << std::endl;
                     exit(-1);
                 }
                 else
                 {
-                    std::cerr << RED_COLOR << "ERR ... Unknown option character \\x" << optionName << RESET_COLOR << std::endl;
+                    std::cerr << RED_COLOR << "ERR ... Unknown option character \\x" << static_cast<char>(optopt) << RESET_COLOR << std::endl;
                     exit(-1);
                 }
             }
@@ -243,6 +221,17 @@ public:
      */
     GenTxtSrcCode(int argc, char *argv[]) : argc(argc), argv(argv)
     {
+        // Init the longOptions array
+        longOptions[0] = {"output-dir", required_argument, nullptr, 'O'};
+        longOptions[1] = {"headerdir", required_argument, nullptr, 'H'};
+        longOptions[2] = {"sourcedir", required_argument, nullptr, 'S'};
+        longOptions[3] = {"output-type", required_argument, nullptr, 't'};
+        longOptions[4] = {"output-filename", required_argument, nullptr, 'f'};
+        longOptions[5] = {"namespace", required_argument, nullptr, 'n'};
+        longOptions[6] = {"signperline", required_argument, nullptr, 'l'};
+        longOptions[7] = {"help", no_argument, nullptr, 'h'};
+        longOptions[8] = {nullptr, 0, nullptr, 0};
+
         parseOptions();
         codeGeneration();
     }
@@ -257,5 +246,6 @@ public:
 int main(int argc, char *argv[])
 {
     GenTxtSrcCode generator(argc, argv);
+    // Rest of the program logic
     return 0;
 }
