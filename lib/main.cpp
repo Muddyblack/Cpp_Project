@@ -339,6 +339,7 @@ public:
  */
 int main(int argc, char *argv[])
 {
+    EnableConsoleColors();
     GenTxtSrcCode generator(argc, argv);
     return 0;
 }
