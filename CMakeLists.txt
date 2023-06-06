@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(GENTXTSRCCODE)
+
 # Set CPP Standard
 set(CMAKE_CXX_STANDARD 17)
 
@@ -8,7 +9,7 @@ set(CMAKE_CXX_FLAGS "-D_FILE_OFFSET_BITS=64 -D__STDC_FORMAT_MACROS -Wall -Wextra
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -finput-charset=UTF-8 -fexec-charset=UTF-8")
 
 # includes
-include_directories(./include)
+include_directories("./include")
 
 # Function to embed the custom icon into the executable
 function(embed_icon EXECUTABLE ICON_FILE)
@@ -16,15 +17,30 @@ function(embed_icon EXECUTABLE ICON_FILE)
         if (MSVC)
             set_target_properties(${EXECUTABLE} PROPERTIES LINK_FLAGS "/subsystem:windows /ENTRY:mainCRTStartup")
         endif()
-        target_sources(${EXECUTABLE} PRIVATE ${ICON_FILE})
+
+        # Add the resource file to the executable
+        target_sources(${EXECUTABLE} PRIVATE "./resources.rc")
+        set_source_files_properties("./resources.rc" PROPERTIES LANGUAGE RC)
+
+        # Check if the resource file was added successfully
+        if (TARGET ${EXECUTABLE})
+            set(EMBED_ICON_SUCCESS TRUE)
+        else()
+            set(EMBED_ICON_SUCCESS FALSE)
+        endif()
+    else()
+        set(EMBED_ICON_SUCCESS FALSE)
     endif()
+
+    # Return the success status
+    set(${EXECUTABLE}_EMBED_ICON_SUCCESS ${EMBED_ICON_SUCCESS} PARENT_SCOPE)
 endfunction()
 
 # Program Executables
-add_executable(GenTxtSrcCode ./lib/main.cpp ./lib/ProjectPathFinder.cpp)
+add_executable(GenTxtSrcCode "./lib/main.cpp" "./lib/ProjectPathFinder.cpp")
 
 # Embed the custom icon into the executable
-embed_icon(GenTxtSrcCode ${CMAKE_CURRENT_SOURCE_DIR}/iconb.ico)
+#embed_icon(GenTxtSrcCode "./iconb.ico")
 
 # Program Executables
 #add_executable(GenTxtSrcCode ./lib/main.cpp  ./lib/ProjectPathFinder.cpp) #./lib/CTextToCPP.cpp

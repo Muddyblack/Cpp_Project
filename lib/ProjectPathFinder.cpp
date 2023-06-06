@@ -4,20 +4,34 @@
 
 namespace fs = std::filesystem;
 
-std::string GetExecutablePath()
-{
-    fs::path path = fs::current_path();
-    return path.string();
-}
-
 ProjectPathFinder::ProjectPathFinder(const std::string &projectName)
     : PROJECT_NAME(projectName)
 {
 }
 
-std::string ProjectPathFinder::GetProjectFolderPath()
+std::string ProjectPathFinder::GetExecutablePath()
 {
-    std::string executablePath = GetExecutablePath();
+    fs::path path = fs::current_path();
+
+    return path.string();
+}
+
+std::string ProjectPathFinder::GetProjectFolderPath(bool useFile)
+{
+    std::string executablePath;
+
+    if (useFile)
+    {
+        fs::path filePath(__FILE__);
+        executablePath = filePath.parent_path().string();
+    }
+    else
+    {
+        executablePath = GetExecutablePath();
+    }
+
+    std::cout << executablePath << std::endl;
+
     if (!executablePath.empty())
     {
         fs::path executableDir = fs::path(executablePath).parent_path();
