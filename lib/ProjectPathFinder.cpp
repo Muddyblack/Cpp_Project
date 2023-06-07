@@ -2,6 +2,8 @@
 #include <iostream>
 #include <filesystem>
 
+#include <Logger.h>
+
 namespace fs = std::filesystem;
 
 ProjectPathFinder::ProjectPathFinder(const std::string &projectName)
@@ -30,7 +32,7 @@ std::string ProjectPathFinder::GetProjectFolderPath(bool useFile)
         executablePath = GetExecutablePath();
     }
 
-    std::cout << executablePath << std::endl;
+    BOOST_LOG_TRIVIAL(trace) << "executablePath: " << executablePath << std::endl;
 
     if (!executablePath.empty())
     {
@@ -46,7 +48,7 @@ std::string ProjectPathFinder::GetProjectFolderPath(bool useFile)
 
         if (executableDir.empty() || executableDir == previousDir)
         {
-            std::cout << "Project folder not found." << std::endl;
+            BOOST_LOG_TRIVIAL(warning) << "Project folder not found." << std::endl;
             return executablePath;
         }
 
@@ -58,6 +60,6 @@ std::string ProjectPathFinder::GetProjectFolderPath(bool useFile)
         }
     }
 
-    std::cout << "Project folder not found." << std::endl;
+    BOOST_LOG_TRIVIAL(warning) << "Project folder not found." << std::endl;
     return executablePath;
 }
