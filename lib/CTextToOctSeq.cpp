@@ -3,6 +3,9 @@
 #include <iomanip>
 #include <boost/format.hpp>
 
+/**
+* @brief converts ascii-string to octal
+*/
 std::string toOct(std::string inputString)
 {
     std::stringstream octStream;
@@ -14,6 +17,7 @@ std::string toOct(std::string inputString)
     return octStream.str();
 }
 
+//test
 int main()
 {
     std::string text = "The quick brown fox jumps over the Lazy dog ... Das ist eine typische Testsequence fuer Texte (und um auch eine 'Datenstrecke' zu ueberpruefen).";

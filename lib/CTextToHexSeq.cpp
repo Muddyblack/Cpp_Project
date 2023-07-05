@@ -3,6 +3,9 @@
 #include <iomanip>
 #include <boost/format.hpp>
 
+/**
+* @brief converts ascii-string to hex
+*/
 std::string toHex(std::string inputString)
 {
     std::stringstream hexStream;
@@ -14,6 +17,7 @@ std::string toHex(std::string inputString)
     return hexStream.str();
 }
 
+//test
 int main()
 {
     std::string text = "C++ ist eine von der ISO genormte Programmiersprache. Sie wurde ab 1979 von Bjarne Stroustrup bei AT&T als Erweiterung der Programmiersprache C entwickelt. C++ ermoeglicht sowohl die effiziente und maschinennahe Programmierung als auch eine Programmierung auf hohem Abstraktionsniveau. Der Standard definiert auch eine Standardbibliothek, zu der verschiedene Implementierungen existieren.";
