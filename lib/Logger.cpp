@@ -29,7 +29,7 @@ void setup_logging(const std::string &logFilePath)
     // Create a console sink
     logging::add_console_log(
         std::cout,
-        logging::keywords::filter = expr::attr<logging::trivial::severity_level>("Severity") >= logging::trivial::info && expr::attr<logging::trivial::severity_level>("Severity") < logging::trivial::debug,
+        logging::keywords::filter = expr::attr<logging::trivial::severity_level>("Severity") >= logging::trivial::info,
         logging::keywords::format = "%Message%",
         logging::keywords::auto_flush = true);
 
