@@ -79,11 +79,11 @@ private:
 
         std::cout << "Usage: program_name [options] input-file1 input-file2 ...\n\n";
 
-        std::cout << "-O, --output-dir <dir>    " << BLUE_COLOR << "Output directory" << RESET_COLOR << "\n";
+        std::cout << "-O, --outputdir <dir>    " << BLUE_COLOR << "Output directory" << RESET_COLOR << "\n";
         std::cout << "-H, --headerdir <dir>     " << BLUE_COLOR << "Header file directory" << RESET_COLOR << "\n";
         std::cout << "-S, --sourcedir <dir>     " << BLUE_COLOR << "Source file directory" << RESET_COLOR << "\n";
-        std::cout << "-t, --output-type <type>  " << BLUE_COLOR << "Output file type (C or CPP)" << RESET_COLOR << "\n";
-        std::cout << "-f, --output-filename <name>  " << BLUE_COLOR << "Output filename (without extension)" << RESET_COLOR << "\n";
+        std::cout << "-t, --outputtype <type>  " << BLUE_COLOR << "Output file type (C or CPP)" << RESET_COLOR << "\n";
+        std::cout << "-f, --outputfilename <name>  " << BLUE_COLOR << "Output filename (without extension)" << RESET_COLOR << "\n";
         std::cout << "-n, --namespace <name>        " << BLUE_COLOR << "Namespace yes/no" << RESET_COLOR << "\n";
         std::cout << "-l, --signperline <number>    " << BLUE_COLOR << "Number of characters per line" << RESET_COLOR << "\n";
         std::cout << "-h, --help                    " << BLUE_COLOR << "Print help message" << RESET_COLOR << "\n";
@@ -193,11 +193,11 @@ public:
     GenTxtSrcCode(int argc, char *argv[]) : argc(argc), argv(argv)
     {
         // Init the longOptions array
-        longOptions[0] = {"output-dir", required_argument, nullptr, 'O'};
+        longOptions[0] = {"outputdir", required_argument, nullptr, 'O'};
         longOptions[1] = {"headerdir", required_argument, nullptr, 'H'};
         longOptions[2] = {"sourcedir", required_argument, nullptr, 'S'};
-        longOptions[3] = {"output-type", required_argument, nullptr, 't'};
-        longOptions[4] = {"output-filename", required_argument, nullptr, 'f'};
+        longOptions[3] = {"outputtype", required_argument, nullptr, 't'};
+        longOptions[4] = {"outputfilename", required_argument, nullptr, 'f'};
         longOptions[5] = {"namespace", required_argument, nullptr, 'n'};
         longOptions[6] = {"signperline", required_argument, nullptr, 'l'};
         longOptions[7] = {"help", no_argument, nullptr, 'h'};

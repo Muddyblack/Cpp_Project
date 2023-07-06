@@ -11,7 +11,10 @@ include_directories(./include)
 
 add_executable(GenTxtSrcCode ./lib/main.cpp ./lib/CTextToCPP.cpp ./lib/ProjectPathFinder.cpp)
 
-
+ENABLE_TESTING()
+# Set CTest properties for code coverage generation
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage -g -O0")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage -g -O0")
 
 add_executable(TESTProjectPath ./tests/TESTProjectPathFinder.cpp ./lib/ProjectPathFinder.cpp)
 target_link_libraries(TESTProjectPath
