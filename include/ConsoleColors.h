@@ -21,6 +21,7 @@ void EnableConsoleColors()
     SetConsoleMode(hConsole, dwMode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
 }
 #else
+// is required to work properly
 void EnableConsoleColors()
 {
 }

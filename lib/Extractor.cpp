@@ -9,79 +9,17 @@
 #include <boost/property_tree/json_parser.hpp>
 
 #include <Extractor.h>
-/**
- * Strips leading and trailing whitespace characters from a given string.
- *
- * @param str The input string to be stripped.
- * @return The input string with leading and trailing whitespace removed.
- */
-std::string stripString(const std::string &str)
-{
-    if (str.empty())
-    {
-        return str;
-    }
-
-    std::string result = str;
-    // Remove leading whitespace
-    size_t startPos = result.find_first_not_of(" \t");
-    if (startPos != std::string::npos)
-    {
-        result = result.substr(startPos);
-    }
-
-    // Remove trailing whitespace
-    size_t endPos = result.find_last_not_of(" \t");
-    if (endPos != std::string::npos)
-    {
-        result = result.substr(0, endPos + 1);
-    }
-
-    return result;
-}
-
-/**
- * Removes leading and trailing quotation marks from a given string.
- *
- * @param str The input string to remove quotation marks from.
- * @return The input string with leading and trailing quotation marks removed.
- */
-std::string removeLeadTailQuotes(const std::string &str)
-{
-    if (str.empty())
-    {
-        return str;
-    }
-
-    std::string result = stripString(str);
-    if (result[0] == '"')
-    {
-        // Remove the first character
-        result = result.substr(1);
-    }
-
-    // Check if the last character is a double quote
-    if (result[result.length() - 1] == '"')
-    {
-        // Remove the last character
-        result = result.substr(0, result.length() - 1);
-    }
-
-    return stripString(result);
-}
 
 std::map<std::string, std::string> parseJsonString(const std::string &jsonString)
 {
     std::map<std::string, std::string> dictionary;
-
-    // Create a Boost property tree
     boost::property_tree::ptree pt;
 
-    // Load the JSON string into the property tree
+    // Loading the JSON string into the property tree
     std::istringstream jsonStream(jsonString);
     boost::property_tree::read_json(jsonStream, pt);
 
-    // Iterate over each key-value pair in the property tree and add it to the dictionary
+    // Iterates each key-value pair in the property tree and add it to the dictionary
     for (const auto &keyValue : pt)
     {
         const std::string &key = keyValue.first;
@@ -92,13 +30,6 @@ std::map<std::string, std::string> parseJsonString(const std::string &jsonString
     return dictionary;
 }
 
-/**
- * Extracts options and variables from an input string and populates the provided maps and vector.
- *
- * @param inputString The input string containing options and variables.
- * @param options The map to store extracted options (key-value pairs).
- * @param variables The vector of maps to store extracted variables (key-value pairs).
- */
 void extractOptionsAndVariables(const std::string &inputString, std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables)
 {
     typedef boost::tokenizer<boost::char_separator<char>> tokenizer;
