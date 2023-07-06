@@ -5,6 +5,9 @@
 #include <fstream>
 #include <boost/tokenizer.hpp>
 
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+
 #include <Extractor.h>
 /**
  * Strips leading and trailing whitespace characters from a given string.
@@ -67,6 +70,28 @@ std::string removeLeadTailQuotes(const std::string &str)
     return stripString(result);
 }
 
+std::map<std::string, std::string> parseJsonString(const std::string &jsonString)
+{
+    std::map<std::string, std::string> dictionary;
+
+    // Create a Boost property tree
+    boost::property_tree::ptree pt;
+
+    // Load the JSON string into the property tree
+    std::istringstream jsonStream(jsonString);
+    boost::property_tree::read_json(jsonStream, pt);
+
+    // Iterate over each key-value pair in the property tree and add it to the dictionary
+    for (const auto &keyValue : pt)
+    {
+        const std::string &key = keyValue.first;
+        const std::string &value = keyValue.second.get_value<std::string>();
+        dictionary[key] = value;
+    }
+
+    return dictionary;
+}
+
 /**
  * Extracts options and variables from an input string and populates the provided maps and vector.
  *
@@ -110,18 +135,9 @@ void extractOptionsAndVariables(const std::string &inputString, std::map<std::st
                 std::string::size_type endPos = line.find("}");
                 if (startPos != std::string::npos)
                 {
-                    std::string optionString = line.substr(startPos + 1, endPos - startPos - 1);
-                    tokenizer tokenizer(optionString, boost::char_separator<char>(","));
-                    for (const std::string &keys : tokenizer)
-                    {
-                        std::string::size_type colonPos = keys.find(":");
-                        if (colonPos != std::string::npos)
-                        {
-                            std::string key = removeLeadTailQuotes(keys.substr(0, colonPos));
-                            std::string value = removeLeadTailQuotes(keys.substr(colonPos + 1));
-                            options[key] = value;
-                        }
-                    }
+                    std::string variableString = line.substr(startPos, endPos - startPos + 1);
+
+                    options = parseJsonString(variableString);
                 }
             }
             else if (variableString == line.substr(0, line.find(' ')) && currentVariable == false)
@@ -132,18 +148,9 @@ void extractOptionsAndVariables(const std::string &inputString, std::map<std::st
                 std::string::size_type endPos = line.find("}");
                 if (startPos != std::string::npos)
                 {
-                    std::string variableString = line.substr(startPos + 1, endPos - startPos - 1);
-                    tokenizer tokenizer(variableString, boost::char_separator<char>(","));
-                    for (const std::string &keys : tokenizer)
-                    {
-                        std::string::size_type colonPos = keys.find(":");
-                        if (colonPos != std::string::npos)
-                        {
-                            std::string key = removeLeadTailQuotes(keys.substr(0, colonPos));
-                            std::string value = removeLeadTailQuotes(keys.substr(colonPos + 1));
-                            currentVarDic[key] = value;
-                        }
-                    }
+                    std::string variableString = line.substr(startPos, endPos - startPos + 1);
+
+                    currentVarDic = parseJsonString(variableString);
                     currentVariable = true;
                 }
             }

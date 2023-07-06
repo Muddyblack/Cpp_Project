@@ -12,13 +12,27 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -finput-charset=UTF-8 -fexec-charset=UTF
 include_directories("./include")
 
 # Program Executables
-#add_executable(GenTxtSrcCode "./lib/main.cpp" "./lib/ProjectPathFinder.cpp" "./lib/Logger.cpp")
-add_executable(CTextToCPP ./lib/CTextToCPP.cpp ./lib/Extractor.cpp)
-# Link against Boost.Log
-find_package(Boost REQUIRED COMPONENTS log log_setup thread)
-# Find Boost.Log
-find_package(Boost REQUIRED COMPONENTS log log_setup thread)
-#target_link_libraries(GenTxtSrcCode PRIVATE  Boost::log Boost::log_setup Boost::thread)
+add_executable(GenTxtSrcCode "./lib/main.cpp" "./lib/ProjectPathFinder.cpp" "./lib/Logger.cpp")
+#add_executable(CTextToCPP ./lib/CTextToCPP.cpp ./lib/Extractor.cpp)
+
+# Find Boost libraries
+find_package(Boost REQUIRED COMPONENTS log log_setup thread system filesystem)
+
+# Include Boost headers
+include_directories(${Boost_INCLUDE_DIRS})
+
+# Link Boost libraries
+target_link_libraries(GenTxtSrcCode 
+    ${Boost_LIBRARIES} 
+    Boost::log 
+    Boost::log_setup 
+    Boost::thread
+    Boost::system
+    Boost::filesystem
+)
+#target_link_libraries(CTextToCPP ${Boost_LIBRARIES})
+
+
 
 # Program Executables
 #add_executable(GenTxtSrcCode ./lib/main.cpp  ./lib/ProjectPathFinder.cpp) #./lib/CTextToCPP.cpp

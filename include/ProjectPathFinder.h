@@ -6,6 +6,8 @@
 #ifndef PROJECTPATHFINDER_H
 #define PROJECTPATHFINDER_H
 
+#include <string>
+
 /**
  * @brief A class that helps in finding the project folder path.
  */

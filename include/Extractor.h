@@ -5,6 +5,8 @@ std::string stripString(const std::string &str);
 
 std::string removeLeadTailQuotes(const std::string &str);
 
+std::map<std::string, std::string> parseJsonString(const std::string &jsonString);
+
 void extractOptionsAndVariables(const std::string &inputString, std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables);
 
 #endif // EXTRACTOR_H

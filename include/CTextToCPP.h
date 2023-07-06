@@ -1,6 +1,8 @@
 #ifndef CTEXTTOCPP_H
 #define CTEXTTOCPP_H
 
+#include <string>
+
 class CTextToCPP
 {
 private:
