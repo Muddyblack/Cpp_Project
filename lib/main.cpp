@@ -45,13 +45,13 @@ private:
     int signPerLine = 60; /**< Number of characters per line */
 
     // Options
-    const static int options_amount = 10;
-    const struct option longOptions[options_amount] = {
-        {"output-dir", required_argument, nullptr, 'O'},
+    const static int optionsAmount = 10;
+    const struct option longOptions[optionsAmount] = {
+        {"outputdir", required_argument, nullptr, 'O'},
         {"headerdir", required_argument, nullptr, 'H'},
         {"sourcedir", required_argument, nullptr, 'S'},
-        {"output-type", required_argument, nullptr, 't'},
-        {"output-filename", required_argument, nullptr, 'f'},
+        {"outputtype", required_argument, nullptr, 't'},
+        {"outputfilename", required_argument, nullptr, 'f'},
         {"namespace", required_argument, nullptr, 'n'},
         {"signperline", required_argument, nullptr, 'l'},
         {"check", no_argument, nullptr, 'C'},
@@ -130,11 +130,11 @@ private:
 
         std::cout << "Usage: program_name [options] input-file1 input-file2 ...\n\n";
 
-        std::cout << "-O, --output-dir <dir>    " << BLUE_COLOR << "Output directory" << RESET_COLOR << "\n";
+        std::cout << "-O, --outputdir <dir>    " << BLUE_COLOR << "Output directory" << RESET_COLOR << "\n";
         std::cout << "-H, --headerdir <dir>     " << BLUE_COLOR << "Header file directory" << RESET_COLOR << "\n";
         std::cout << "-S, --sourcedir <dir>     " << BLUE_COLOR << "Source file directory" << RESET_COLOR << "\n";
-        std::cout << "-t, --output-type <type>  " << BLUE_COLOR << "Output file type (C or CPP)" << RESET_COLOR << "\n";
-        std::cout << "-f, --output-filename <name>  " << BLUE_COLOR << "Output filename (without extension)" << RESET_COLOR << "\n";
+        std::cout << "-t, --outputtype <type>  " << BLUE_COLOR << "Output file type (C or CPP)" << RESET_COLOR << "\n";
+        std::cout << "-f, --outputfilename <name>  " << BLUE_COLOR << "Output filename (without extension)" << RESET_COLOR << "\n";
         std::cout << "-n, --namespace <name>        " << BLUE_COLOR << "Flag to use namespaces" << RESET_COLOR << "\n";
         std::cout << "-l, --signperline <number>    " << BLUE_COLOR << "Number of characters per line" << RESET_COLOR << "\n";
         std::cout << "-C, --check                   " << BLUE_COLOR << "Flag to just create without checking the paths" << RESET_COLOR << "\n";
@@ -213,13 +213,13 @@ private:
     void parseOptions()
     {
         int opt;
-        int option_index;
+        int optionIndex;
 
         BOOST_LOG_TRIVIAL(info) << "Checking for User-Input";
-        while ((opt = getopt_long(argc, argv, "O:H:S:t:f:n:l:Ch", longOptions, &option_index)) != -1)
+        while ((opt = getopt_long(argc, argv, "O:H:S:t:f:n:l:Ch", longOptions, &optionIndex)) != -1)
         {
             std::string optionName;
-            if (option_index > options_amount - 1 || option_index < 0)
+            if (optionIndex > optionsAmount - 1 || optionIndex < 0)
             {
                 optionName = "-";
                 optionName += static_cast<char>(optopt);
@@ -227,7 +227,7 @@ private:
             else
             {
                 optionName = "--";
-                optionName += longOptions[option_index].name;
+                optionName += longOptions[optionIndex].name;
             }
             switch (opt)
             {
@@ -301,6 +301,7 @@ private:
                 {
                     std::string inputFileName = argv[i];
                     // codeGenerator.generateCode(inputFileName, outputDir, outputType);
+
                     BOOST_LOG_TRIVIAL(info) << GREEN_COLOR << "Code generation successful for file: " << inputFileName << RESET_COLOR << std::endl;
                 }
             }

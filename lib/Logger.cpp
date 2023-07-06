@@ -5,12 +5,14 @@
 #include <boost/log/sinks/text_file_backend.hpp>
 #include <boost/log/sinks/text_ostream_backend.hpp>
 #include <boost/log/sources/record_ostream.hpp>
+#include <boost/log/trivial.hpp>
 #include <boost/log/utility/setup.hpp>
 #include <boost/log/utility/setup/file.hpp>
 #include <boost/log/utility/setup/console.hpp>
 #include <boost/log/support/date_time.hpp>
 #include <iostream>
 #include <Logger.h>
+#include <string>
 
 namespace logging = boost::log;
 namespace expr = boost::log::expressions;

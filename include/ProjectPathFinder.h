@@ -3,10 +3,8 @@
  * @brief Contains functions and classes for retrieving the project path.
  */
 
-#pragma once
-
-#include <iostream>
-#include <string>
+#ifndef PROJECTPATHFINDER_H
+#define PROJECTPATHFINDER_H
 
 /**
  * @brief A class that helps in finding the project folder path.
@@ -35,3 +33,4 @@ public:
 private:
     std::string PROJECT_NAME; /**< The name of the project. */
 };
+#endif // PROJECTPATHFINDER_H

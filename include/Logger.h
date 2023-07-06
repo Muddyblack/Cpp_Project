@@ -1,10 +1,6 @@
-#ifndef LOGGER_HPP
-#define LOGGER_HPP
-
-#include <string>
-
-#include <boost/log/trivial.hpp>
+#ifndef LOGGER_H
+#define LOGGER_H
 
 void setup_logging(const std::string &logFilePath);
 
-#endif // LOGGER_HPP
+#endif // LOGGER_H

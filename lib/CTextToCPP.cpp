@@ -1,8 +1,8 @@
 #include <iostream>
+#include <string>
 #include <vector>
 #include <fstream>
 #include <map>
-
 #include <Extractor.h>
 #include <CTextToCPP.h>
 
@@ -46,11 +46,10 @@ CTextToCPP::~CTextToCPP()
     // Destructor implementation (if needed)
 }
 
-/*
 int main()
 {
     CTextToCPP textToCPP("C:\\Users\\Muddyblack\\OneDrive - bwedu\\12 Studium\\01 DHBW\\2. Semester\\18 C und C++ Kurs\\GenTxtSrcCode\\.examples\\sample.txt", "dsad", "dasd");
-    //CTextToCPP textToCPP("/home/muddyblack/Downloads/GenTxtSrcCode/.examples/sample.txt", "dsad", "dasd");
+    // CTextToCPP textToCPP("/home/muddyblack/Downloads/GenTxtSrcCode/.examples/sample.txt", "dsad", "dasd");
 
     return 0;
-}*/
+}

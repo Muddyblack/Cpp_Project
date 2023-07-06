@@ -1,5 +1,7 @@
 #include <ProjectPathFinder.h>
+#include <boost/log/trivial.hpp>
 #include <iostream>
+#include <string>
 #include <filesystem>
 
 #include <Logger.h>

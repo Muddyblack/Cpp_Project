@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <vector>
 #include <map>
 #include <fstream>
@@ -92,18 +93,18 @@ void extractOptionsAndVariables(const std::string &inputString, std::map<std::st
 
     for (const std::string &line : lines)
     {
-        if (startString == line.substr(0, line.find(' ')))
+        if (startString == line.substr(0, line.find(' ')) && currentVariable == false)
         {
             work = true;
         }
-        else if (endString == line.substr(0, line.find(' ')))
+        else if (endString == line.substr(0, line.find(' ')) && currentVariable == false)
         {
             work = false;
             break;
         }
         else if (work)
         {
-            if (globalString == line.substr(0, line.find(' ')))
+            if (globalString == line.substr(0, line.find(' ')) && currentVariable == false)
             {
                 std::string::size_type startPos = line.find("{");
                 std::string::size_type endPos = line.find("}");
@@ -123,7 +124,7 @@ void extractOptionsAndVariables(const std::string &inputString, std::map<std::st
                     }
                 }
             }
-            else if (variableString == line.substr(0, line.find(' ')))
+            else if (variableString == line.substr(0, line.find(' ')) && currentVariable == false)
             {
                 currentVarDic.clear();
 
