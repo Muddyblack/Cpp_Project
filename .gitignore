@@ -4,6 +4,7 @@ func_testing
 #doc
 doc/doc_website
 doc/latex
+func_testing/
 *.log
 
 #libs
