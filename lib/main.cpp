@@ -324,18 +324,6 @@ public:
      */
     GenTxtSrcCode(int argc, char *argv[]) : argc(argc), argv(argv)
     {
-
-        // Init the longOptions array
-        longOptions[0] = {"outputdir", required_argument, nullptr, 'O'};
-        longOptions[1] = {"headerdir", required_argument, nullptr, 'H'};
-        longOptions[2] = {"sourcedir", required_argument, nullptr, 'S'};
-        longOptions[3] = {"outputtype", required_argument, nullptr, 't'};
-        longOptions[4] = {"outputfilename", required_argument, nullptr, 'f'};
-        longOptions[5] = {"namespace", required_argument, nullptr, 'n'};
-        longOptions[6] = {"signperline", required_argument, nullptr, 'l'};
-        longOptions[7] = {"help", no_argument, nullptr, 'h'};
-        longOptions[8] = {nullptr, 0, nullptr, 0};
-
         setup_logging(PROJECT_PATH + "/GenTxtSrcCode.log");
 
 
