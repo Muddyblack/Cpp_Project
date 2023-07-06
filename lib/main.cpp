@@ -7,15 +7,17 @@
  */
 
 #include <iostream>
-#include <conio.h>
 #include <unistd.h>
 #include <getopt.h>
 #include <regex>
 #include <filesystem>
 
+#include <cstdio>
+
 #include <CTextToCPP.h>
 #include <ProjectPathFinder.h>
 #include <ConsoleColors.h>
+#include <Logger.h>
 
 /**
  * @class GenTxtSrcCode
@@ -33,24 +35,24 @@ private:
     const std::string PROJECT_PATH = pathFinder.GetProjectFolderPath();
 
     // Standard directories
-    std::string outputDir = PROJECT_PATH + "output\\"; /**< Output directory */
-    std::string headerDir = outputDir + "include\\";   /**< Header file directory */
-    std::string sourceDir = outputDir + "lib\\";       /**< Source file directory */
-    std::string outputType = "cpp";                    /**< Output file type (C or CPP) */
-    std::string outputFilename = "main";               /**< Output filename (without extension) */
-    bool namespaceName = false;                        /**< Namespace yes or no (only for CPP) */
+    std::string outputDir = PROJECT_PATH + "\\output\\"; /**< Output directory */
+    std::string headerDir = outputDir + "include\\";     /**< Header file directory */
+    std::string sourceDir = outputDir + "lib\\";         /**< Source file directory */
+    std::string outputType = "cpp";                      /**< Output file type (C or CPP) */
+    std::string outputFilename = "main";                 /**< Output filename (without extension) */
+    std::string namespaceName = "";                      /**< Namespace yes or no (only for CPP) */
     bool checkArgs = true;
-    int signPerLine = -1; /**< Number of characters per line */
+    int signPerLine = 60; /**< Number of characters per line */
 
     // Options
-    const static int options_amount = 10;
-    const struct option longOptions[options_amount] = {
-        {"output-dir", required_argument, nullptr, 'O'},
+    const static int optionsAmount = 10;
+    const struct option longOptions[optionsAmount] = {
+        {"outputdir", required_argument, nullptr, 'O'},
         {"headerdir", required_argument, nullptr, 'H'},
         {"sourcedir", required_argument, nullptr, 'S'},
-        {"output-type", required_argument, nullptr, 't'},
-        {"output-filename", required_argument, nullptr, 'f'},
-        {"namespace", no_argument, nullptr, 'n'},
+        {"outputtype", required_argument, nullptr, 't'},
+        {"outputfilename", required_argument, nullptr, 'f'},
+        {"namespace", required_argument, nullptr, 'n'},
         {"signperline", required_argument, nullptr, 'l'},
         {"check", no_argument, nullptr, 'C'},
         {"help", no_argument, nullptr, 'h'},
@@ -128,11 +130,11 @@ private:
 
         std::cout << "Usage: program_name [options] input-file1 input-file2 ...\n\n";
 
-        std::cout << "-O, --output-dir <dir>    " << BLUE_COLOR << "Output directory" << RESET_COLOR << "\n";
+        std::cout << "-O, --outputdir <dir>    " << BLUE_COLOR << "Output directory" << RESET_COLOR << "\n";
         std::cout << "-H, --headerdir <dir>     " << BLUE_COLOR << "Header file directory" << RESET_COLOR << "\n";
         std::cout << "-S, --sourcedir <dir>     " << BLUE_COLOR << "Source file directory" << RESET_COLOR << "\n";
-        std::cout << "-t, --output-type <type>  " << BLUE_COLOR << "Output file type (C or CPP)" << RESET_COLOR << "\n";
-        std::cout << "-f, --output-filename <name>  " << BLUE_COLOR << "Output filename (without extension)" << RESET_COLOR << "\n";
+        std::cout << "-t, --outputtype <type>  " << BLUE_COLOR << "Output file type (C or CPP)" << RESET_COLOR << "\n";
+        std::cout << "-f, --outputfilename <name>  " << BLUE_COLOR << "Output filename (without extension)" << RESET_COLOR << "\n";
         std::cout << "-n, --namespace <name>        " << BLUE_COLOR << "Flag to use namespaces" << RESET_COLOR << "\n";
         std::cout << "-l, --signperline <number>    " << BLUE_COLOR << "Number of characters per line" << RESET_COLOR << "\n";
         std::cout << "-C, --check                   " << BLUE_COLOR << "Flag to just create without checking the paths" << RESET_COLOR << "\n";
@@ -168,8 +170,9 @@ private:
             return "c";
         }
 
-        std::cout << RED_COLOR << "Cannot deterimine: " << BLUE_COLOR << "'" << input << "'" << RED_COLOR << " as a Language." << std::endl;
-        std::cout << "We have " << CYAN_COLOR << "c " << RED_COLOR << "or " << CYAN_COLOR << "cpp " << RED_COLOR << "as option" << RESET_COLOR << std::endl;
+        BOOST_LOG_TRIVIAL(fatal) << RED_COLOR << "Cannot deterimine: " << BLUE_COLOR << "'" << input << "'" << RED_COLOR << " as a Language."
+                                 << "\n"
+                                 << "We have " << CYAN_COLOR << "c " << RED_COLOR << "or " << CYAN_COLOR << "cpp " << RED_COLOR << "as option" << RESET_COLOR << std::endl;
         exit(1);
     }
 
@@ -186,7 +189,20 @@ private:
 
         if (std::regex_match(fileName, pattern) == false)
         {
-            std::cout << BLUE_COLOR << fileName << RED_COLOR << " is not a valid fileName" << RESET_COLOR << std::endl;
+            BOOST_LOG_TRIVIAL(fatal) << BLUE_COLOR << fileName << RED_COLOR << " is not a valid fileName" << RESET_COLOR << std::endl;
+            exit(1);
+        }
+    }
+
+    void isValidNamespace(const std::string &ns)
+    {
+        // Regular expression pattern for valid C++ namespace
+        std::regex pattern("^(::)?[a-zA-Z_][a-zA-Z0-9_]*(::[a-zA-Z_][a-zA-Z0-9_]*)*$");
+
+        // Check if the string matches the pattern
+        if (std::regex_match(ns, pattern) == false)
+        {
+            BOOST_LOG_TRIVIAL(fatal) << BLUE_COLOR << ns << RED_COLOR << " is not a valid namespace!" << RESET_COLOR << std::endl;
             exit(1);
         }
     }
@@ -197,20 +213,21 @@ private:
     void parseOptions()
     {
         int opt;
-        int option_index;
-        while ((opt = getopt_long(argc, argv, "O:H:S:t:f:nl:Ch", longOptions, &option_index)) != -1)
+        int optionIndex;
+
+        BOOST_LOG_TRIVIAL(info) << "Checking for User-Input";
+        while ((opt = getopt_long(argc, argv, "O:H:S:t:f:n:l:Ch", longOptions, &optionIndex)) != -1)
         {
             std::string optionName;
-            if (option_index > options_amount - 1 || option_index < 0)
+            if (optionIndex > optionsAmount - 1 || optionIndex < 0)
             {
                 optionName = "-";
                 optionName += static_cast<char>(optopt);
-                std::cout << optionName << std::endl;
             }
             else
             {
                 optionName = "--";
-                optionName += longOptions[option_index].name;
+                optionName += longOptions[optionIndex].name;
             }
             switch (opt)
             {
@@ -236,7 +253,8 @@ private:
             case 'n':
                 if (outputType == "cpp")
                 {
-                    namespaceName = true;
+                    namespaceName = optarg;
+                    isValidNamespace(namespaceName);
                 }
                 break;
             case 'l':
@@ -249,20 +267,20 @@ private:
                 printHelpText();
                 exit(0);
             case '?':
-                if ((optopt == 'O' || optopt == 'H' || optopt == 'S' || optopt == 't' || optopt == 'f' || optopt == 'l'))
+                if ((optopt == 'O' || optopt == 'H' || optopt == 'S' || optopt == 't' || optopt == 'f' || optopt == 'n' || optopt == 'l'))
                 {
-                    std::cout << ORANGE_COLOR << "OK ... option " << optionName << "' without argument"
-                              << RESET_COLOR << std::endl;
+                    BOOST_LOG_TRIVIAL(fatal) << ORANGE_COLOR << "OK ... option " << optionName << "' without argument"
+                                             << RESET_COLOR << std::endl;
                     exit(1);
                 }
                 else if (isprint(optopt))
                 {
-                    std::cerr << RED_COLOR << "ERR ... Unknown option: " << optionName << RESET_COLOR << std::endl;
+                    BOOST_LOG_TRIVIAL(fatal) << RED_COLOR << "ERR ... Unknown option: " << optionName << RESET_COLOR << std::endl;
                     exit(-1);
                 }
                 else
                 {
-                    std::cerr << RED_COLOR << "ERR ... Unknown option character \\x" << optionName << RESET_COLOR << std::endl;
+                    BOOST_LOG_TRIVIAL(fatal) << RED_COLOR << "ERR ... Unknown option character \\x" << optionName << RESET_COLOR << std::endl;
                     exit(-1);
                 }
             }
@@ -278,22 +296,23 @@ private:
         {
             try
             {
-                CTextToCPP codeGenerator;
+                // CTextToCPP codeGenerator;
                 for (int i = optind; i < argc; ++i)
                 {
                     std::string inputFileName = argv[i];
-                    codeGenerator.generateCode(inputFileName, outputDir, outputType);
-                    std::cout << GREEN_COLOR << "Code generation successful for file: " << inputFileName << RESET_COLOR << std::endl;
+                    // codeGenerator.generateCode(inputFileName, outputDir, outputType);
+
+                    BOOST_LOG_TRIVIAL(info) << GREEN_COLOR << "Code generation successful for file: " << inputFileName << RESET_COLOR << std::endl;
                 }
             }
             catch (const std::exception &e)
             {
-                std::cerr << RED_COLOR << "Code generation failed: " << e.what() << RESET_COLOR << std::endl;
+                BOOST_LOG_TRIVIAL(error) << RED_COLOR << "Code generation failed: " << e.what() << RESET_COLOR << std::endl;
             }
         }
         else
         {
-            std::cout << RED_COLOR << "Usage: program_name [options] input-file1 input-file2 ..." << RESET_COLOR << std::endl;
+            BOOST_LOG_TRIVIAL(warning) << RED_COLOR << "Usage: program_name [options] input-file1 input-file2 ..." << RESET_COLOR << std::endl;
         }
     }
 
@@ -305,12 +324,15 @@ public:
      */
     GenTxtSrcCode(int argc, char *argv[]) : argc(argc), argv(argv)
     {
+        setup_logging(PROJECT_PATH + "/GenTxtSrcCode.log");
+
+        BOOST_LOG_TRIVIAL(info) << "Starting Programm";
         parseOptions();
         if (checkArgs == true)
         {
             printArguments();
             std::cout << GREEN_COLOR << "Press any key to continue..." << RESET_COLOR << std::endl;
-            _getch(); // Wait for any key
+            getchar(); // Wait for any key
         }
         codeGeneration();
     }
@@ -324,6 +346,7 @@ public:
  */
 int main(int argc, char *argv[])
 {
+    EnableConsoleColors();
     GenTxtSrcCode generator(argc, argv);
     return 0;
 }
