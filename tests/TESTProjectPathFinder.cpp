@@ -7,7 +7,9 @@ BOOST_AUTO_TEST_SUITE(ProjectPathFinderTestSuite)
 
 BOOST_AUTO_TEST_CASE(GetExecutablePathTest)
 {
-    std::string executablePath = GetExecutablePath();
+    std::string projectName = "GenTxtSrcCode";
+    ProjectPathFinder pathFinder(projectName);
+    std::string executablePath = pathFinder.GetExecutablePath();
     BOOST_CHECK(!executablePath.empty());
     BOOST_CHECK(boost::filesystem::exists(executablePath));
 }
