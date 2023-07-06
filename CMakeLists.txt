@@ -25,8 +25,6 @@ add_executable(GenTxtSrcCode "./lib/main.cpp" "./lib/ProjectPathFinder.cpp" "./l
 # Find Boost libraries
 find_package(Boost REQUIRED COMPONENTS log log_setup thread system filesystem unit_test_framework)
 
-
-
 # Link Boost libraries
 target_link_libraries(GenTxtSrcCode 
     ${Boost_LIBRARIES} 
@@ -45,7 +43,6 @@ target_link_libraries(TESTProjectPath
     Boost::filesystem
 )
 add_test(NAME TESTProjectPath COMMAND TESTProjectPath)
-
 
 
 # Program Executables

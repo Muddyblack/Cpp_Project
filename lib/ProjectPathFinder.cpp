@@ -1,94 +1,67 @@
-/**
- * @file ProjectPathFinder.h
- * @brief Contains functions and classes for retrieving the project path.
- */
-
 #include <ProjectPathFinder.h>
+#include <boost/log/trivial.hpp>
+#include <iostream>
+#include <string>
+#include <filesystem>
 
-#ifdef _WIN32
-#include <windows.h>
+#include <Logger.h>
 
-/**
- * @brief Retrieves the path of the current executable on Windows.
- * @return The path of the current executable.
- */
-std::string GetExecutablePath()
-{
-    TCHAR buffer[MAX_PATH];
-    GetModuleFileName(NULL, buffer, MAX_PATH);
-    return std::string(buffer);
-}
+namespace fs = std::filesystem;
 
-#elif __APPLE__
-#include <mach-o/dyld.h>
-
-/**
- * @brief Retrieves the path of the current executable on macOS.
- * @return The path of the current executable.
- */
-std::string GetExecutablePath()
-{
-    char buffer[PATH_MAX];
-    uint32_t size = sizeof(buffer);
-    if (_NSGetExecutablePath(buffer, &size) == 0)
-        return std::string(buffer);
-    else
-        return "";
-}
-
-#elif __unix__
-#include <unistd.h>
-
-/**
- * @brief Retrieves the path of the current executable on Unix-like systems.
- * @return The path of the current executable.
- */
-std::string GetExecutablePath()
-{
-    char buffer[PATH_MAX];
-    ssize_t len = readlink("/proc/self/exe", buffer, sizeof(buffer) - 1);
-    if (len != -1)
-    {
-        buffer[len] = '\0';
-        return std::string(buffer);
-    }
-    else
-        return "";
-}
-
-#else
-#error Unsupported platform
-
-#endif
-
-/**
- * @brief Constructs a ProjectPathFinder object with the specified project name.
- * @param projectName The name of the project.
- */
 ProjectPathFinder::ProjectPathFinder(const std::string &projectName)
     : PROJECT_NAME(projectName)
 {
 }
 
-/**
- * @brief Retrieves the project folder path.
- * @return The project folder path.
- */
-std::string ProjectPathFinder::GetProjectFolderPath()
+std::string ProjectPathFinder::GetExecutablePath()
 {
-    std::string executablePath = GetExecutablePath();
-    if (!executablePath.empty())
-    {
-        size_t projectNamePos = executablePath.find(PROJECT_NAME);
-        if (projectNamePos == std::string::npos)
-        {
-            std::cout << "Project name not found." << std::endl;
-            return "";
-        }
+    fs::path path = fs::current_path();
 
-        std::string projectFolderPath = executablePath.substr(0, projectNamePos + PROJECT_NAME.length() + 1);
-        return projectFolderPath;
+    return path.string();
+}
+
+std::string ProjectPathFinder::GetProjectFolderPath(bool useFile)
+{
+    std::string executablePath;
+
+    if (useFile)
+    {
+        fs::path filePath(__FILE__);
+        executablePath = filePath.parent_path().string();
+    }
+    else
+    {
+        executablePath = GetExecutablePath();
     }
 
-    return "";
+    BOOST_LOG_TRIVIAL(trace) << "executablePath: " << executablePath << std::endl;
+
+    if (!executablePath.empty())
+    {
+        fs::path executableDir = fs::path(executablePath).parent_path();
+        fs::path previousDir;
+
+        // Go up the directory path until PROJECT_NAME is found
+        while (!executableDir.empty() && executableDir != previousDir && !fs::exists(executableDir / PROJECT_NAME))
+        {
+            previousDir = executableDir;
+            executableDir = executableDir.parent_path();
+        }
+
+        if (executableDir.empty() || executableDir == previousDir)
+        {
+            BOOST_LOG_TRIVIAL(warning) << "Project folder not found." << std::endl;
+            return executablePath;
+        }
+
+        fs::path projectFolderPath = executableDir / PROJECT_NAME;
+
+        if (fs::exists(projectFolderPath))
+        {
+            return projectFolderPath.string();
+        }
+    }
+
+    BOOST_LOG_TRIVIAL(warning) << "Project folder not found." << std::endl;
+    return executablePath;
 }
