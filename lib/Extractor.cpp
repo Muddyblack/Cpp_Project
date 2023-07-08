@@ -3,6 +3,7 @@
 #include <vector>
 #include <map>
 #include <fstream>
+#include <sstream>
 #include <boost/tokenizer.hpp>
 
 #include <boost/property_tree/ptree.hpp>
@@ -35,7 +36,7 @@ void extractOptionsAndVariables(const std::string &inputString, std::map<std::st
     typedef boost::tokenizer<boost::char_separator<char>> tokenizer;
     boost::char_separator<char> newlineSeparator("\n");
 
-    tokenizer lines(inputString, newlineSeparator);
+    // tokenizer lines(inputString, newlineSeparator, boost::tokenizer<boost::char_separator<char>>::keep_empty_tokens);
     bool currentVariable = false;
     std::map<std::string, std::string> currentVarDic;
     std::string currentContent;
@@ -47,8 +48,14 @@ void extractOptionsAndVariables(const std::string &inputString, std::map<std::st
     const std::string variableString = "@variable";
     const std::string endVariableString = "@endvariable";
 
-    for (const std::string &line : lines)
+    int lineNumber = 0;
+    std::istringstream iss(inputString);
+    std::string line;
+
+    while (std::getline(iss, line))
     {
+        lineNumber++;
+
         if (startString == line.substr(0, line.find(' ')) && currentVariable == false)
         {
             work = true;
@@ -68,7 +75,8 @@ void extractOptionsAndVariables(const std::string &inputString, std::map<std::st
                 {
                     std::string variableString = line.substr(startPos, endPos - startPos + 1);
 
-                    options = parseJsonString(variableString);
+                    std::map<std::string, std::string> tempOptions = parseJsonString(variableString);
+                    options.insert(tempOptions.begin(), tempOptions.end());
                 }
             }
             else if (variableString == line.substr(0, line.find(' ')) && currentVariable == false)
@@ -82,10 +90,11 @@ void extractOptionsAndVariables(const std::string &inputString, std::map<std::st
                     std::string variableString = line.substr(startPos, endPos - startPos + 1);
 
                     currentVarDic = parseJsonString(variableString);
+                    currentVarDic.insert({"VariableLineNumber", std::to_string(lineNumber)});
                     currentVariable = true;
                 }
             }
-            else if (endVariableString == line.substr(0, line.find(' ')))
+            else if (endVariableString == line.substr(0, line.find(' ')) && currentVariable == true)
             {
                 currentVariable = false;
                 currentVarDic["content"] = currentContent;

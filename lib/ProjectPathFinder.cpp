@@ -8,19 +8,18 @@
 
 namespace fs = std::filesystem;
 
-ProjectPathFinder::ProjectPathFinder(const std::string &projectName)
-    : PROJECT_NAME(projectName)
+ProjectPathFinder::ProjectPathFinder()
 {
 }
 
-std::string ProjectPathFinder::GetExecutablePath()
+std::string ProjectPathFinder::getExecutablePath()
 {
     fs::path path = fs::current_path();
 
     return path.string();
 }
 
-std::string ProjectPathFinder::GetProjectFolderPath(bool useFile)
+std::string ProjectPathFinder::getProjectFolderPath(std::string &PROJECT_NAME, bool useFile)
 {
     std::string executablePath;
 
@@ -31,7 +30,7 @@ std::string ProjectPathFinder::GetProjectFolderPath(bool useFile)
     }
     else
     {
-        executablePath = GetExecutablePath();
+        executablePath = getExecutablePath();
     }
 
     BOOST_LOG_TRIVIAL(trace) << "executablePath: " << executablePath << std::endl;

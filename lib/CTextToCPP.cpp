@@ -3,38 +3,43 @@
 #include <vector>
 #include <fstream>
 #include <map>
+#include <cstddef>
 #include <Extractor.h>
 #include <CTextToCPP.h>
 
-CTextToCPP::CTextToCPP(const std::string &inputFilePath, const std::string &outputDir, const std::string &outputType)
+CTextToCPP::CTextToCPP(const std::string &PROJECT_PATH, std::string &inputFilePath, struct ParamStruct &parameter)
 {
-    std::ifstream inputFile(inputFilePath);
-    std::string inputString((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
-
-    std::map<std::string, std::string> options;
-    std::vector<std::map<std::string, std::string>> variables;
-
-    extractOptionsAndVariables(inputString, options, variables);
-
-    std::cout << "Options:\n";
-    for (const auto &option : options)
-    {
-        std::cout << option.first << ": " << option.second << '\n';
-    }
-
-    std::cout << "\nVariables:\n";
-    for (const auto &variable : variables)
-    {
-        for (const auto &key : variable)
-        {
-            std::cout << key.first << ": " << key.second << '\n';
-        }
-
-        std::cout << "\n\n";
-    }
+    this->parameter = parameter;
+    this->PROJECT_PATH = PROJECT_PATH;
+    this->inputFilePath = inputFilePath;
 }
 
-void CTextToCPP::generateCode(const std::string &inputFileName, const std::string &outputDir, const std::string &outputType)
+void CTextToCPP::writeDeclaration()
+{
+    std::cout << "Hiii" << std::endl;
+}
+
+void CTextToCPP::writeImplementation()
+{
+    std::cout << "Hiii" << std::endl;
+}
+
+void CTextToCPP::addElement()
+{
+    std::cout << "Hiii" << std::endl;
+}
+
+void CTextToCPP::sort()
+{
+    std::cout << "Hiii" << std::endl;
+}
+
+void CTextToCPP::clear()
+{
+    std::cout << "Hiii" << std::endl;
+}
+
+void CTextToCPP::generateCode()
 {
     // Code generation implementation for the specified file goes here
     // For example: Open the file, read its content, and save it as header and source files
@@ -44,12 +49,4 @@ void CTextToCPP::generateCode(const std::string &inputFileName, const std::strin
 CTextToCPP::~CTextToCPP()
 {
     // Destructor implementation (if needed)
-}
-
-int main()
-{
-    CTextToCPP textToCPP("C:\\Users\\Muddyblack\\OneDrive - bwedu\\12 Studium\\01 DHBW\\2. Semester\\18 C und C++ Kurs\\GenTxtSrcCode\\.examples\\sample.txt", "dsad", "dasd");
-    // CTextToCPP textToCPP("/home/muddyblack/Downloads/GenTxtSrcCode/.examples/sample.txt", "dsad", "dasd");
-
-    return 0;
 }
