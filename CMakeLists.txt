@@ -14,13 +14,13 @@ set(CMAKE_CXX_FLAGS "-D_FILE_OFFSET_BITS=64 -D__STDC_FORMAT_MACROS -Wall -Wextra
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -finput-charset=UTF-8 -fexec-charset=UTF-8")
 
 # includes
-include_directories("./include")
+include_directories("./include" "./src")
 # Include Boost headers
 include_directories(${Boost_INCLUDE_DIRS})
 
 # Program Executables
 set(SOURCES
-    "./src/main.cpp" 
+    "./src/GenTxtSrcCode.cpp" 
     "./lib/ProjectPathFinder.cpp"
     "./lib/Logger.cpp" 
     "./lib/CTextToCPP.cpp"

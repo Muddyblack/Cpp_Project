@@ -10,5 +10,6 @@ void printParamStruct(const ParamStruct &paramStruct)
     std::cout << "Output Filename: " << CYAN_COLOR << paramStruct.outputFilename << RESET_COLOR << std::endl;
     std::cout << "Namespace Name: " << CYAN_COLOR << (paramStruct.namespaceName) << RESET_COLOR << std::endl;
     std::cout << "Sign Per Line: " << CYAN_COLOR << paramStruct.signPerLine << RESET_COLOR << std::endl;
+    std::cout << "Sort By Variable Name: " << CYAN_COLOR << paramStruct.sortByVarname << RESET_COLOR << std::endl;
     std::cout << std::endl;
 }

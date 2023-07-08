@@ -14,13 +14,9 @@ public:
     void generateCode();
 
 private:
-    std::map<std::string, std::string> options;
-    std::vector<std::map<std::string, std::string>> variables;
     struct ParamStruct parameter;
     std::string PROJECT_PATH;
     std::string inputFilePath;
-
-    void printExtraction();
 
     void checkOptions();
 
