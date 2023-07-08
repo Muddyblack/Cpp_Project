@@ -68,7 +68,8 @@ void extractOptionsAndVariables(const std::string &inputString, std::map<std::st
                 {
                     std::string variableString = line.substr(startPos, endPos - startPos + 1);
 
-                    options = parseJsonString(variableString);
+                    std::map<std::string, std::string> tempOptions = parseJsonString(variableString);
+                    options.insert(tempOptions.begin(), tempOptions.end());
                 }
             }
             else if (variableString == line.substr(0, line.find(' ')) && currentVariable == false)
@@ -85,7 +86,7 @@ void extractOptionsAndVariables(const std::string &inputString, std::map<std::st
                     currentVariable = true;
                 }
             }
-            else if (endVariableString == line.substr(0, line.find(' ')))
+            else if (endVariableString == line.substr(0, line.find(' ')) && currentVariable == true)
             {
                 currentVariable = false;
                 currentVarDic["content"] = currentContent;

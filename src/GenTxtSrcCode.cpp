@@ -3,11 +3,20 @@
 #include <regex>
 #include <fstream>
 #include <cctype>
+#include <sstream>
 
 #include <ConsoleColors.h>
 #include <CTextToCPP.h>
 #include <Extractor.h>
 #include <GenTxtSrcCode.h>
+
+std::unordered_set<std::string> GenTxtSrcCode::reservedKeywords = {
+    // Add any other reserved keywords here
+    "auto", "break", "case", "char", "const", "continue", "default",
+    "do", "double", "else", "enum", "extern", "float", "for", "goto",
+    "if", "int", "long", "register", "return", "short", "signed",
+    "sizeof", "static", "struct", "switch", "typedef", "union",
+    "unsigned", "void", "volatile", "while"};
 
 std::string GenTxtSrcCode::toLowerCase(const std::string &str)
 {
@@ -128,6 +137,50 @@ void GenTxtSrcCode::isValidNamespace(const std::string &ns)
     }
 }
 
+std::string GenTxtSrcCode::isValidVariableName(const std::string &name, const std::string &filename)
+{
+    std::string new_name = name;
+    // Check if the string is empty
+    if (new_name.empty())
+    {
+        new_name = filename;
+    }
+
+    // Check if the first character is a letter or an underscore
+    if (!std::isalpha(new_name[0]) && new_name[0] != '_')
+    {
+        BOOST_LOG_TRIVIAL(fatal) << BLUE_COLOR << new_name << RED_COLOR << " is not a valid variable Name!\nIt has to start with a letter" << RESET_COLOR << std::endl;
+        exit(1);
+    }
+
+    // Check if the remaining characters are letters, digits, or underscores
+    for (std::size_t i = 1; i < new_name.length(); ++i)
+    {
+        char c = new_name[i];
+        if (!std::isalnum(c) && c != '_')
+        {
+            BOOST_LOG_TRIVIAL(fatal) << BLUE_COLOR << new_name << RED_COLOR << " is not a valid variable Name!\nOnly letters, daigits and underscores are allowed" << RESET_COLOR << std::endl;
+            exit(1);
+        }
+    }
+
+    int index = 0;
+    std::string temp_name = new_name;
+    while (reservedKeywords.find(new_name) != reservedKeywords.end())
+    {
+        new_name = temp_name;
+        std::ostringstream oss;
+        oss << std::setfill('0');
+        oss << std::setw(2) << index;
+        std::string formattedIndex = oss.str();
+        new_name = new_name + formattedIndex;
+        index += 1;
+    }
+
+    reservedKeywords.insert(new_name);
+    return new_name;
+}
+
 void GenTxtSrcCode::parseOptions()
 {
     int opt;
@@ -150,30 +203,27 @@ void GenTxtSrcCode::parseOptions()
         switch (opt)
         {
         case 'H':
-            parameter.headerDir = checkPath(optarg);
+            parameterInfo.headerDir = checkPath(optarg);
             ;
             // isValidPath(optionName, headerDir);
             break;
         case 'S':
-            parameter.sourceDir = checkPath(optarg);
+            parameterInfo.sourceDir = checkPath(optarg);
             // isValidPath(optionName, sourceDir);
             break;
         case 't':
-            parameter.outputType = checkLanguageType(optarg);
+            parameterInfo.outputType = checkLanguageType(optarg);
             break;
         case 'f':
-            parameter.outputFilename = optarg;
-            isValidFileName(parameter.outputFilename);
+            parameterInfo.outputFilename = optarg;
+            isValidFileName(parameterInfo.outputFilename);
             break;
         case 'n':
-            if (parameter.outputType == "cpp")
-            {
-                parameter.namespaceName = optarg;
-                isValidNamespace(parameter.namespaceName);
-            }
+            parameterInfo.namespaceName = optarg;
+            isValidNamespace(parameterInfo.namespaceName);
             break;
         case 'l':
-            parameter.signPerLine = std::stoi(optarg);
+            parameterInfo.signPerLine = std::stoi(optarg);
             break;
         case 'C':
             checkArgs = false;
@@ -204,82 +254,123 @@ void GenTxtSrcCode::parseOptions()
 
 void GenTxtSrcCode::checkOptions(std::map<std::string, std::string> &options)
 {
+    std::string optValue;
     // WHY CANT I FCKN IETERATE A STRUCT???!!!
-    if (parameter.headerDir.empty())
+    if (parameterInfo.headerDir.empty())
     {
-        std::string optValue = options["headerdir"];
+        optValue = options["headerdir"];
         if (optValue.empty())
         {
             optValue = PROJECT_PATH;
         }
 
-        parameter.headerDir = checkPath(optValue);
+        parameterInfo.headerDir = checkPath(optValue);
     }
-    if (parameter.sourceDir.empty())
+    if (parameterInfo.sourceDir.empty())
     {
-        std::string optValue = options["sourcedir"];
+        optValue = options["sourcedir"];
         if (optValue.empty())
         {
             optValue = PROJECT_PATH;
         }
-        parameter.sourceDir = checkPath(optValue);
+        parameterInfo.sourceDir = checkPath(optValue);
     }
-    if (parameter.outputType.empty())
+    if (parameterInfo.outputType.empty())
     {
-        std::string optValue = options["outputtype"];
+        optValue = options["outputtype"];
         if (optValue.empty())
         {
             optValue = "cpp";
         }
 
-        parameter.outputType = checkLanguageType(optValue);
+        parameterInfo.outputType = checkLanguageType(optValue);
     }
-    if (parameter.outputFilename.empty())
+    if (parameterInfo.outputFilename.empty())
     {
-        std::string optValue = options["outputfilename"];
+        optValue = options["outputfilename"];
         if (optValue.empty())
         {
             optValue = "main";
         }
         isValidFileName(optValue);
-        parameter.outputFilename = optValue;
+        parameterInfo.outputFilename = optValue;
     }
-    if (parameter.namespaceName.empty())
+    if (parameterInfo.namespaceName.empty())
     {
-        std::string optValue = options["namespace"];
+        std::cout << "BUBAAAAAAA" << std::endl;
+        optValue = options["namespace"];
         if (optValue.empty())
         {
             optValue = "";
         }
         isValidNamespace(optValue);
-        parameter.namespaceName = optValue;
+        parameterInfo.namespaceName = optValue;
     }
-    if (parameter.signPerLine == 0)
+    std::cout << "TESCHTTT" << std::endl;
+    if (parameterInfo.signPerLine == 0)
     {
-        std::string optValue = options["signperline"];
+
+        std::cout << "LOOOOOOOOS" << std::endl;
+        optValue = options["signperline"];
+        std::cout << optValue << "kkkkk" << std::endl;
+
+        std::cout << optValue << std::endl;
         if (optValue.empty())
         {
             optValue = "60";
         }
-        parameter.signPerLine = std::stoi(optValue);
+        parameterInfo.signPerLine = std::stoi(optValue);
+        std::cout << parameterInfo.signPerLine << "\n\n\n"
+                  << std::endl;
     }
 
-    if (parameter.sortByVarname == 0)
+    if (parameterInfo.sortByVarname == 0)
     {
-        std::string optValue = options["sortbyvarname"];
+        optValue = options["sortbyvarname"];
         if (optValue.empty())
         {
             optValue = "false";
         }
         if (optValue == "true")
         {
-            parameter.sortByVarname = true;
+            parameterInfo.sortByVarname = true;
         }
         else
         {
-            parameter.sortByVarname = false;
+            parameterInfo.sortByVarname = false;
         }
     }
+}
+
+void GenTxtSrcCode::checkVariable(std::map<std::string, std::string> &varibale, const std::string &filename)
+{
+    std::string optValue;
+
+    optValue = varibale["addtextpos"];
+    if (optValue == "true")
+    {
+        variableInfo.addtextpos = true;
+    }
+    else
+    {
+        variableInfo.addtextpos = false;
+    }
+
+    optValue = varibale["addtextsegment"];
+    if (optValue == "true")
+    {
+        variableInfo.addtextsegment = true;
+    }
+    else
+    {
+        variableInfo.addtextsegment = false;
+    }
+
+    variableInfo.doxygen = varibale["doxygen"];
+
+    variableInfo.name = isValidVariableName(varibale["varname"], filename); // missing checker if varname is correct form
+    variableInfo.nl = varibale["nl"];                                       // missing validator
+    variableInfo.seq = varibale["seq"];                                     // missing validator
 }
 
 void GenTxtSrcCode::printExtraction(std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables)
@@ -311,8 +402,10 @@ void GenTxtSrcCode::codeGeneration()
             for (int i = optind; i < argc; ++i)
             {
                 // This is where the magic happens
-                std::string inputFileName = argv[i];
-                std::string inputFilePath = PROJECT_PATH + "\\" + inputFileName;
+                std::string userInputFileName = argv[i];
+                std::string inputFilePath = checkPath(PROJECT_PATH + "\\" + userInputFileName);
+                std::filesystem::path filePath(inputFilePath);
+                std::string inputFileName = filePath.stem().string();
 
                 std::ifstream inputFile(inputFilePath);
                 std::string inputString((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
@@ -323,14 +416,20 @@ void GenTxtSrcCode::codeGeneration()
                 extractOptionsAndVariables(inputString, options, variables);
                 checkOptions(options);
 
+                for (std::map<std::string, std::string> &variable : variables)
+                {
+                    checkVariable(variable, inputFileName);
+                }
+
                 if (checkArgs == true)
                 {
-                    printParamStruct(parameter);
+                    std::cout << BLUE_COLOR << inputFileName << " " << RESET_COLOR;
+                    printParamStruct(parameterInfo);
                     std::cout << GREEN_COLOR << "Press any key to continue..." << RESET_COLOR << std::endl;
                     getchar(); // Wait for any key
                 }
 
-                CTextToCPP textToCPP(PROJECT_PATH, inputFilePath, parameter);
+                CTextToCPP textToCPP(PROJECT_PATH, inputFilePath, parameterInfo);
                 textToCPP.generateCode();
 
                 BOOST_LOG_TRIVIAL(info) << GREEN_COLOR << "Code generation successful for file: " << inputFileName << RESET_COLOR << std::endl;

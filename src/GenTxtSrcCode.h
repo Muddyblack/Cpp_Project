@@ -12,6 +12,7 @@
 #include <Logger.h>
 #include <map>
 #include <getopt.h>
+#include <unordered_set>
 
 #include <ProjectPathFinder.h>
 #include <Parameter.h>
@@ -27,13 +28,16 @@ private:
     char **argv;
 
     // Project infomations
-    const std::string PROJECT_NAME = "GenTxtSrcCode";
+    std::string PROJECT_NAME = "GenTxtSrcCode";
     ProjectPathFinder pathFinder; // Added braces for initialization
-    std::string projName = "GenTxtSrcCode";
-    const std::string PROJECT_PATH = pathFinder.getProjectFolderPath(projName);
+    const std::string PROJECT_PATH = pathFinder.getProjectFolderPath(PROJECT_NAME);
 
-    struct ParamStruct parameter;
+    struct ParamStruct parameterInfo;
+    struct VariableStruct variableInfo;
     bool checkArgs = true;
+
+    // Check if the name is a reserved keyword
+    static std::unordered_set<std::string> reservedKeywords;
 
     // Options
     const static int optionsAmount = 10;
@@ -92,11 +96,14 @@ private:
      */
     void isValidNamespace(const std::string &ns);
 
+    std::string isValidVariableName(const std::string &name, const std::string &filename);
+
     /**
      * @brief Parses the command-line options and sets the corresponding member variables.
      */
     void parseOptions();
     void checkOptions(std::map<std::string, std::string> &options);
+    void checkVariable(std::map<std::string, std::string> &varibale, const std::string &filename);
     void printExtraction(std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables);
 
     /**

@@ -13,3 +13,14 @@ void printParamStruct(const ParamStruct &paramStruct)
     std::cout << "Sort By Variable Name: " << CYAN_COLOR << paramStruct.sortByVarname << RESET_COLOR << std::endl;
     std::cout << std::endl;
 }
+
+void printParamStruct(const VariableStruct &variableStruct)
+{
+    std::cout << "Program variable:" << BLUE_COLOR << variableStruct.name << RESET_COLOR << "\n";
+    std::cout << "Add the text position: " << CYAN_COLOR << variableStruct.addtextpos << RESET_COLOR << std::endl;
+    std::cout << "Add the text segment: " << CYAN_COLOR << variableStruct.addtextsegment << RESET_COLOR << std::endl;
+    std::cout << "The Doxygentext: " << CYAN_COLOR << variableStruct.doxygen << RESET_COLOR << std::endl;
+    std::cout << "The New Line Seperator: " << CYAN_COLOR << variableStruct.nl << RESET_COLOR << std::endl;
+    std::cout << "The Encoding Type: " << CYAN_COLOR << variableStruct.seq << RESET_COLOR << std::endl;
+    std::cout << std::endl;
+}
