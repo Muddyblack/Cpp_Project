@@ -394,7 +394,7 @@ void GenTxtSrcCode::checkVariable(std::map<std::string, std::string> &varibale, 
     variableInfo.seq = toUpperCase(varibale["seq"]);
     if (!(variableInfo.seq == "ESC" || variableInfo.seq == "HEX" || variableInfo.seq == "OCT" || variableInfo.seq == "RAWHEX"))
     {
-        BOOST_LOG_TRIVIAL(fatal) << BLUE_COLOR << filename << RED_COLOR << " seq is not Correct has to be (ESC,HEX,OCT,RAWHEX)\nGiven nl: " << variableInfo.seq << RESET_COLOR << std::endl;
+        BOOST_LOG_TRIVIAL(fatal) << BLUE_COLOR << filename << RED_COLOR << " seq is not Correct has to be (ESC,HEX,OCT,RAWHEX)\nGiven seq: " << variableInfo.seq << RESET_COLOR << std::endl;
         exit(1);
     }
 }
