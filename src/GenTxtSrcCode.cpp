@@ -28,6 +28,16 @@ std::string GenTxtSrcCode::toLowerCase(const std::string &str)
     return result;
 }
 
+std::string GenTxtSrcCode::toUpperCase(const std::string &str)
+{
+    std::string result;
+    for (char c : str)
+    {
+        result += std::toupper(c);
+    }
+    return result;
+}
+
 std::string GenTxtSrcCode::checkPath(const std::string &path)
 {
     std::filesystem::path fsPath(path);
@@ -361,11 +371,32 @@ void GenTxtSrcCode::checkVariable(std::map<std::string, std::string> &varibale, 
 
     variableInfo.doxygen = varibale["doxygen"];
 
-    variableInfo.name = isValidVariableName(varibale["varname"], filename); // missing checker if varname is correct form
-    variableInfo.nl = varibale["nl"];                                       // missing validator
-    variableInfo.seq = varibale["seq"];                                     // missing validator
+    variableInfo.name = isValidVariableName(varibale["varname"], filename);
 
-    std::cout << "Name: " << variableInfo.name << " Linenumber: " << variableInfo.VariableLineNumber << std::endl;
+    optValue = toUpperCase(varibale["nl"]);
+    if (optValue.empty() || optValue == "UNIX")
+    {
+        variableInfo.nl = "\n";
+    }
+    else if (optValue == "DOS")
+    {
+        variableInfo.nl = "\r\n";
+    }
+    else if (optValue == "MAC")
+    {
+        variableInfo.nl = "\r";
+    }
+    else
+    {
+        BOOST_LOG_TRIVIAL(fatal) << BLUE_COLOR << filename << RED_COLOR << " nl is not Correct has to be (DOS,MAC,UNIX)\nGiven nl: " << optValue << RESET_COLOR << std::endl;
+        exit(1);
+    }
+    variableInfo.seq = toUpperCase(varibale["seq"]);
+    if (!(variableInfo.seq == "ESC" || variableInfo.seq == "HEX" || variableInfo.seq == "OCT" || variableInfo.seq == "RAWHEX"))
+    {
+        BOOST_LOG_TRIVIAL(fatal) << BLUE_COLOR << filename << RED_COLOR << " seq is not Correct has to be (ESC,HEX,OCT,RAWHEX)\nGiven nl: " << variableInfo.seq << RESET_COLOR << std::endl;
+        exit(1);
+    }
 }
 
 void GenTxtSrcCode::printExtraction(std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables)

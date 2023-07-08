@@ -53,6 +53,7 @@ private:
         {nullptr, 0, nullptr, 0}};
 
     std::string toLowerCase(const std::string &str);
+    std::string toUpperCase(const std::string &str);
 
     /**
      * Checks and edits a given file path.
