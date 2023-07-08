@@ -4,7 +4,6 @@
 void printParamStruct(const ParamStruct &paramStruct)
 {
     std::cout << "Program arguments:\n";
-    std::cout << "Output Directory: " << CYAN_COLOR << paramStruct.outputDir << RESET_COLOR << std::endl;
     std::cout << "Header Directory: " << CYAN_COLOR << paramStruct.headerDir << RESET_COLOR << std::endl;
     std::cout << "Source Directory: " << CYAN_COLOR << paramStruct.sourceDir << RESET_COLOR << std::endl;
     std::cout << "Output Type: " << CYAN_COLOR << paramStruct.outputType << RESET_COLOR << std::endl;

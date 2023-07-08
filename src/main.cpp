@@ -32,26 +32,18 @@ private:
 
     // Project infomations
     const std::string PROJECT_NAME = "GenTxtSrcCode";
-    ProjectPathFinder pathFinder{"GenTxtSrcCode"}; // Added braces for initialization
-    const std::string PROJECT_PATH = pathFinder.GetProjectFolderPath();
+    ProjectPathFinder pathFinder; // Added braces for initialization
+    std::string projName = "GenTxtSrcCode";
+    const std::string PROJECT_PATH = pathFinder.getProjectFolderPath(projName);
 
     // Standard directories
 
-    struct ParamStruct parameter
-    {
-        .outputDir = PROJECT_PATH + "\\output\\",
-        .headerDir = parameter.outputDir + "include\\",
-        .sourceDir = parameter.outputDir + "lib\\",
-        .outputType = "cpp",
-        .outputFilename = "main",
-        .namespaceName = "",
-        .signPerLine = 60
-    };
+    struct ParamStruct parameter;
     bool checkArgs = true;
+
     // Options
     const static int optionsAmount = 10;
     const struct option longOptions[optionsAmount] = {
-        {"outputdir", required_argument, nullptr, 'O'},
         {"headerdir", required_argument, nullptr, 'H'},
         {"sourcedir", required_argument, nullptr, 'S'},
         {"outputtype", required_argument, nullptr, 't'},
@@ -118,7 +110,6 @@ private:
 
         std::cout << "Usage: program_name [options] input-file1 input-file2 ...\n\n";
 
-        std::cout << "-O, --outputdir <dir>    " << BLUE_COLOR << "Output directory" << RESET_COLOR << "\n";
         std::cout << "-H, --headerdir <dir>     " << BLUE_COLOR << "Header file directory" << RESET_COLOR << "\n";
         std::cout << "-S, --sourcedir <dir>     " << BLUE_COLOR << "Source file directory" << RESET_COLOR << "\n";
         std::cout << "-t, --outputtype <type>  " << BLUE_COLOR << "Output file type (C or CPP)" << RESET_COLOR << "\n";
@@ -204,7 +195,7 @@ private:
         int optionIndex;
 
         BOOST_LOG_TRIVIAL(info) << "Checking for User-Input";
-        while ((opt = getopt_long(argc, argv, "O:H:S:t:f:n:l:Ch", longOptions, &optionIndex)) != -1)
+        while ((opt = getopt_long(argc, argv, "H:S:t:f:n:l:Ch", longOptions, &optionIndex)) != -1)
         {
             std::string optionName;
             if (optionIndex > optionsAmount - 1 || optionIndex < 0)
@@ -219,12 +210,9 @@ private:
             }
             switch (opt)
             {
-            case 'O':
-                parameter.outputDir = checkPath(optarg);
-                // isValidPath(optionName, outputDir);
-                break;
             case 'H':
                 parameter.headerDir = checkPath(optarg);
+                ;
                 // isValidPath(optionName, headerDir);
                 break;
             case 'S':
@@ -289,7 +277,7 @@ private:
                     // This is where the magic happens
                     std::string inputFileName = argv[i];
                     std::string inputFilePath = PROJECT_PATH + "\\" + inputFileName;
-                    CTextToCPP textToCPP(inputFilePath, parameter);
+                    CTextToCPP textToCPP(PROJECT_PATH, inputFilePath, parameter);
                     textToCPP.generateCode();
 
                     BOOST_LOG_TRIVIAL(info) << GREEN_COLOR << "Code generation successful for file: " << inputFileName << RESET_COLOR << std::endl;
