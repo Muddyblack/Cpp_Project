@@ -20,7 +20,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 # Program Executables
 set(SOURCES
-    "./lib/main.cpp" 
+    "./src/main.cpp" 
     "./lib/ProjectPathFinder.cpp"
     "./lib/Logger.cpp" 
     "./lib/CTextToCPP.cpp"

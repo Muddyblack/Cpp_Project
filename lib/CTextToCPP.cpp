@@ -13,7 +13,6 @@ CTextToCPP::CTextToCPP(std::string &inputFilePath, struct ParamStruct &parameter
     std::string inputString((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
 
     extractOptionsAndVariables(inputString, options, variables);
-    printParamStruct(parameter);
 }
 
 void CTextToCPP::printExtraction()
