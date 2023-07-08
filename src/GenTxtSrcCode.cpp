@@ -297,7 +297,6 @@ void GenTxtSrcCode::checkOptions(std::map<std::string, std::string> &options)
     }
     if (parameterInfo.namespaceName.empty())
     {
-        std::cout << "BUBAAAAAAA" << std::endl;
         optValue = options["namespace"];
         if (optValue.empty())
         {
@@ -306,22 +305,15 @@ void GenTxtSrcCode::checkOptions(std::map<std::string, std::string> &options)
         isValidNamespace(optValue);
         parameterInfo.namespaceName = optValue;
     }
-    std::cout << "TESCHTTT" << std::endl;
     if (parameterInfo.signPerLine == 0)
     {
-
-        std::cout << "LOOOOOOOOS" << std::endl;
         optValue = options["signperline"];
-        std::cout << optValue << "kkkkk" << std::endl;
 
-        std::cout << optValue << std::endl;
         if (optValue.empty())
         {
             optValue = "60";
         }
         parameterInfo.signPerLine = std::stoi(optValue);
-        std::cout << parameterInfo.signPerLine << "\n\n\n"
-                  << std::endl;
     }
 
     if (parameterInfo.sortByVarname == 0)
@@ -346,6 +338,7 @@ void GenTxtSrcCode::checkVariable(std::map<std::string, std::string> &varibale, 
 {
     std::string optValue;
 
+    variableInfo.VariableLineNumber = std::stoi(varibale.at("VariableLineNumber"));
     optValue = varibale["addtextpos"];
     if (optValue == "true")
     {
@@ -371,6 +364,8 @@ void GenTxtSrcCode::checkVariable(std::map<std::string, std::string> &varibale, 
     variableInfo.name = isValidVariableName(varibale["varname"], filename); // missing checker if varname is correct form
     variableInfo.nl = varibale["nl"];                                       // missing validator
     variableInfo.seq = varibale["seq"];                                     // missing validator
+
+    std::cout << "Name: " << variableInfo.name << " Linenumber: " << variableInfo.VariableLineNumber << std::endl;
 }
 
 void GenTxtSrcCode::printExtraction(std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables)
