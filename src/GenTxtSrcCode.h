@@ -48,6 +48,8 @@ private:
         {"help", no_argument, nullptr, 'h'},
         {nullptr, 0, nullptr, 0}};
 
+    std::string toLowerCase(const std::string &str);
+
     /**
      * Checks and edits a given file path.
      *

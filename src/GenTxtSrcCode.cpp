@@ -2,11 +2,22 @@
 #include <iostream>
 #include <regex>
 #include <fstream>
+#include <cctype>
 
 #include <ConsoleColors.h>
 #include <CTextToCPP.h>
 #include <Extractor.h>
 #include <GenTxtSrcCode.h>
+
+std::string GenTxtSrcCode::toLowerCase(const std::string &str)
+{
+    std::string result;
+    for (char c : str)
+    {
+        result += std::tolower(c);
+    }
+    return result;
+}
 
 std::string GenTxtSrcCode::checkPath(const std::string &path)
 {
@@ -76,11 +87,12 @@ void GenTxtSrcCode::printHelpText()
 
 std::string GenTxtSrcCode::checkLanguageType(const std::string &input)
 {
-    if (input == "cpp" || input == "c++" || input == "g++")
+    const std::string input_lower = toLowerCase(input);
+    if (input_lower == "cpp" || input_lower == "c++" || input_lower == "g++")
     {
         return "cpp";
     }
-    else if (input == "c")
+    else if (input_lower == "c")
     {
         return "c";
     }
