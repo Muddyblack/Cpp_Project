@@ -200,7 +200,8 @@ void GenTxtSrcCode::checkOptions(std::map<std::string, std::string> &options)
         {
             optValue = PROJECT_PATH;
         }
-        parameter.headerDir = optValue;
+
+        parameter.headerDir = checkPath(optValue);
     }
     if (parameter.sourceDir.empty())
     {
@@ -209,7 +210,7 @@ void GenTxtSrcCode::checkOptions(std::map<std::string, std::string> &options)
         {
             optValue = PROJECT_PATH;
         }
-        parameter.sourceDir = optValue;
+        parameter.sourceDir = checkPath(optValue);
     }
     if (parameter.outputType.empty())
     {
@@ -219,7 +220,7 @@ void GenTxtSrcCode::checkOptions(std::map<std::string, std::string> &options)
             optValue = "cpp";
         }
 
-        parameter.outputType = optValue;
+        parameter.outputType = checkLanguageType(optValue);
     }
     if (parameter.outputFilename.empty())
     {
@@ -228,6 +229,7 @@ void GenTxtSrcCode::checkOptions(std::map<std::string, std::string> &options)
         {
             optValue = "main";
         }
+        isValidFileName(optValue);
         parameter.outputFilename = optValue;
     }
     if (parameter.namespaceName.empty())
@@ -237,6 +239,7 @@ void GenTxtSrcCode::checkOptions(std::map<std::string, std::string> &options)
         {
             optValue = "";
         }
+        isValidNamespace(optValue);
         parameter.namespaceName = optValue;
     }
     if (parameter.signPerLine == 0)
