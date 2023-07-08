@@ -2,15 +2,20 @@
 #define CTEXTTOCPP_H
 
 #include <string>
+#include <map>
+#include <vector>
 
 class CTextToCPP
 {
-private:
-    void generateCode(const std::string &inputFileName, const std::string &outputDir, const std::string &outputType);
-
 public:
-    CTextToCPP(const std::string &inputFilePath, const std::string &outputDir, const std::string &outputType);
+    CTextToCPP(std::string &inputFilePath, struct ParamStruct &parameter);
     ~CTextToCPP();
+    void generateCode();
+
+private:
+    std::map<std::string, std::string> options;
+    std::vector<std::map<std::string, std::string>> variables;
+    void printExtraction();
 };
 
 #endif // CTEXTTOCPP_H

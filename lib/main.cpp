@@ -18,6 +18,7 @@
 #include <ProjectPathFinder.h>
 #include <ConsoleColors.h>
 #include <Logger.h>
+#include <Parameter.h>
 
 /**
  * @class GenTxtSrcCode
@@ -35,15 +36,18 @@ private:
     const std::string PROJECT_PATH = pathFinder.GetProjectFolderPath();
 
     // Standard directories
-    std::string outputDir = PROJECT_PATH + "\\output\\"; /**< Output directory */
-    std::string headerDir = outputDir + "include\\";     /**< Header file directory */
-    std::string sourceDir = outputDir + "lib\\";         /**< Source file directory */
-    std::string outputType = "cpp";                      /**< Output file type (C or CPP) */
-    std::string outputFilename = "main";                 /**< Output filename (without extension) */
-    std::string namespaceName = "";                      /**< Namespace yes or no (only for CPP) */
-    bool checkArgs = true;
-    int signPerLine = 60; /**< Number of characters per line */
 
+    struct ParamStruct parameter
+    {
+        .outputDir = PROJECT_PATH + "\\output\\",
+        .headerDir = parameter.outputDir + "include\\",
+        .sourceDir = parameter.outputDir + "lib\\",
+        .outputType = "cpp",
+        .outputFilename = "main",
+        .namespaceName = "",
+        .signPerLine = 60
+    };
+    bool checkArgs = true;
     // Options
     const static int optionsAmount = 10;
     const struct option longOptions[optionsAmount] = {
@@ -97,22 +101,6 @@ private:
     void clearConsole()
     {
         std::cout << "\033[2J\033[1;1H";
-    }
-
-    /**
-     * @brief Prints the program arguments.
-     */
-    void printArguments()
-    {
-        std::cout << "Program arguments:\n";
-        std::cout << "Output Directory: " << CYAN_COLOR << outputDir << RESET_COLOR << std::endl;
-        std::cout << "Header Directory: " << CYAN_COLOR << headerDir << RESET_COLOR << std::endl;
-        std::cout << "Source Directory: " << CYAN_COLOR << sourceDir << RESET_COLOR << std::endl;
-        std::cout << "Output Type: " << CYAN_COLOR << outputType << RESET_COLOR << std::endl;
-        std::cout << "Output Filename: " << CYAN_COLOR << outputFilename << RESET_COLOR << std::endl;
-        std::cout << "Namespace Name: " << CYAN_COLOR << (namespaceName) << RESET_COLOR << std::endl;
-        std::cout << "Sign Per Line: " << CYAN_COLOR << signPerLine << RESET_COLOR << std::endl;
-        std::cout << std::endl;
     }
 
     /**
@@ -232,33 +220,33 @@ private:
             switch (opt)
             {
             case 'O':
-                outputDir = checkPath(optarg);
+                parameter.outputDir = checkPath(optarg);
                 // isValidPath(optionName, outputDir);
                 break;
             case 'H':
-                headerDir = checkPath(optarg);
+                parameter.headerDir = checkPath(optarg);
                 // isValidPath(optionName, headerDir);
                 break;
             case 'S':
-                sourceDir = checkPath(optarg);
+                parameter.sourceDir = checkPath(optarg);
                 // isValidPath(optionName, sourceDir);
                 break;
             case 't':
-                outputType = checkLanguageType(optarg);
+                parameter.outputType = checkLanguageType(optarg);
                 break;
             case 'f':
-                outputFilename = optarg;
-                isValidFileName(outputFilename);
+                parameter.outputFilename = optarg;
+                isValidFileName(parameter.outputFilename);
                 break;
             case 'n':
-                if (outputType == "cpp")
+                if (parameter.outputType == "cpp")
                 {
-                    namespaceName = optarg;
-                    isValidNamespace(namespaceName);
+                    parameter.namespaceName = optarg;
+                    isValidNamespace(parameter.namespaceName);
                 }
                 break;
             case 'l':
-                signPerLine = std::stoi(optarg);
+                parameter.signPerLine = std::stoi(optarg);
                 break;
             case 'C':
                 checkArgs = false;
@@ -296,11 +284,13 @@ private:
         {
             try
             {
-                // CTextToCPP codeGenerator;
                 for (int i = optind; i < argc; ++i)
                 {
+                    // This is where the magic happens
                     std::string inputFileName = argv[i];
-                    // codeGenerator.generateCode(inputFileName, outputDir, outputType);
+                    std::string inputFilePath = PROJECT_PATH + "\\" + inputFileName;
+                    CTextToCPP textToCPP(inputFilePath, parameter);
+                    textToCPP.generateCode();
 
                     BOOST_LOG_TRIVIAL(info) << GREEN_COLOR << "Code generation successful for file: " << inputFileName << RESET_COLOR << std::endl;
                 }
@@ -326,12 +316,11 @@ public:
     {
         setup_logging(PROJECT_PATH + "/GenTxtSrcCode.log");
 
-
         BOOST_LOG_TRIVIAL(info) << "Starting Programm";
         parseOptions();
         if (checkArgs == true)
         {
-            printArguments();
+            printParamStruct(parameter);
             std::cout << GREEN_COLOR << "Press any key to continue..." << RESET_COLOR << std::endl;
             getchar(); // Wait for any key
         }

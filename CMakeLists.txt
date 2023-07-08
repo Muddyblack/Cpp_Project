@@ -5,8 +5,8 @@ project(GENTXTSRCCODE)
 set(CMAKE_CXX_STANDARD 17)
 
 #setup Testing
-set(CMAKE_CXX_FLAGS "--coverage")
-set(CMAKE_EXE_LINKER_FLAGS "--coverage")
+set(CMAKE_CXX_FLAGS "--coverage -g -O0")
+set(CMAKE_EXE_LINKER_FLAGS "--coverage -g -O0")
 ENABLE_TESTING()
 
 # Set the character encoding to UTF-8
@@ -19,8 +19,16 @@ include_directories("./include")
 include_directories(${Boost_INCLUDE_DIRS})
 
 # Program Executables
-add_executable(GenTxtSrcCode "./lib/main.cpp" "./lib/ProjectPathFinder.cpp" "./lib/Logger.cpp")
-#add_executable(CTextToCPP ./lib/CTextToCPP.cpp ./lib/Extractor.cpp)
+set(SOURCES
+    "./lib/main.cpp" 
+    "./lib/ProjectPathFinder.cpp"
+    "./lib/Logger.cpp" 
+    "./lib/CTextToCPP.cpp"
+    "./lib/Extractor.cpp"
+    "./lib/Parameter.cpp"
+    "./lib/ConsoleColors.cpp"
+)
+add_executable(GenTxtSrcCode ${SOURCES})
 
 # Find Boost libraries
 find_package(Boost REQUIRED COMPONENTS log log_setup thread system filesystem unit_test_framework)
@@ -34,7 +42,6 @@ target_link_libraries(GenTxtSrcCode
     Boost::system
     Boost::filesystem
 )
-#target_link_libraries(CTextToCPP ${Boost_LIBRARIES})
 
 add_executable(TESTProjectPath ./tests/TESTProjectPathFinder.cpp ./lib/ProjectPathFinder.cpp)
 target_link_libraries(TESTProjectPath
@@ -44,14 +51,3 @@ target_link_libraries(TESTProjectPath
 )
 add_test(NAME TESTProjectPath COMMAND TESTProjectPath)
 
-
-# Program Executables
-#add_executable(GenTxtSrcCode ./lib/main.cpp  ./lib/ProjectPathFinder.cpp) #./lib/CTextToCPP.cpp
-#add_executable(CTextToCPP ./lib/CTextToCPP.cpp ./lib/Extractor.cpp)
-
-# Test Executables
-#add_executable(TESTProjectPath ./tests/TESTProjectPathFinder.cpp ./lib/ProjectPathFinder.cpp)
-#target_link_libraries(TESTProjectPath
-#        Boost::unit_test_framework
-#        Boost::filesystem
-#)

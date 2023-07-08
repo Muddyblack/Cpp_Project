@@ -5,17 +5,19 @@
 #include <map>
 #include <Extractor.h>
 #include <CTextToCPP.h>
+#include <Parameter.h>
 
-CTextToCPP::CTextToCPP(const std::string &inputFilePath, const std::string &outputDir, const std::string &outputType)
+CTextToCPP::CTextToCPP(std::string &inputFilePath, struct ParamStruct &parameter)
 {
     std::ifstream inputFile(inputFilePath);
     std::string inputString((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
 
-    std::map<std::string, std::string> options;
-    std::vector<std::map<std::string, std::string>> variables;
-
     extractOptionsAndVariables(inputString, options, variables);
+    printParamStruct(parameter);
+}
 
+void CTextToCPP::printExtraction()
+{
     std::cout << "Options:\n";
     for (const auto &option : options)
     {
@@ -34,7 +36,7 @@ CTextToCPP::CTextToCPP(const std::string &inputFilePath, const std::string &outp
     }
 }
 
-void CTextToCPP::generateCode(const std::string &inputFileName, const std::string &outputDir, const std::string &outputType)
+void CTextToCPP::generateCode()
 {
     // Code generation implementation for the specified file goes here
     // For example: Open the file, read its content, and save it as header and source files
@@ -44,12 +46,4 @@ void CTextToCPP::generateCode(const std::string &inputFileName, const std::strin
 CTextToCPP::~CTextToCPP()
 {
     // Destructor implementation (if needed)
-}
-
-int main()
-{
-    CTextToCPP textToCPP("C:\\Users\\Muddyblack\\OneDrive - bwedu\\12 Studium\\01 DHBW\\2. Semester\\18 C und C++ Kurs\\GenTxtSrcCode\\.examples\\sample.txt", "dsad", "dasd");
-    // CTextToCPP textToCPP("/home/muddyblack/Downloads/GenTxtSrcCode/.examples/sample.txt", "dsad", "dasd");
-
-    return 0;
 }
