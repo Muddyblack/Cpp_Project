@@ -379,6 +379,7 @@ void GenTxtSrcCode::codeGeneration()
                 // This is where the magic happens
                 std::string userInputFileName = argv[i];
                 std::string inputFilePath = checkPath(PROJECT_PATH + "\\" + userInputFileName);
+
                 std::filesystem::path filePath(inputFilePath);
                 std::string inputFileName = filePath.stem().string();
 
@@ -404,8 +405,17 @@ void GenTxtSrcCode::codeGeneration()
                     getchar(); // Wait for any key
                 }
 
-                CTextToCPP textToCPP(PROJECT_PATH, inputFilePath, parameterInfo);
-                textToCPP.generateCode();
+                if ((parameterInfo.outputType == "cpp") && (!parameterInfo.namespaceName.empty()))
+                {
+                }
+
+                /*
+                +
+                + Depending on seq different required Classes
+                +
+                */
+                // CTextToCPP textToCPP(PROJECT_PATH, inputFilePath, parameterInfo);
+                // textToCPP.generateCode();
 
                 BOOST_LOG_TRIVIAL(info) << GREEN_COLOR << "Code generation successful for file: " << inputFileName << RESET_COLOR << std::endl;
             }
