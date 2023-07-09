@@ -26,6 +26,7 @@ set(SOURCES
     "./lib/CTextToCPP.cpp"
     "./lib/Extractor.cpp"
     "./lib/Parameter.cpp"
+    "./lib/Helperfunctions.cpp"
     "./lib/ConsoleColors.cpp"
 )
 add_executable(GenTxtSrcCode ${SOURCES})
