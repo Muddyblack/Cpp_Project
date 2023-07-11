@@ -1,7 +1,6 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
-#include <boost/format.hpp>
 
 /**
 * @brief converts ascii-string to raw hex
