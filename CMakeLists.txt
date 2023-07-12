@@ -52,3 +52,16 @@ target_link_libraries(TESTProjectPath
 )
 add_test(NAME TESTProjectPath COMMAND TESTProjectPath)
 
+add_executable(TESTExtractor ./tests/TESTExtractor.cpp ./lib/Extractor.cpp)
+target_link_libraries(TESTExtractor
+        ${Boost_LIBRARIES}
+        Boost::unit_test_framework
+        )
+add_test(NAME TESTExtractor COMMAND TESTExtractor)
+
+add_executable(TestParameter ./tests/TESTParameter.cpp ./lib/Parameter.cpp)
+target_link_libraries(TestParameter
+        ${Boost_LIBRARIES}
+        Boost::unit_test_framework
+        )
+add_test(NAME TestParameter COMMAND TestParameter)
