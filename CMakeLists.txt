@@ -43,7 +43,7 @@ target_link_libraries(GenTxtSrcCode
     Boost::system
     Boost::filesystem
 )
-
+#Add Tests
 add_executable(TESTProjectPath ./tests/TESTProjectPathFinder.cpp ./lib/ProjectPathFinder.cpp)
 target_link_libraries(TESTProjectPath
     ${Boost_LIBRARIES}
@@ -65,3 +65,10 @@ target_link_libraries(TestParameter
         Boost::unit_test_framework
         )
 add_test(NAME TestParameter COMMAND TestParameter)
+
+add_executable(TestConsoleColors ./tests/TESTConsoleColors.cpp ./lib/ConsoleColors.cpp)
+target_link_libraries(TestConsoleColors
+        ${Boost_LIBRARIES}
+        Boost::unit_test_framework
+        )
+add_test(NAME TESTConsoleColors COMMAND TESTConsoleColors)
