@@ -9,9 +9,12 @@
 class CTextToCPP
 {
 public:
-    CTextToCPP(const std::string &PROJECT_PATH, std::string &inputFilePath, struct ParamStruct &parameter);
+    CTextToCPP();
     ~CTextToCPP();
-    void generateCode();
+
+    void addElement(LinkedList *&head, std::string value);
+    void sort();
+    void clear();
 
 private:
     struct ParamStruct parameter;
@@ -22,9 +25,6 @@ private:
 
     void writeDeclaration();
     void writeImplementation();
-    void addElement();
-    void sort();
-    void clear();
 };
 
 #endif // CTEXTTOCPP_H

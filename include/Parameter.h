@@ -28,6 +28,12 @@ struct VariableStruct
     std::string doxygen;    /**< Text for the doxygen*/
 };
 
+struct LinkedList
+{
+    std::string data;
+    LinkedList *next;
+};
+
 void printVariableStruct(const VariableStruct &variableStruct);
 
 #endif // PARAMETER_H

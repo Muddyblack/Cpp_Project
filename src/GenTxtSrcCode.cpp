@@ -374,8 +374,13 @@ void GenTxtSrcCode::codeGeneration()
     {
         try
         {
+            std::unordered_set<std::string> headerDirsSave;
+            std::unordered_set<std::string> sourceDirsSave;
+
             for (int i = optind; i < argc; ++i)
             {
+                LinkedList *headerCode;
+                LinkedList *sourceCode;
                 // This is where the magic happens
                 std::string userInputFileName = argv[i];
                 std::string inputFilePath = checkPath(PROJECT_PATH + "\\" + userInputFileName);
@@ -388,6 +393,8 @@ void GenTxtSrcCode::codeGeneration()
 
                 std::map<std::string, std::string> options;
                 std::vector<std::map<std::string, std::string>> variables;
+
+                CTextToCPP textToCPP;
 
                 extractOptionsAndVariables(inputString, options, variables);
                 checkOptions(options);
@@ -405,8 +412,15 @@ void GenTxtSrcCode::codeGeneration()
                     getchar(); // Wait for any key
                 }
 
-                if ((parameterInfo.outputType == "cpp") && (!parameterInfo.namespaceName.empty()))
+                // Start creating the Code
+
+                // textToCPP.addElement(headerCode, "#iinclude <" +);
+
+                if ((parameterInfo.outputType == "cpp") && !(parameterInfo.namespaceName.empty()))
                 {
+                    std::string nameSpaceText = "namespace " + parameterInfo.namespaceName + "{";
+                    textToCPP.addElement(headerCode, nameSpaceText);
+                    textToCPP.addElement(sourceCode, nameSpaceText);
                 }
 
                 /*
