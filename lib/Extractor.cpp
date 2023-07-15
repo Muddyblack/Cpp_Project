@@ -4,7 +4,6 @@
 #include <map>
 #include <fstream>
 #include <sstream>
-#include <boost/tokenizer.hpp>
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -33,10 +32,8 @@ std::map<std::string, std::string> parseJsonString(const std::string &jsonString
 
 void extractOptionsAndVariables(const std::string &inputString, std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables)
 {
-    typedef boost::tokenizer<boost::char_separator<char>> tokenizer;
     boost::char_separator<char> newlineSeparator("\n");
 
-    // tokenizer lines(inputString, newlineSeparator, boost::tokenizer<boost::char_separator<char>>::keep_empty_tokens);
     bool currentVariable = false;
     std::map<std::string, std::string> currentVarDic;
     std::string currentContent;
