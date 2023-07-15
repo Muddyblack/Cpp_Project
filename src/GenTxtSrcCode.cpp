@@ -428,28 +428,31 @@ void GenTxtSrcCode::codeGeneration()
                     sourceCode.append(nameSpaceText);
                 }
 
-                /**
-                 * +
-                 * + Missing Code Below for FIles
-                 * +
-                 */
                 for (const struct VariableStruct &variable : variablesInfos)
                 {
                     if (variable.seq == "ESC")
                     {
                         CTextToEscSeq converter(variable);
+                        headerCode.append(converter.writeDeclaration());
+                        sourceCode.append(converter.writeImplementation());
                     }
                     else if (variable.seq == "HEX")
                     {
                         CTextToHexSeq converter(variable);
+                        headerCode.append(converter.writeDeclaration());
+                        sourceCode.append(converter.writeImplementation());
                     }
                     else if (variable.seq == "OCT")
                     {
                         CTextToOctSeq converter(variable);
+                        headerCode.append(converter.writeDeclaration());
+                        sourceCode.append(converter.writeImplementation());
                     }
                     else if (variable.seq == "RAWHEX")
                     {
                         CTextToRawHexSeq converter(variable);
+                        headerCode.append(converter.writeDeclaration());
+                        sourceCode.append(converter.writeImplementation());
                     }
                 }
 
@@ -461,19 +464,43 @@ void GenTxtSrcCode::codeGeneration()
                 }
                 headerCode.append("#endif");
 
-                // FOR TESTING
-                std::cout << "HeaderFILE:\n"
-                          << headerCode << std::endl;
-                std::cout << "\n\nSourceFILE:\n"
-                          << sourceCode << std::endl;
+                // Write to the files
 
-                /*
-                +
-                +   Write the files
-                +
-                */
+                std::filesystem::path headerFilePath = parameterInfo.headerDir + "\\" + inputFileName + ".h";
+                std::filesystem::path sourceFilePath = parameterInfo.sourceDir + "\\" + inputFileName + "." + parameterInfo.outputType;
 
-                BOOST_LOG_TRIVIAL(info) << GREEN_COLOR << "Code generation successful for file: " << inputFileName << RESET_COLOR << std::endl;
+                std::filesystem::create_directories(headerFilePath.parent_path());
+                std::filesystem::create_directories(sourceFilePath.parent_path());
+
+                std::ofstream headerFile(headerFilePath.string(), std::ios::trunc);
+
+                if (headerFile.is_open())
+                {
+                    headerFile << headerCode;
+                    headerFile.close();
+                }
+                else
+                {
+                    BOOST_LOG_TRIVIAL(info)
+                        << RED_COLOR << "Could not open: " << headerFilePath.string() << RESET_COLOR << std::endl;
+                    exit(1);
+                }
+
+                std::ofstream sourceFile(sourceFilePath.string(), std::ios::trunc);
+                if (sourceFile.is_open())
+                {
+                    sourceFile << sourceCode;
+                    sourceFile.close();
+                }
+                else
+                {
+                    BOOST_LOG_TRIVIAL(info)
+                        << RED_COLOR << "Could not open: " << sourceFilePath.string() << RESET_COLOR << std::endl;
+                    exit(1);
+                }
+
+                BOOST_LOG_TRIVIAL(info)
+                    << GREEN_COLOR << "Code generation successful for file: " << inputFileName << RESET_COLOR << std::endl;
             }
         }
         catch (const std::exception &e)

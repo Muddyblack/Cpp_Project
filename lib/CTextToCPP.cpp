@@ -23,11 +23,13 @@ std::string CTextToCPP::writeDeclaration()
     {
         declarationText.append("*const ");
     }
-    else
+    declarationText.append(variable.name);
+
+    if (variable.seq == "RAWHEX")
     {
         declarationText.append("[]");
     }
-    declarationText.append(variable.name + ";\n");
+    declarationText.append(";\n");
 
     return declarationText;
 }
@@ -41,10 +43,13 @@ std::string CTextToCPP::writeImplementation()
     {
         sourceText.append("*const ");
     }
-    else
+
+    sourceText.append(variable.name);
+    if (variable.seq == "RAWHEX")
     {
         sourceText.append("[]");
     }
+
     sourceText.append(" = {\n");
     std::string convertedContent = convert(variable.content); // have to adapt it to signperLine
     /*
