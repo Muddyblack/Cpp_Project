@@ -6,9 +6,11 @@
 class CTextToEscSeq : public CTextToCPP
 {
 public:
-    std::string toEsc(std::string inputString);
+    CTextToEscSeq(const VariableStruct &variable);
+    ~CTextToEscSeq();
 
 private:
+    std::string convert(std::string inputString) override;
 };
 
 #endif // CTEXTTOESCSEQ_H

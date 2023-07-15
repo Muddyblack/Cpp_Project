@@ -3,7 +3,9 @@
 #include <fstream>
 #include <iomanip>
 
-std::string toEsc(std::string inputString)
+#include <CTextToEscSeq.h>
+
+std::string CTextToEscSeq::convert(std::string inputString)
 {
     std::string output = "";
     for (char c : inputString)
@@ -52,4 +54,14 @@ std::string toEsc(std::string inputString)
         }
     }
     return output;
+}
+
+CTextToEscSeq::CTextToEscSeq(const VariableStruct &variable) : CTextToCPP(variable)
+{
+    // constructor implementation
+}
+
+CTextToEscSeq::~CTextToEscSeq()
+{
+    // destructor implementation
 }

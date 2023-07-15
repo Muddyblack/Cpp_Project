@@ -1,13 +1,9 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include <fstream>
-#include <map>
-#include <cstddef>
-#include <Extractor.h>
 #include <CTextToCPP.h>
 
-std::string CTextToCPP::writeDeclaration(const VariableStruct variable)
+std::string CTextToCPP::writeDeclaration()
 { // header stuff
     std::string declarationText;
 
@@ -36,7 +32,7 @@ std::string CTextToCPP::writeDeclaration(const VariableStruct variable)
     return declarationText;
 }
 
-std::string CTextToCPP::writeImplementation(const VariableStruct variable)
+std::string CTextToCPP::writeImplementation()
 { // source stuff
     std::string sourceText;
 
@@ -50,6 +46,7 @@ std::string CTextToCPP::writeImplementation(const VariableStruct variable)
         sourceText.append("[]");
     }
     sourceText.append(" = {\n");
+    std::string convertedContent = convert(variable.content); // have to adapt it to signperLine
     /*
     +
     +   Missing content of variable
@@ -101,6 +98,6 @@ CTextToCPP::~CTextToCPP()
 {
 }
 
-CTextToCPP::CTextToCPP()
+CTextToCPP::CTextToCPP(const VariableStruct &variable) : variable(variable)
 {
 }

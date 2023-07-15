@@ -6,9 +6,11 @@
 class CTextToRawHexSeq : public CTextToCPP
 {
 public:
-    std::string toRawHex(std::string inputString);
+    CTextToRawHexSeq(const VariableStruct &variable);
+    ~CTextToRawHexSeq();
 
 private:
+    std::string convert(std::string inputString) override;
 };
 
 #endif // CTEXTTORAWHEXSEQ_H

@@ -6,9 +6,11 @@
 class CTextToOctSeq : public CTextToCPP
 {
 public:
-    std::string toOct(std::string inputString);
+    CTextToOctSeq(const VariableStruct &variable);
+    ~CTextToOctSeq();
 
 private:
+    std::string convert(std::string inputString) override;
 };
 
 #endif // CTEXTTOOCTSEQ_H

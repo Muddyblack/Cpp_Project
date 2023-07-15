@@ -428,13 +428,29 @@ void GenTxtSrcCode::codeGeneration()
                     sourceCode.append(nameSpaceText);
                 }
 
-                for (const VariableStruct &variable : variablesInfos)
+                /**
+                 * +
+                 * + Missing Code Below for FIles
+                 * +
+                 */
+                for (const struct VariableStruct &variable : variablesInfos)
                 {
-                    CTextToEscSeq hello;
-                    std::string text = hello.writeDeclaration(variable);
-                    headerCode.append(text);
-                    text = hello.writeImplementation(variable);
-                    sourceCode.append(text);
+                    if (variable.seq == "ESC")
+                    {
+                        CTextToEscSeq converter(variable);
+                    }
+                    else if (variable.seq == "HEX")
+                    {
+                        CTextToHexSeq converter(variable);
+                    }
+                    else if (variable.seq == "OCT")
+                    {
+                        CTextToOctSeq converter(variable);
+                    }
+                    else if (variable.seq == "RAWHEX")
+                    {
+                        CTextToRawHexSeq converter(variable);
+                    }
                 }
 
                 if ((parameterInfo.outputType == "cpp") && !(parameterInfo.namespaceName.empty()))
@@ -448,7 +464,7 @@ void GenTxtSrcCode::codeGeneration()
                 // FOR TESTING
                 std::cout << "HeaderFILE:\n"
                           << headerCode << std::endl;
-                std::cout << "SourceFILE:\n"
+                std::cout << "\n\nSourceFILE:\n"
                           << sourceCode << std::endl;
 
                 /*
