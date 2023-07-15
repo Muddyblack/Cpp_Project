@@ -4,11 +4,14 @@
 #include <map>
 #include <fstream>
 #include <sstream>
+#include <filesystem>
 
 #include <boost/tokenizer.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 
+#include <Logger.h>
+#include <ConsoleColors.h>
 #include <Extractor.h>
 
 std::map<std::string, std::string> parseJsonString(const std::string &jsonString)
@@ -31,7 +34,7 @@ std::map<std::string, std::string> parseJsonString(const std::string &jsonString
     return dictionary;
 }
 
-void extractOptionsAndVariables(const std::string &inputString, std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables)
+void extractOptionsAndVariables(const std::string &inputFilePath, std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables)
 {
     boost::char_separator<char> newlineSeparator("\n");
 
@@ -39,6 +42,7 @@ void extractOptionsAndVariables(const std::string &inputString, std::map<std::st
     std::map<std::string, std::string> currentVarDic;
     std::string currentContent;
     bool work = false;
+    bool started = false;
 
     const std::string startString = "@start";
     const std::string endString = "@end";
@@ -47,6 +51,18 @@ void extractOptionsAndVariables(const std::string &inputString, std::map<std::st
     const std::string endVariableString = "@endvariable";
 
     int lineNumber = 0;
+
+    std::ifstream inputFile(inputFilePath);
+    std::string inputString((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
+
+    std::cout << inputString << std::endl;
+
+    if (inputString.find('@') != std::string::npos)
+    {
+        std::cout << "hiiii" << std::endl;
+        return;
+    }
+
     std::istringstream iss(inputString);
     std::string line;
 
@@ -57,6 +73,7 @@ void extractOptionsAndVariables(const std::string &inputString, std::map<std::st
         if (startString == line.substr(0, line.find(' ')) && currentVariable == false)
         {
             work = true;
+            started = true;
         }
         else if (endString == line.substr(0, line.find(' ')) && currentVariable == false)
         {
@@ -105,5 +122,12 @@ void extractOptionsAndVariables(const std::string &inputString, std::map<std::st
                 currentContent += "\n";
             }
         }
+    }
+
+    if (started == false)
+    {
+        BOOST_LOG_TRIVIAL(fatal)
+            << RED_COLOR << "This file has no @start-Tag: " << inputFilePath << RESET_COLOR << std::endl;
+        exit(1);
     }
 }

@@ -93,7 +93,7 @@ void GenTxtSrcCode::isValidNamespace(const std::string &ns)
     std::regex pattern("^(::)?[a-zA-Z_][a-zA-Z0-9_]*(::[a-zA-Z_][a-zA-Z0-9_]*)*$");
 
     // Check if the string matches the pattern
-    if (std::regex_match(ns, pattern) == false)
+    if ((std::regex_match(ns, pattern) == false) && !ns.empty())
     {
         BOOST_LOG_TRIVIAL(fatal) << BLUE_COLOR << ns << RED_COLOR << " is not a valid namespace!" << RESET_COLOR << std::endl;
         exit(1);
@@ -387,17 +387,14 @@ void GenTxtSrcCode::codeGeneration()
                 std::string userInputFileName = argv[i];
                 std::string inputFilePath = checkPath(PROJECT_PATH + "\\" + userInputFileName);
 
-                std::filesystem::path filePath(inputFilePath);
-                std::string inputFileName = filePath.stem().string();
-
-                std::ifstream inputFile(inputFilePath);
-                std::string inputString((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
-
                 std::map<std::string, std::string> options;
                 std::vector<std::map<std::string, std::string>> variables;
                 std::vector<VariableStruct> variablesInfos;
 
-                extractOptionsAndVariables(inputString, options, variables);
+                std::filesystem::path filePath(inputFilePath);
+                std::string inputFileName = filePath.stem().string();
+
+                extractOptionsAndVariables(inputFilePath, options, variables);
                 checkOptions(options);
 
                 for (std::map<std::string, std::string> &variable : variables)
@@ -426,6 +423,16 @@ void GenTxtSrcCode::codeGeneration()
                     std::string nameSpaceText = "namespace " + parameterInfo.namespaceName + "{\n";
                     headerCode.append(nameSpaceText);
                     sourceCode.append(nameSpaceText);
+                }
+
+                if ((variables.empty()))
+                {
+                    std::ifstream inputFile(inputFilePath);
+                    std::string inputString((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
+                    variableInfo.content = inputString;
+
+                    headerCode.append("extern const char *const " + inputFileName + ";\n");
+                    sourceCode.append("extern const char *const " + inputFileName + " = {R\"(" + inputString + ")\"\n};");
                 }
 
                 for (const struct VariableStruct &variable : variablesInfos)
