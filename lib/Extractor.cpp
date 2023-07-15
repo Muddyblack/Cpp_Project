@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 
+#include <boost/tokenizer.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 
