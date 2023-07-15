@@ -15,7 +15,7 @@ BOOST_AUTO_TEST_SUITE(ExtractorTestSuite)
             }
         )";
         //Expected Output
-        std::map<std::string, std::string> expected = {
+        const std::map<std::string, std::string> expected = {
                 {"firstkey", "firstpair"},
                 {"secondtkey", "secondpair"},
                 {"thirdkey", "thirdpair"}

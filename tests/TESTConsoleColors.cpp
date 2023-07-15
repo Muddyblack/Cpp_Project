@@ -5,8 +5,7 @@
 BOOST_AUTO_TEST_SUITE(ConsoleColorTestSuite)
 
     BOOST_AUTO_TEST_CASE(notdefined){
-        std::string teststring = "This will be green red orange cyan black blue stronggreen";
-        std::string expectedoutput ="This will be "
+        const std::string expectedoutput ="This will be "
                                     "\033[32mgreen"
                                     " \033[31mred"
                                     " \033[38;5;208morange"

@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_SUITE(ParameterTestSuite)
         parameter.sortByVarname =false;
 
         //Expected Output
-        std::string expectedoutput ="Program arguments:\nHeader Directory: \033[36mheaderdirectory\033[0m\nSource Directory: \033[36msourcedirectory\033[0m\n"
+        const std::string expectedoutput ="Program arguments:\nHeader Directory: \033[36mheaderdirectory\033[0m\nSource Directory: \033[36msourcedirectory\033[0m\n"
                                     "Output Type: \033[36mcpp\033[0m\nOutput Filename: \033[36mDerFileName\033[0m\nNamespace Name: \033[36mSpaceName\033[0m\n"
                                     "Sign Per Line: \033[36m60\033[0m\nSort By Variable Name: \033[36m0\033[0m\n\n";
 
@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_SUITE(ParameterTestSuite)
         variableStruct.doxygen ="";
 
         //Expected Output
-        std::string expectedoutput ="Program variable: \033[38;5;19mVariablenname\033[0m\n"
+        const std::string expectedoutput ="Program variable: \033[38;5;19mVariablenname\033[0m\n"
                                     "Add the text position: \033[36m1\033[0m\n"
                                     "Add the text segment: \033[36m0\033[0m\n"
                                     "The Doxygentext: \033[36m\033[0m\n"
