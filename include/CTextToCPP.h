@@ -9,22 +9,24 @@
 class CTextToCPP
 {
 public:
-    CTextToCPP(const std::string &PROJECT_PATH, std::string &inputFilePath, struct ParamStruct &parameter);
-    ~CTextToCPP();
-    void generateCode();
+    CTextToCPP(const VariableStruct &variable);
+    virtual ~CTextToCPP();
+
+    void addElement(LinkedList *&head, std::string value);
+    void sort();
+    void clear();
+
+    std::string writeDeclaration();
+    std::string writeImplementation();
 
 private:
     struct ParamStruct parameter;
+    struct VariableStruct variable;
+
+    virtual std::string convert(std::string inputString) = 0;
+
     std::string PROJECT_PATH;
     std::string inputFilePath;
-
-    void checkOptions();
-
-    void writeDeclaration();
-    void writeImplementation();
-    void addElement();
-    void sort();
-    void clear();
 };
 
 #endif // CTEXTTOCPP_H

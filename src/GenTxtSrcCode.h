@@ -52,22 +52,6 @@ private:
         {"help", no_argument, nullptr, 'h'},
         {nullptr, 0, nullptr, 0}};
 
-    std::string toLowerCase(const std::string &str);
-    std::string toUpperCase(const std::string &str);
-
-    /**
-     * Checks and edits a given file path.
-     *
-     * @param path The file path to check and edit.
-     * @return The edited file path.
-     */
-    std::string checkPath(const std::string &path);
-
-    /**
-     * @brief Clears the console screen
-     */
-    void clearConsole();
-
     /**
      * @brief Prints the help text with usage instructions and contact information.
      */
@@ -104,7 +88,7 @@ private:
      */
     void parseOptions();
     void checkOptions(std::map<std::string, std::string> &options);
-    void checkVariable(std::map<std::string, std::string> &varibale, const std::string &filename);
+    void checkVariable(std::map<std::string, std::string> &variable, const std::string &filename);
     void printExtraction(std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables);
 
     /**

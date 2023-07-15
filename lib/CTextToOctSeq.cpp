@@ -2,10 +2,12 @@
 #include <sstream>
 #include <iomanip>
 
+#include <CTextToOctSeq.h>
+
 /**
-* @brief converts ascii-string to octal
-*/
-std::string toOct(std::string inputString)
+ * @brief converts ascii-string to octal
+ */
+std::string CTextToOctSeq::convert(std::string inputString)
 {
     std::stringstream octStream;
     octStream << std::oct << std::setfill('0');
@@ -16,11 +18,11 @@ std::string toOct(std::string inputString)
     return octStream.str();
 }
 
-//test
-int main()
+CTextToOctSeq::CTextToOctSeq(const VariableStruct &variable) : CTextToCPP(variable)
 {
-    std::string text = "The quick brown fox jumps over the Lazy dog ... Das ist eine typische Testsequence fuer Texte (und um auch eine 'Datenstrecke' zu ueberpruefen).";
-    std::string oct = toOct(text);
-    std::cout << oct;
-    return 0;
+    // constructor implementation
+}
+
+CTextToOctSeq::~CTextToOctSeq()
+{
 }
