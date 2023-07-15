@@ -6,8 +6,6 @@
 class CTextToOctSeq : public CTextToCPP
 {
 public:
-    CTextToOctSeq();
-    ~CTextToOctSeq();
     std::string toOct(std::string inputString);
 
 private:

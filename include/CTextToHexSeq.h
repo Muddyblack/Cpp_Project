@@ -6,8 +6,6 @@
 class CTextToHexSeq : public CTextToCPP
 {
 public:
-    CTextToHexSeq();
-    ~CTextToHexSeq();
     std::string toHex(std::string inputString);
 
 private:

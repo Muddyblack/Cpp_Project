@@ -6,8 +6,6 @@
 class CTextToEscSeq : public CTextToCPP
 {
 public:
-    CTextToEscSeq();
-    ~CTextToEscSeq();
     std::string toEsc(std::string inputString);
 
 private:

@@ -16,15 +16,13 @@ public:
     void sort();
     void clear();
 
+    std::string writeDeclaration(const VariableStruct variable);
+    std::string writeImplementation(const VariableStruct variable);
+
 private:
     struct ParamStruct parameter;
     std::string PROJECT_PATH;
     std::string inputFilePath;
-
-    void checkOptions();
-
-    void writeDeclaration();
-    void writeImplementation();
 };
 
 #endif // CTEXTTOCPP_H

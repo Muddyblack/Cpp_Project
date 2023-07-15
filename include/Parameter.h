@@ -23,17 +23,18 @@ struct VariableStruct
     std::string name;       /**< Name of the variable */
     std::string seq;        /**< defines what Encoding should be used for the value (ESC, HEX, OCT, RAWHEX) */
     std::string nl;         /**< Sets how new line speration should be handled  (DOS = CR LF, MAC = CR, UNIX = LF)*/
+    std::string content;    /** The content of the variable*/
     bool addtextpos;        /**< If true. The line of the variable of input-file will be included to the header*/
     bool addtextsegment;    /**< If true. Original text of variable will be added as comment*/
     std::string doxygen;    /**< Text for the doxygen*/
 };
+void printVariableStruct(const VariableStruct &variableStruct);
 
 struct LinkedList
 {
     std::string data;
     LinkedList *next;
 };
-
-void printVariableStruct(const VariableStruct &variableStruct);
+void printLinkedList(LinkedList *head);
 
 #endif // PARAMETER_H
