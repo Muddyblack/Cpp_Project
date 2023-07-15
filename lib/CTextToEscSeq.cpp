@@ -65,3 +65,4 @@ CTextToEscSeq::~CTextToEscSeq()
 {
     // destructor implementation
 }
+

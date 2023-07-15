@@ -26,4 +26,3 @@ CTextToHexSeq::CTextToHexSeq(const VariableStruct &variable) : CTextToCPP(variab
 CTextToHexSeq::~CTextToHexSeq()
 {
     // destructor implementation
-}
