@@ -49,7 +49,9 @@ std::string checkPath(const std::string &path)
 
     return sanitizedPath;
 }
-
+/**
+ * @brief clears the console
+ */
 void clearConsole()
 {
     std::cout << "\033[2J\033[1;1H";

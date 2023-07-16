@@ -9,7 +9,9 @@
 #include <iostream>
 #include <string>
 
-// Function to enable support for ANSI escape sequences in Windows console
+/**
+ * @brief Function to enable support for ANSI escape sequences in Windows console
+ */
 void EnableConsoleColors();
 
 const std::string RESET_COLOR = "\033[0m";           /**< Reset color escape sequence */

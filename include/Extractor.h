@@ -1,3 +1,7 @@
+/**
+ * @file Extractor.h
+ * @brief Contains functions for parsing JSON strings and extracting options and variables from input files.
+ */
 #ifndef EXTRACTOR_H
 #define EXTRACTOR_H
 
@@ -16,10 +20,10 @@ std::map<std::string, std::string> parseJsonString(const std::string &jsonString
 /**
  * Extracts options and variables from an input string and populates the provided maps and vector.
  *
- * @param inputString The input string containing options and variables.
+ * @param inputFilePath The Path to file inputfile.
  * @param options The map to store extracted options (key-value pairs).
  * @param variables The vector of maps to store extracted variables (key-value pairs).
  */
-void extractOptionsAndVariables(const std::string &inputString, std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables);
+void extractOptionsAndVariables(const std::string &inputFilePath, std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables);
 
 #endif // EXTRACTOR_H
