@@ -272,81 +272,26 @@ std::string CTextToCPP::writeImplementation()
     return sourceText;
 }
 
-void CTextToCPP::addElement(Node *&head, std::string value)
+void CTextToCPP::addElement(CTextToCPP *element)
 {
-    if (head == nullptr)
-    {
-        // The list is empty, create a new head node
-        head = new Node{value, nullptr};
-    }
-    else
-    {
-        // Traverse the list to find the last node
-        Node *current = head;
-        while (current->next != nullptr)
-        {
-            current = current->next;
-        }
-
-        // Create a new node and link it to the last node
-        current->next = new Node{value, nullptr};
-    }
+    elements.push_back(element);
 }
 
-void CTextToCPP::sort(Node **head)
+void CTextToCPP::sort(VariableStruct variable)
 {
-    // Check, if zero or only one element
-    if (*head == nullptr || (*head)->next == nullptr)
-    {
-        return;
-    }
-    //->um auf ein Element in einem Objekt oder Zeiger auf ein Objekt zuzugreifen
-    // Bubblesort
-    bool sorted = false;
-    while (!sorted)
-    {
-        sorted = true;
-        Node *current = *head;
-        Node *previous = nullptr;
-        Node *nextNode = (*head)->next;
-
-        while (nextNode != nullptr)
-        {
-            if (current->data > nextNode->data)
-            {
-                // Trade Positions of current and next element
-                if (previous != nullptr)
-                {
-                    previous->next = nextNode;
-                }
-                else
-                {
-                    *head = nextNode;
-                }
-                current->next = nextNode->next;
-                nextNode->next = current;
-                previous = nextNode;
-                nextNode = current->next;
-                sorted = false;
-            }
-            else
-            {
-                previous = current;
-                current = nextNode;
-                nextNode = nextNode->next;
-            }
-        }
-    }
+    // Sort elements in alphabetical order based on their names
+    std::sort(elements.begin(), elements.end(), [](CTextToCPP *a, CTextToCPP *b)
+              { return a->variable.name < b->variable.name; });
 }
 
-void CTextToCPP::clear(Node *&head) // To free storage space
+void CTextToCPP::clear()
 {
-    while (head != nullptr)
+    for (CTextToCPP *element : elements)
     {
-        Node *temp = head;
-        head = head->next;
-        delete temp;
+        delete element;
     }
+
+    elements.clear();
 }
 
 CTextToCPP::~CTextToCPP()

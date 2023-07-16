@@ -65,21 +65,21 @@ public:
      * @param head A pointer to the head node of the linked list.
      * @param value  value
      */
-    void addElement(Node *&head, std::string value);
+    void addElement(CTextToCPP *element);
 
     /**
      * @brief Function to sort elements of the LinkedList alphabetically.
      *
      * @param head A pointer to the head node of the linked list.
      */
-    void sort(Node **head);
+    void sort(VariableStruct variable);
 
     /**
      * @brief Function to delete all elements of the LinkedList
      *
      * @param head A pointer to the head node of the linked list.
      */
-    void clear(Node *&head);
+    void clear();
 
     /**
      *@brief Function to generate the declaration text for the input file.
@@ -144,6 +144,11 @@ private:
      * @brief Represents input file path.
      */
     std::string inputFilePath;
+
+    /**
+     * @brief Represents the linkedlist of variables.
+     */
+    std::vector<CTextToCPP *> elements;
 };
 
 #endif // CTEXTTOCPP_H
