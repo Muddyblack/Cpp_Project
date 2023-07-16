@@ -10,7 +10,7 @@ std::string CTextToOctSeq::convert(std::string &inputString, const int &varLine,
     stream << std::oct << std::setfill('0');
     unsigned int charPos = 0;
 
-    // checkNewLine(inputString, nl);
+    checkNewLine(inputString, nl);
 
     for (unsigned char c : inputString)
     {
