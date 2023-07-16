@@ -4,6 +4,7 @@
 #include <fstream>
 #include <cctype>
 #include <sstream>
+#include <algorithm>
 
 #include <ConsoleColors.h>
 #include <Extractor.h>
@@ -426,6 +427,15 @@ void GenTxtSrcCode::codeGeneration()
 
                     headerCode.append("extern const char *const " + inputFileName + ";\n");
                     sourceCode.append("extern const char *const " + inputFileName + " = {R\"(" + inputString + ")\"\n};");
+                }
+
+                // sort by variable Name if requested
+                // from A up
+                if (parameterInfo.sortByVarname)
+                {
+                    std::cout << "I AM SORTING YAY" << std::endl;
+                    std::sort(variablesInfos.begin(), variablesInfos.end(), [](const VariableStruct &a, const VariableStruct &b)
+                              { return a.name < b.name; });
                 }
 
                 for (const struct VariableStruct &variable : variablesInfos)

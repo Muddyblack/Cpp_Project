@@ -9,7 +9,7 @@ std::string CTextToRawHexSeq::convert(std::string &inputString, const int &varLi
     std::stringstream stream;
     stream << std::hex << std::setfill('0');
     unsigned int charPos = 0;
-    // checkNewLine(inputString, nl);
+    checkNewLine(inputString, nl);
 
     bool firstElement = true;
 
