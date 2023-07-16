@@ -10,53 +10,45 @@
 // Function to insert line breaks after certain amount of signs per line
 std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, std::string &text, const std::string &nl, const std::string &seq)
 {
-    char seperator = ' ';
+    char separator = ' ';
     std::string newLineChar = "\\n";
     std::string returnChar = "\\r";
 
     if (seq == "RAWHEX")
     {
-        seperator = ',';
+        separator = ',';
         newLineChar = "0x0a";
         returnChar = "0x0d";
     }
     else if (seq == "HEX")
     {
-        seperator = '\\';
+        separator = '\\';
         newLineChar = "x0a";
         returnChar = "x0d";
     }
     else if (seq == "OCT")
     {
-        seperator = '\\';
+        separator = '\\';
         newLineChar = "012";
         returnChar = "015";
     }
 
-    std::string line;
     std::vector<std::string> result;
+    std::string line;
     int count = 0;
 
     std::vector<std::string> characters;
     std::stringstream ss(text);
     std::string item;
-    while (std::getline(ss, item, seperator))
+    while (std::getline(ss, item, separator))
     {
         if (seq == "ESC")
         {
-
             std::vector<size_t> positions;
             for (size_t i = 0; i < item.size(); ++i)
             {
-                std::string complete;
-                complete += item[i];
-                if (i < item.size() - 1)
-                {
-                    complete += item[i + 1];
-                }
-
-                if ((complete == newLineChar) || (complete == returnChar))
-
+                std::string complete = item.substr(i, 2);
+                if (complete == newLineChar || complete == returnChar)
                 {
                     positions.push_back(i);
                     i += 1;
@@ -71,7 +63,6 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
                 startPos = pos + 2;
             }
 
-            // Handle the remaining portion of the string after the last line break
             if (startPos < item.size())
             {
                 characters.push_back(item.substr(startPos));
@@ -91,53 +82,44 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
         boost::algorithm::trim(currentItem);
 
         std::string character;
-        if ((seq == "HEX") || (seq == "OCT"))
+        if ((seq == "HEX" || seq == "OCT"))
         {
             if (i > 0)
             {
-                character = seperator + currentItem;
+                character = separator + currentItem;
             }
             else
             {
                 character = currentItem;
             }
         }
-        else if ((seq == "ESC") && ((currentItem == newLineChar) || (currentItem == returnChar)))
+        else if (seq == "ESC" && (currentItem == newLineChar || currentItem == returnChar))
         {
-
             character = currentItem;
         }
-
         else
         {
-            if (i < (characters.size() - 2))
-            {
-                character = currentItem + seperator;
-            }
-            else
-            {
-                character = currentItem;
-            }
+            character = (i < characters.size() - 2) ? currentItem + separator : currentItem;
         }
 
-        int lenghte = character.length();
-        count += lenghte;
+        int length = character.length();
+        count += length;
 
         if (count > signPerLine)
         {
             result.push_back(line);
             line = "";
-            count = lenghte;
+            count = length;
         }
 
         line.append(character);
-        if ((nl == "DOS") && (currentItem == returnChar))
+        if ((nl == "DOS" && currentItem == returnChar))
         {
             dosNext = true;
             continue;
         }
 
-        if (((nl == "UNIX") && (currentItem == newLineChar)) || ((nl == "MAC") && (currentItem == returnChar)) || dosNext == true)
+        if ((nl == "UNIX" && currentItem == newLineChar) || (nl == "MAC" && currentItem == returnChar) || dosNext)
         {
             result.push_back(line);
             line = "";
