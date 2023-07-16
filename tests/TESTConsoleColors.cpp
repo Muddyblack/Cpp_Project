@@ -4,7 +4,7 @@
 #include <ConsoleColors.h>
 BOOST_AUTO_TEST_SUITE(ConsoleColorTestSuite)
 
-    BOOST_AUTO_TEST_CASE(notdefined){
+    BOOST_AUTO_TEST_CASE(baiscfuntionality){
         const std::string expectedoutput ="This will be "
                                     "\033[32mgreen"
                                     " \033[31mred"

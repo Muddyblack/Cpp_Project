@@ -1,7 +1,7 @@
 #define BOOST_TEST_MODULE Parametertests
 #include <boost/test/unit_test.hpp>
 #include <boost/test/tools/output_test_stream.hpp>
-#include "Parameter.h"
+#include <Parameter.h>
 #include <ConsoleColors.h>
 
 BOOST_AUTO_TEST_SUITE(ParameterTestSuite)

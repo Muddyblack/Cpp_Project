@@ -76,3 +76,18 @@ target_link_libraries(TestConsoleColors
         Boost::unit_test_framework
         )
 add_test(NAME TESTConsoleColors COMMAND TESTConsoleColors)
+#[[
+add_executable(TESTGenTxtSrcCode ./tests/TESTGenTxtSrcCode.cpp ./src/GenTxtSrcCode.h)
+target_link_libraries(TESTGenTxtSrcCode
+        ${Boost_LIBRARIES}
+        Boost::unit_test_framework
+        )
+add_test(NAME TESTGenTxtSrcCode COMMAND TESTGenTxtSrcCode)
+
+add_executable(TESTCTextToEscSeq ./tests/TESTCTextToEscSeq.cpp ./lib/CTextToEscSeq.cpp)
+target_link_libraries(TESTCTextToEscSeq
+        ${Boost_LIBRARIES}
+        Boost::unit_test_framework
+        )
+add_test(NAME TESTCTextToEscSeq COMMAND TESTCTextToEscSeq)
+#]]

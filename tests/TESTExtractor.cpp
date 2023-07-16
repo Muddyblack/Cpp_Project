@@ -1,6 +1,6 @@
 #define BOOST_TEST_MODULE ExtractorTests
 #include <boost/test/unit_test.hpp>
-#include "Extractor.h"
+#include <Extractor.h>
 
 BOOST_AUTO_TEST_SUITE(ExtractorTestSuite)
 
