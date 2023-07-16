@@ -5,13 +5,20 @@
 
 #include <CTextToEscSeq.h>
 
+
+/**
+* @brief Function to convert escape characters to corresponding escape sequence
+* @param input string that is being modified
+* @return modified ouput string with escape sequences
+ */
 std::string CTextToEscSeq::convert(std::string inputString, int varLine, std::string inputFile, std::string nl)
 {
     std::stringstream stream;
     unsigned int charPos = 0;
     checkNewLine(inputString, nl);
-
+    // check each character in the input string and replace escape characters
     for (unsigned char c : inputString)
+
     {
         checkASCII(c, varLine, charPos, inputFile);
 
@@ -62,11 +69,13 @@ std::string CTextToEscSeq::convert(std::string inputString, int varLine, std::st
     return stream.str();
 }
 
+// constructor to initialize an instance of the CTextToEscSeq class
 CTextToEscSeq::CTextToEscSeq(const VariableStruct &variable, const ParamStruct &parameter) : CTextToCPP(variable, parameter)
 {
     // constructor implementation
 }
 
+// destructor for the CTextToEscSeq class
 CTextToEscSeq::~CTextToEscSeq()
 {
     // destructor implementation

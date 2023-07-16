@@ -5,7 +5,9 @@
 #include <CTextToRawHexSeq.h>
 
 /**
- * @brief converts ascii-string to raw hex
+ * @brief Converts ascii-string to raw hexadicimal sequence.
+ * @param inputString ASCII string to be converted.
+ * @return rawHexStream Content of the rawHexStream as string.
  */
 std::string CTextToRawHexSeq::convert(std::string inputString, int varLine, std::string inputFile, std::string nl)
 {
@@ -31,10 +33,13 @@ std::string CTextToRawHexSeq::convert(std::string inputString, int varLine, std:
     return stream.str();
 }
 
+// constructor to initialize an instance of the CTextToRawHexSeq class
 CTextToRawHexSeq::CTextToRawHexSeq(const VariableStruct &variable, const ParamStruct &parameter) : CTextToCPP(variable, parameter)
 {
     // constructor implementation
 }
+
+// destructor for the CTextToRawHexSeq class
 CTextToRawHexSeq::~CTextToRawHexSeq()
 {
 }

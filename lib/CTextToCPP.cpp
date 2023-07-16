@@ -10,6 +10,7 @@
 
 #include <CTextToCPP.h>
 
+
 void CTextToCPP::checkASCII(unsigned char &input, int &line, unsigned int &pos, std::string &inputFile)
 {
     int value = static_cast<int>(input);
@@ -53,6 +54,9 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
     std::string newLineChar = "\\n";
     std::string returnChar = "\\r";
 
+    /**
+    * @brief Assign characters for separation, new line and carriage return for each text type.
+    */
     if (seq == "RAWHEX")
     {
         separator = ',';
@@ -72,14 +76,31 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
         returnChar = "015";
     }
 
+
     std::vector<std::string> result;
     std::string line;
+
     int count = 0;
 
+    /**
+    * @brief Vector for extracted substrings.
+    */
     std::vector<std::string> characters;
+    /**
+    * @brief Stringstream object with text.
+    */
     std::stringstream ss(text);
+    /**
+    * @brief Text between separation characters.
+    */
     std::string item;
-    while (std::getline(ss, item, separator))
+
+
+    /**
+    * @brief Extract substrings from text using separator as delimiter and adding them to characters.
+    */
+    while (std::getline(ss, item, seperator))
+
     {
         if (seq == "ESC")
         {
@@ -115,6 +136,13 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
 
     bool dosNext = false;
 
+    /**
+    * @brief Iteration over characters without leading and trailing whitespaces.
+    * Construct the character string depending on the value of seq.
+    * For octal and hexadecimals join the current item together with the separator character except the last item.
+    * Then count the length of the appendet character and check if exceeds the number of signs per line.
+    * New lines are added according to the os type.
+    */
     for (size_t i = 0; i < characters.size(); i++)
     {
         std::string currentItem = characters[i];
@@ -170,11 +198,18 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
     return result;
 }
 
+/**
+* @brief Function to generate content of header file.
+* @return declarationText Text to be declared in header file.
+*/
 std::string CTextToCPP::writeDeclaration()
 { // header stuff
+    /**
+    * @brief Holds the generated declaration code.
+    */
     std::string declarationText;
 
-    // Check Doxgentext
+    // Check Doxygentext
     if (!variable.doxygen.empty())
     {
         declarationText.append("/** " + variable.doxygen);
@@ -201,8 +236,17 @@ std::string CTextToCPP::writeDeclaration()
     return declarationText;
 }
 
+
+/**
+* @brief Function to generate text of the source file.
+* The text is to be converted and new lines are to be inserted.
+* @return Source text.
+*/
 std::string CTextToCPP::writeImplementation()
 { // source stuff
+    /**
+    * @brief Holds the generated source code.
+    */
     std::string sourceText;
 
     sourceText.append("const char ");
@@ -246,6 +290,12 @@ std::string CTextToCPP::writeImplementation()
     return sourceText;
 }
 
+
+/**
+* @brief Function to add elements to a linked list by a pointer to the head node.
+* @param *&head pointer to head node
+* @param string value 
+*/
 void CTextToCPP::addElement(LinkedList *&head, std::string value)
 {
     if (head == nullptr)

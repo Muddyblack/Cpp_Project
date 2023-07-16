@@ -5,7 +5,9 @@
 #include <CTextToOctSeq.h>
 
 /**
- * @brief converts ascii-string to octal
+ * @brief Converts ascii-string to octal sequence.
+ * @param inputString ASCII string to be converted.
+ * @return octStream Content of the octStream as string.
  */
 std::string CTextToOctSeq::convert(std::string inputString, int varLine, std::string inputFile, std::string nl)
 {
@@ -25,11 +27,13 @@ std::string CTextToOctSeq::convert(std::string inputString, int varLine, std::st
     return stream.str();
 }
 
+// constructor to initialize an instance of the CTextToOctSeq class
 CTextToOctSeq::CTextToOctSeq(const VariableStruct &variable, const ParamStruct &parameter) : CTextToCPP(variable, parameter)
 {
     // constructor implementation
 }
 
+// destructor for the CTextToOctSeq class
 CTextToOctSeq::~CTextToOctSeq()
 {
 }
