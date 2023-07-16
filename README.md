@@ -33,6 +33,13 @@
 - [Google Documentation](https://docs.google.com/document/d/1sIRst9a-qz17fm-7Cz3ROre7z4TpLoECRdAn5lM3p3E/edit)
 - [Doxygen Documentation](https://muddyblack.github.io/GenTxtSrcCode/)
 
+## Problem
+
+We had a problem with Unittests they sadly did not work really with the IDE. This Test for example should have 2 Testcases but it never ran both of them...
+So not everybody was able to work on them an d we had not all our workforce for them
+
+![Alt text](./doc/Sicherung/Unbenannt.PNG)
+
 ## Startup
 
 To start working on this project so everybody has a similar version follow this Guide:
