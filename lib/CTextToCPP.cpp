@@ -7,11 +7,26 @@
 
 #include <CTextToCPP.h>
 
-// Function to insert line breaks after certain amount of signs per line
+/**
+* @brief Function to insert line breaks after certain amount of signs per line.
+* @param signPerLine Number of signs per line.
+* @param text Text to be processed. 
+* @param  nl New line character depending on os type
+* @param seq Type of text.
+ */
 std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, std::string &text, const std::string &nl, const std::string &seq)
 {
+    /**
+    * @brief Character that separates words.
+    */
     char seperator = ' ';
+    /**
+    * @brief Escape charcter for new line.
+    */
     std::string newLineChar = "\n";
+    /**
+    * @brief Escape charcter for carriage return.
+    */
     std::string returnChar = "\r";
 
     if (seq == "RAWHEX")
@@ -109,7 +124,7 @@ std::string CTextToCPP::writeDeclaration()
 { // header stuff
     std::string declarationText;
 
-    // Check Doxgentext
+    // Check Doxygentext
     if (!variable.doxygen.empty())
     {
         declarationText.append("/** " + variable.doxygen);

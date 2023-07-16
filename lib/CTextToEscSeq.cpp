@@ -5,9 +5,16 @@
 
 #include <CTextToEscSeq.h>
 
+/**
+* @brief Function to convert escape characters to corresponding escape sequence
+* @param input string that is being modified
+* @return modified ouput string with escape sequences
+ */
 std::string CTextToEscSeq::convert(std::string inputString)
 {
+    // string for output text
     std::string output = "";
+    // check each character in the input string and replace escape characters
     for (char c : inputString)
     {
         switch (c)
@@ -56,11 +63,13 @@ std::string CTextToEscSeq::convert(std::string inputString)
     return output;
 }
 
+// constructor to initialize an instance of the CTextToEscSeq class
 CTextToEscSeq::CTextToEscSeq(const VariableStruct &variable, const ParamStruct &parameter) : CTextToCPP(variable, parameter)
 {
     // constructor implementation
 }
 
+// destructor for the CTextToEscSeq class
 CTextToEscSeq::~CTextToEscSeq()
 {
     // destructor implementation
