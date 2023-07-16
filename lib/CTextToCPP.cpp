@@ -48,7 +48,9 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
         characters.push_back(item);
     }
 
-    for (int i = 0; i < characters.size(); i++)
+    bool dosNext = false;
+
+    for (size_t i = 0; i < characters.size(); i++)
     {
         std::string currentItem = characters[i];
         boost::algorithm::trim(currentItem);
@@ -81,11 +83,18 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
         }
 
         line.append(character);
-        if ((currentItem == newLineChar) || (currentItem == returnChar))
+        if ((nl == "DOS") && (currentItem == returnChar))
+        {
+            dosNext = true;
+            continue;
+        }
+
+        if (((nl == "UNIX") && (currentItem == newLineChar)) || ((nl == "MAC") && (currentItem == returnChar)) || dosNext == true)
         {
             result.push_back(line);
             line = "";
             count = 0;
+            dosNext = false;
         }
     }
 

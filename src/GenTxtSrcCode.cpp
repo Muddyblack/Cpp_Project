@@ -329,15 +329,11 @@ void GenTxtSrcCode::checkVariable(std::map<std::string, std::string> &variable, 
     optValue = toUpperCase(variable["nl"]);
     if (optValue.empty() || optValue == "UNIX")
     {
-        variableInfo.nl = "\n";
+        variableInfo.nl = "UNIX";
     }
-    else if (optValue == "DOS")
+    else if (optValue == "DOS" || optValue == "MAC")
     {
-        variableInfo.nl = "\r\n";
-    }
-    else if (optValue == "MAC")
-    {
-        variableInfo.nl = "\r";
+        variableInfo.nl = optValue;
     }
     else
     {
