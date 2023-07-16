@@ -25,7 +25,7 @@
 </p>
 
 <a href="https://github.com/Muddyblack/GenTxtSrcCode/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Muddyblack/GenTxtSrcCode" />
+  <img src="https://contrib.rocks/image?repo=muddyblack/GenTxtSrcCode" />
 </a>
 
 ## Documentation
