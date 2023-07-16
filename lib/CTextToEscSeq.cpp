@@ -5,55 +5,61 @@
 
 #include <CTextToEscSeq.h>
 
-std::string CTextToEscSeq::convert(std::string inputString)
+std::string CTextToEscSeq::convert(std::string inputString, int varLine, std::string inputFile, std::string nl)
 {
-    std::string output = "";
-    for (char c : inputString)
+    std::stringstream stream;
+    unsigned int charPos = 0;
+    checkNewLine(inputString, nl);
+
+    for (unsigned char c : inputString)
     {
+        checkASCII(c, varLine, charPos, inputFile);
+
         switch (c)
         {
         case '\a':
-            output += "\\a";
+            stream << "\\a";
             break;
         case '\b':
-            output += "\\b";
+            stream << "\\b";
             break;
         case '\e':
-            output += "\\e";
+            stream << "\\e";
             break;
         case '\f':
-            output += "\\f";
+            stream << "\\f";
             break;
         case '\n':
-            output += "\\n";
+            stream << "\\n";
             break;
         case '\r':
-            output += "\\r";
+            stream << "\\r";
             break;
         case '\t':
-            output += "\\t";
+            stream << "\\t";
             break;
         case '\v':
-            output += "\\v";
+            stream << "\\v";
             break;
         case '\\':
-            output += "\\\\";
+            stream << "\\\\";
             break;
         case '\'':
-            output += "\\'";
+            stream << "\\'";
             break;
         case '\"':
-            output += "\\\"";
+            stream << "\\\"";
             break;
         case '\?':
-            output += "\\?";
+            stream << "\\?";
             break;
         default:
-            output += c;
+            stream << c;
             break;
         }
+        charPos++;
     }
-    return output;
+    return stream.str();
 }
 
 CTextToEscSeq::CTextToEscSeq(const VariableStruct &variable, const ParamStruct &parameter) : CTextToCPP(variable, parameter)

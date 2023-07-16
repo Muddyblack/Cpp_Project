@@ -5,7 +5,46 @@
 #include <sstream>
 #include <boost/algorithm/string.hpp>
 
+#include <Logger.h>
+#include <ConsoleColors.h>
+
 #include <CTextToCPP.h>
+
+void CTextToCPP::checkASCII(unsigned char &input, int &line, unsigned int &pos, std::string &inputFile)
+{
+    int value = static_cast<int>(input);
+    if (value >= 0x80)
+    {
+        BOOST_LOG_TRIVIAL(fatal) << RED_COLOR << "ASCII ERROR in: " << BLUE_COLOR << inputFile << RED_COLOR
+                                 << " in line: " << line << ORANGE_COLOR << " it is the: " << pos << " character" << RESET_COLOR << std::endl;
+        exit(1);
+    }
+}
+
+void CTextToCPP::checkNewLine(std::string &input, const std::string &nl)
+{
+    int width = 1;
+    std::string newLineSeperator;
+
+    if (nl == "DOS")
+    {
+        width = 2;
+        newLineSeperator = "\r\n";
+    }
+    else if (nl == "MAC")
+    {
+        newLineSeperator = "\r";
+    }
+    else if (nl == "UNIX")
+    {
+        newLineSeperator = "\n";
+    }
+
+    if (input.substr((input.length() - width)) == newLineSeperator)
+    {
+        input.erase((input.length() - 8));
+    }
+}
 
 // Function to insert line breaks after certain amount of signs per line
 std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, std::string &text, const std::string &nl, const std::string &seq)
@@ -99,7 +138,7 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
         }
         else
         {
-            character = (i < characters.size() - 2) ? currentItem + separator : currentItem;
+            character = (i < characters.size() - 1) ? currentItem + separator : currentItem;
         }
 
         int length = character.length();
@@ -179,7 +218,7 @@ std::string CTextToCPP::writeImplementation()
     }
 
     sourceText.append(" = {\n");
-    std::string convertedContent = convert(variable.content); // have to adapt it to signperLine
+    std::string convertedContent = convert(variable.content, variable.VariableLineNumber, parameter.outputFilename, variable.nl);
     std::vector<std::string> adoptedContent = insertLineBreaks(parameter.signPerLine, convertedContent, variable.nl, variable.seq);
 
     for (std::string line : adoptedContent)

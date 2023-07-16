@@ -10,7 +10,7 @@ public:
     ~CTextToOctSeq();
 
 private:
-    std::string convert(std::string inputString) override;
+    std::string convert(std::string inputString, int varLine, std::string inputFile, std::string nl) override;
 };
 
 #endif // CTEXTTOOCTSEQ_H

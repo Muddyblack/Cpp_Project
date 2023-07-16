@@ -7,15 +7,23 @@
 /**
  * @brief converts ascii-string to hex
  */
-std::string CTextToHexSeq::convert(std::string inputString)
+std::string CTextToHexSeq::convert(std::string inputString, int varLine, std::string inputFile, std::string nl)
 {
-    std::stringstream hexStream;
-    hexStream << std::hex << std::setfill('0');
-    for (char c : inputString)
+
+    std::stringstream stream;
+    stream << std::hex << std::setfill('0');
+    unsigned int charPos = 0;
+
+    // checkNewLine(inputString, nl);
+
+    for (unsigned char c : inputString)
     {
-        hexStream << "\\x" << std::setw(2) << static_cast<int>(c);
+        checkASCII(c, varLine, charPos, inputFile);
+
+        stream << "\\x" << std::setw(2) << static_cast<int>(c);
+        charPos++;
     }
-    return hexStream.str();
+    return stream.str();
 }
 
 CTextToHexSeq::CTextToHexSeq(const VariableStruct &variable, const ParamStruct &parameter) : CTextToCPP(variable, parameter)
