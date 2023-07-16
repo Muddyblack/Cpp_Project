@@ -84,6 +84,11 @@ add_executable(TESTGenTxtSrcCode ./tests/TESTGenTxtSrcCode.cpp ${SOURCES} ./src/
 target_link_libraries(TESTGenTxtSrcCode
         ${Boost_LIBRARIES}
         Boost::unit_test_framework
+        Boost::log 
+        Boost::log_setup 
+        Boost::thread
+        Boost::system
+        Boost::filesystem
         )
 add_test(NAME TESTGenTxtSrcCode COMMAND TESTGenTxtSrcCode)
 
@@ -93,3 +98,10 @@ target_link_libraries(TESTCTextToEscSeq
         Boost::unit_test_framework
         )
 add_test(NAME TESTCTextToEscSeq COMMAND TESTCTextToEscSeq)
+
+add_executable(TESTHelperfunctions ./tests/TESTHelperfunctions.cpp ./lib/Helperfunctions.cpp)
+target_link_libraries(TESTHelperfunctions
+        ${Boost_LIBRARIES}
+        Boost::unit_test_framework
+        )
+add_test(NAME TESTHelperfunctions COMMAND TESTHelperfunctions)
