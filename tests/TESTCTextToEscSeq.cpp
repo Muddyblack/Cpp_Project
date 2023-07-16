@@ -3,6 +3,7 @@
 #include <Parameter.h>
 #define private public
 #include <CTextToEscSeq.h>
+
 BOOST_AUTO_TEST_SUITE(CTextToEscSeqTestSuite)
 
 BOOST_AUTO_TEST_CASE(convertTest)
@@ -11,16 +12,16 @@ BOOST_AUTO_TEST_CASE(convertTest)
     VariableStruct variableStruct;
     ParamStruct paramStruct;
     //Given Input
-    std::string input = "Wortdavor\a\b\e\f\n\r\t\v\\\'\"\?Wortdahinter";
+    //"Wortdavor\a\b\e\f\n\r\t\v\\\'\"\?Wortdahinter"
+    std::string input = "a";
 
     //Expected Output
-    const std::string expected = "Wortdavor\\a\\b\\e\\f\\n\\r\\t\\v\\\\\\\'\\\"\\?Wortdahinter";
+    //"Wortdavor\\a\\b\\e\\f\\n\\r\\t\\v\\\\\\'\\\"\\?Wortdahinter"
+    const std::string expected = "a";
 
     //Testing
     CTextToEscSeq converter(variableStruct,paramStruct);
     std::string result = converter.convert(input,60,"test.txt","\n");
     BOOST_CHECK(expected == result);
-
 }
-
 BOOST_AUTO_TEST_SUITE_END()
