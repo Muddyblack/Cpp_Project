@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(GENTXTSRCCODE)
 
+# Set CTest output color to Always
+set(CTEST_OUTPUT_COLOR Always)
+
 # Set CPP Standard
 set(CMAKE_CXX_STANDARD 17)
 
@@ -76,18 +79,22 @@ target_link_libraries(TestConsoleColors
         Boost::unit_test_framework
         )
 add_test(NAME TESTConsoleColors COMMAND TESTConsoleColors)
-#[[
-add_executable(TESTGenTxtSrcCode ./tests/TESTGenTxtSrcCode.cpp ./src/GenTxtSrcCode.h)
+
+add_executable(TESTGenTxtSrcCode ./tests/TESTGenTxtSrcCode.cpp ${SOURCES} ./src/GenTxtSrcCode.cpp)
 target_link_libraries(TESTGenTxtSrcCode
         ${Boost_LIBRARIES}
         Boost::unit_test_framework
+        Boost::log 
+        Boost::log_setup 
+        Boost::thread
+        Boost::system
+        Boost::filesystem
         )
 add_test(NAME TESTGenTxtSrcCode COMMAND TESTGenTxtSrcCode)
 
-add_executable(TESTCTextToEscSeq ./tests/TESTCTextToEscSeq.cpp ./lib/CTextToEscSeq.cpp)
+add_executable(TESTCTextToEscSeq ./tests/TESTCTextToEscSeq.cpp ${SOURCES} ./lib/CTextToEscSeq.cpp)
 target_link_libraries(TESTCTextToEscSeq
         ${Boost_LIBRARIES}
         Boost::unit_test_framework
         )
 add_test(NAME TESTCTextToEscSeq COMMAND TESTCTextToEscSeq)
-#]]
