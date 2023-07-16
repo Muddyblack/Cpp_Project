@@ -88,7 +88,7 @@ private:
      */
     void parseOptions();
     void checkOptions(std::map<std::string, std::string> &options);
-    void checkVariable(std::map<std::string, std::string> &varibale, const std::string &filename);
+    void checkVariable(std::map<std::string, std::string> &variable, const std::string &filename);
     void printExtraction(std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables);
 
     /**

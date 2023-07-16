@@ -21,6 +21,18 @@ void printParamStruct(const VariableStruct &variableStruct)
     std::cout << "Add the text segment: " << CYAN_COLOR << variableStruct.addtextsegment << RESET_COLOR << std::endl;
     std::cout << "The Doxygentext: " << CYAN_COLOR << variableStruct.doxygen << RESET_COLOR << std::endl;
     std::cout << "The New Line Seperator: " << CYAN_COLOR << variableStruct.nl << RESET_COLOR << std::endl;
+    std::cout << "Variables Content: " << CYAN_COLOR << variableStruct.content << RESET_COLOR << std::endl;
     std::cout << "The Encoding Type: " << CYAN_COLOR << variableStruct.seq << RESET_COLOR << std::endl;
+    std::cout << std::endl;
+}
+
+void printLinkedList(LinkedList *head)
+{
+    LinkedList *current = head;
+    while (current != nullptr)
+    {
+        std::cout << current->data << "\n";
+        current = current->next;
+    }
     std::cout << std::endl;
 }

@@ -1,5 +1,6 @@
 #testing
 func_testing
+output/
 
 #doc
 doc/doc_website
@@ -46,3 +47,11 @@ build/
 *.exe
 *.out
 *.app
+*.sqlite
+*.db-shm
+*.db
+*.opendb
+*.db-wal
+*.lock
+*.vsidx
+*.ipch

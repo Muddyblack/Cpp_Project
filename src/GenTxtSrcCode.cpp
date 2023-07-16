@@ -6,9 +6,13 @@
 #include <sstream>
 
 #include <ConsoleColors.h>
-#include <CTextToCPP.h>
 #include <Extractor.h>
 #include <Helperfunctions.h>
+#include <CTextToEscSeq.h>
+#include <CTextToHexSeq.h>
+#include <CTextToOctSeq.h>
+#include <CTextToRawHexSeq.h>
+
 #include <GenTxtSrcCode.h>
 
 std::unordered_set<std::string> GenTxtSrcCode::reservedKeywords = {
@@ -293,12 +297,12 @@ void GenTxtSrcCode::checkOptions(std::map<std::string, std::string> &options)
     }
 }
 
-void GenTxtSrcCode::checkVariable(std::map<std::string, std::string> &varibale, const std::string &filename)
+void GenTxtSrcCode::checkVariable(std::map<std::string, std::string> &variable, const std::string &filename)
 {
     std::string optValue;
 
-    variableInfo.VariableLineNumber = std::stoi(varibale.at("VariableLineNumber"));
-    optValue = varibale["addtextpos"];
+    variableInfo.VariableLineNumber = std::stoi(variable.at("VariableLineNumber"));
+    optValue = variable["addtextpos"];
     if (optValue == "true")
     {
         variableInfo.addtextpos = true;
@@ -308,7 +312,7 @@ void GenTxtSrcCode::checkVariable(std::map<std::string, std::string> &varibale, 
         variableInfo.addtextpos = false;
     }
 
-    optValue = varibale["addtextsegment"];
+    optValue = variable["addtextsegment"];
     if (optValue == "true")
     {
         variableInfo.addtextsegment = true;
@@ -318,11 +322,11 @@ void GenTxtSrcCode::checkVariable(std::map<std::string, std::string> &varibale, 
         variableInfo.addtextsegment = false;
     }
 
-    variableInfo.doxygen = varibale["doxygen"];
+    variableInfo.doxygen = variable["doxygen"];
 
-    variableInfo.name = isValidVariableName(varibale["varname"], filename);
+    variableInfo.name = isValidVariableName(variable["varname"], filename);
 
-    optValue = toUpperCase(varibale["nl"]);
+    optValue = toUpperCase(variable["nl"]);
     if (optValue.empty() || optValue == "UNIX")
     {
         variableInfo.nl = "\n";
@@ -340,12 +344,13 @@ void GenTxtSrcCode::checkVariable(std::map<std::string, std::string> &varibale, 
         BOOST_LOG_TRIVIAL(fatal) << BLUE_COLOR << filename << RED_COLOR << " nl is not Correct has to be (DOS,MAC,UNIX)\nGiven nl: " << optValue << RESET_COLOR << std::endl;
         exit(1);
     }
-    variableInfo.seq = toUpperCase(varibale["seq"]);
+    variableInfo.seq = toUpperCase(variable["seq"]);
     if (!(variableInfo.seq == "ESC" || variableInfo.seq == "HEX" || variableInfo.seq == "OCT" || variableInfo.seq == "RAWHEX"))
     {
         BOOST_LOG_TRIVIAL(fatal) << BLUE_COLOR << filename << RED_COLOR << " seq is not Correct has to be (ESC,HEX,OCT,RAWHEX)\nGiven seq: " << variableInfo.seq << RESET_COLOR << std::endl;
         exit(1);
     }
+    variableInfo.content = variable["content"];
 }
 
 void GenTxtSrcCode::printExtraction(std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables)
@@ -376,6 +381,8 @@ void GenTxtSrcCode::codeGeneration()
         {
             for (int i = optind; i < argc; ++i)
             {
+                std::string headerCode = "";
+                std::string sourceCode = "";
                 // This is where the magic happens
                 std::string userInputFileName = argv[i];
                 std::string inputFilePath = checkPath(PROJECT_PATH + "\\" + userInputFileName);
@@ -388,6 +395,7 @@ void GenTxtSrcCode::codeGeneration()
 
                 std::map<std::string, std::string> options;
                 std::vector<std::map<std::string, std::string>> variables;
+                std::vector<VariableStruct> variablesInfos;
 
                 extractOptionsAndVariables(inputString, options, variables);
                 checkOptions(options);
@@ -395,6 +403,7 @@ void GenTxtSrcCode::codeGeneration()
                 for (std::map<std::string, std::string> &variable : variables)
                 {
                     checkVariable(variable, inputFileName);
+                    variablesInfos.push_back(variableInfo);
                 }
 
                 if (checkArgs == true)
@@ -405,19 +414,93 @@ void GenTxtSrcCode::codeGeneration()
                     getchar(); // Wait for any key
                 }
 
-                if ((parameterInfo.outputType == "cpp") && (!parameterInfo.namespaceName.empty()))
+                // Start creating the Code
+                std::string definitionName = "_" + toUpperCase(inputFileName) + "_";
+                headerCode.append("#ifndef " + definitionName + "\n");
+                headerCode.append("#define " + definitionName + "\n");
+
+                sourceCode.append("#include <" + inputFileName + ".h>" + "\n\n");
+
+                if ((parameterInfo.outputType == "cpp") && !(parameterInfo.namespaceName.empty()))
                 {
+                    std::string nameSpaceText = "namespace " + parameterInfo.namespaceName + "{\n";
+                    headerCode.append(nameSpaceText);
+                    sourceCode.append(nameSpaceText);
                 }
 
-                /*
-                +
-                + Depending on seq different required Classes
-                +
-                */
-                // CTextToCPP textToCPP(PROJECT_PATH, inputFilePath, parameterInfo);
-                // textToCPP.generateCode();
+                for (const struct VariableStruct &variable : variablesInfos)
+                {
+                    if (variable.seq == "ESC")
+                    {
+                        CTextToEscSeq converter(variable);
+                        headerCode.append(converter.writeDeclaration());
+                        sourceCode.append(converter.writeImplementation());
+                    }
+                    else if (variable.seq == "HEX")
+                    {
+                        CTextToHexSeq converter(variable);
+                        headerCode.append(converter.writeDeclaration());
+                        sourceCode.append(converter.writeImplementation());
+                    }
+                    else if (variable.seq == "OCT")
+                    {
+                        CTextToOctSeq converter(variable);
+                        headerCode.append(converter.writeDeclaration());
+                        sourceCode.append(converter.writeImplementation());
+                    }
+                    else if (variable.seq == "RAWHEX")
+                    {
+                        CTextToRawHexSeq converter(variable);
+                        headerCode.append(converter.writeDeclaration());
+                        sourceCode.append(converter.writeImplementation());
+                    }
+                }
 
-                BOOST_LOG_TRIVIAL(info) << GREEN_COLOR << "Code generation successful for file: " << inputFileName << RESET_COLOR << std::endl;
+                if ((parameterInfo.outputType == "cpp") && !(parameterInfo.namespaceName.empty()))
+                {
+                    std::string nameSpaceText = "}\n";
+                    headerCode.append(nameSpaceText);
+                    sourceCode.append(nameSpaceText);
+                }
+                headerCode.append("#endif");
+
+                // Write to the files
+
+                std::filesystem::path headerFilePath = parameterInfo.headerDir + "\\" + inputFileName + ".h";
+                std::filesystem::path sourceFilePath = parameterInfo.sourceDir + "\\" + inputFileName + "." + parameterInfo.outputType;
+
+                std::filesystem::create_directories(headerFilePath.parent_path());
+                std::filesystem::create_directories(sourceFilePath.parent_path());
+
+                std::ofstream headerFile(headerFilePath.string(), std::ios::trunc);
+
+                if (headerFile.is_open())
+                {
+                    headerFile << headerCode;
+                    headerFile.close();
+                }
+                else
+                {
+                    BOOST_LOG_TRIVIAL(info)
+                        << RED_COLOR << "Could not open: " << headerFilePath.string() << RESET_COLOR << std::endl;
+                    exit(1);
+                }
+
+                std::ofstream sourceFile(sourceFilePath.string(), std::ios::trunc);
+                if (sourceFile.is_open())
+                {
+                    sourceFile << sourceCode;
+                    sourceFile.close();
+                }
+                else
+                {
+                    BOOST_LOG_TRIVIAL(info)
+                        << RED_COLOR << "Could not open: " << sourceFilePath.string() << RESET_COLOR << std::endl;
+                    exit(1);
+                }
+
+                BOOST_LOG_TRIVIAL(info)
+                    << GREEN_COLOR << "Code generation successful for file: " << inputFileName << RESET_COLOR << std::endl;
             }
         }
         catch (const std::exception &e)
