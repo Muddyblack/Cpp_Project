@@ -6,7 +6,7 @@
 class CTextToOctSeq : public CTextToCPP
 {
 public:
-    std::string toOct(std::string inputString);
+    std::string convert(std::string inputString, int lineNumber);
 
 private:
 };

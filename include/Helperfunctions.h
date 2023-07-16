@@ -1,3 +1,6 @@
+#ifndef HELPERFUNCTIONS_H
+#define HELPERFUNCTIONS_H
+
 #include <string>
 
 std::string toLowerCase(const std::string &str);
@@ -15,3 +18,5 @@ std::string checkPath(const std::string &path);
  * @brief Clears the console screen
  */
 void clearConsole();
+
+#endif

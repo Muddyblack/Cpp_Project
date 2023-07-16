@@ -32,8 +32,9 @@ void printVariableStruct(const VariableStruct &variableStruct);
 
 struct LinkedList
 {
-    std::string data;
     LinkedList *next;
+    std::string varname;
+    std::string content;
 };
 void printLinkedList(LinkedList *head);
 

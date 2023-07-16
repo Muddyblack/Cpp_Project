@@ -12,12 +12,13 @@ public:
     CTextToCPP();
     ~CTextToCPP();
 
-    void addElement(LinkedList *&head, std::string value);
-    void sort();
+    void addElement(LinkedList *&head, std::string varname, std::string content);
+    void sort(LinkedList *&head, std::string varname, std::string content);
     void clear();
 
     std::string writeDeclaration(const VariableStruct variable);
     std::string writeImplementation(const VariableStruct variable);
+    //std::string removeNewline(std::string input);
 
 private:
     struct ParamStruct parameter;

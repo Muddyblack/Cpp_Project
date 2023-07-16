@@ -6,7 +6,7 @@
 class CTextToEscSeq : public CTextToCPP
 {
 public:
-    std::string toEsc(std::string inputString);
+    std::string convert(std::string inputString, int lineNumber);
 
 private:
 };
