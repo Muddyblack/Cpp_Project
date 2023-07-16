@@ -10,6 +10,7 @@ set(CMAKE_CXX_STANDARD 17)
 #setup Testing
 set(CMAKE_CXX_FLAGS "--coverage -g -O0")
 set(CMAKE_EXE_LINKER_FLAGS "--coverage -g -O0")
+set(CTEST_USE_LAUNCHERS OFF)
 ENABLE_TESTING()
 
 # Set the character encoding to UTF-8
