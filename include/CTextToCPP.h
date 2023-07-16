@@ -5,8 +5,11 @@
 #include <map>
 #include <Parameter.h>
 #include <vector>
-
-
+struct Node
+{
+    std::string data; // Elements
+    Node *next;
+};
 /**
  * @brief Base class for data management.
  */
@@ -29,24 +32,24 @@ public:
     /**
      * @brief Function for adding a new element to the LinkedList.
      * @param *&head pointer to head node
-     * @param string value 
+     * @param string value
      */
-    void addElement(LinkedList *&head, std::string value);
+    void addElement(Node *&head, std::string value);
     /**
      * @brief Function to sort elements alphabetically.
      */
-    void sort();
-     /**
+    void sort(Node **head);
+    /**
      * @brief Function to delete all elements.
      */
-    void clear();
+    void clear(Node *&head);
 
     /**
      * @brief Function to generate declaration text.
      * @return Declaration text.
      */
     std::string writeDeclaration();
-     /**
+    /**
      * @brief Function to generate source text.
      * @return Source text.
      */
@@ -62,22 +65,21 @@ private:
      */
     struct VariableStruct variable;
 
-
     /**
-    * @brief Function to convert escape characters to corresponding escape sequence.
-    * @param inputString String that is being modified.
-    * @return Modified ouput string with escape sequences.
-    */
+     * @brief Function to convert escape characters to corresponding escape sequence.
+     * @param inputString String that is being modified.
+     * @return Modified ouput string with escape sequences.
+     */
     virtual std::string convert(std::string inputString, int varLine, std::string inputFile, std::string nl) = 0;
 
     /**
-    * @brief Function to insert line breaks after certain amount of signs per line.
-    * @param signPerLine Number of signs per line.
-    * @param text Text to be processed. 
-    * @param  nl New line character depending on os type
-    * @param seq Type of text.
-    * @return Text with each line not longer than the given number of signs per line.
-    */
+     * @brief Function to insert line breaks after certain amount of signs per line.
+     * @param signPerLine Number of signs per line.
+     * @param text Text to be processed.
+     * @param  nl New line character depending on os type
+     * @param seq Type of text.
+     * @return Text with each line not longer than the given number of signs per line.
+     */
     std::vector<std::string> insertLineBreaks(const int &signPerLine, std::string &text, const std::string &nl, const std::string &seq);
 
     /**
@@ -85,7 +87,7 @@ private:
      */
     std::string PROJECT_PATH;
 
-     /**
+    /**
      * @brief Represents input file path.
      */
     std::string inputFilePath;

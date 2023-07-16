@@ -25,14 +25,3 @@ void printParamStruct(const VariableStruct &variableStruct)
     std::cout << "The Encoding Type: " << CYAN_COLOR << variableStruct.seq << RESET_COLOR << std::endl;
     std::cout << std::endl;
 }
-
-void printLinkedList(LinkedList *head)
-{
-    LinkedList *current = head;
-    while (current != nullptr)
-    {
-        std::cout << current->data << "\n";
-        current = current->next;
-    }
-    std::cout << std::endl;
-}

@@ -17,10 +17,10 @@ namespace keywords = boost::log::keywords;
 namespace sinks = boost::log::sinks;
 
 /**
- * @brief initialize the configuration 
+ * @brief initialize the configuration
  * @param logFilePath
  */
-Logging - Konfiguration zu initialisieren und die Log - Datei einzurichten.
+
 void setup_logging(const std::string &logFilePath)
 {
     logging::add_file_log(

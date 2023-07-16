@@ -10,7 +10,6 @@
 
 #include <CTextToCPP.h>
 
-
 void CTextToCPP::checkASCII(unsigned char &input, int &line, unsigned int &pos, std::string &inputFile)
 {
     int value = static_cast<int>(input);
@@ -55,8 +54,8 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
     std::string returnChar = "\\r";
 
     /**
-    * @brief Assign characters for separation, new line and carriage return for each text type.
-    */
+     * @brief Assign characters for separation, new line and carriage return for each text type.
+     */
     if (seq == "RAWHEX")
     {
         separator = ',';
@@ -76,30 +75,28 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
         returnChar = "015";
     }
 
-
     std::vector<std::string> result;
     std::string line;
 
     int count = 0;
 
     /**
-    * @brief Vector for extracted substrings.
-    */
+     * @brief Vector for extracted substrings.
+     */
     std::vector<std::string> characters;
     /**
-    * @brief Stringstream object with text.
-    */
+     * @brief Stringstream object with text.
+     */
     std::stringstream ss(text);
     /**
-    * @brief Text between separation characters.
-    */
+     * @brief Text between separation characters.
+     */
     std::string item;
 
-
     /**
-    * @brief Extract substrings from text using separator as delimiter and adding them to characters.
-    */
-    while (std::getline(ss, item, seperator))
+     * @brief Extract substrings from text using separator as delimiter and adding them to characters.
+     */
+    while (std::getline(ss, item, separator))
 
     {
         if (seq == "ESC")
@@ -137,12 +134,12 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
     bool dosNext = false;
 
     /**
-    * @brief Iteration over characters without leading and trailing whitespaces.
-    * Construct the character string depending on the value of seq.
-    * For octal and hexadecimals join the current item together with the separator character except the last item.
-    * Then count the length of the appendet character and check if exceeds the number of signs per line.
-    * New lines are added according to the os type.
-    */
+     * @brief Iteration over characters without leading and trailing whitespaces.
+     * Construct the character string depending on the value of seq.
+     * For octal and hexadecimals join the current item together with the separator character except the last item.
+     * Then count the length of the appendet character and check if exceeds the number of signs per line.
+     * New lines are added according to the os type.
+     */
     for (size_t i = 0; i < characters.size(); i++)
     {
         std::string currentItem = characters[i];
@@ -199,14 +196,14 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
 }
 
 /**
-* @brief Function to generate content of header file.
-* @return declarationText Text to be declared in header file.
-*/
+ * @brief Function to generate content of header file.
+ * @return declarationText Text to be declared in header file.
+ */
 std::string CTextToCPP::writeDeclaration()
 { // header stuff
     /**
-    * @brief Holds the generated declaration code.
-    */
+     * @brief Holds the generated declaration code.
+     */
     std::string declarationText;
 
     // Check Doxygentext
@@ -236,17 +233,16 @@ std::string CTextToCPP::writeDeclaration()
     return declarationText;
 }
 
-
 /**
-* @brief Function to generate text of the source file.
-* The text is to be converted and new lines are to be inserted.
-* @return Source text.
-*/
+ * @brief Function to generate text of the source file.
+ * The text is to be converted and new lines are to be inserted.
+ * @return Source text.
+ */
 std::string CTextToCPP::writeImplementation()
 { // source stuff
     /**
-    * @brief Holds the generated source code.
-    */
+     * @brief Holds the generated source code.
+     */
     std::string sourceText;
 
     sourceText.append("const char ");
@@ -290,41 +286,86 @@ std::string CTextToCPP::writeImplementation()
     return sourceText;
 }
 
-
 /**
-* @brief Function to add elements to a linked list by a pointer to the head node.
-* @param *&head pointer to head node
-* @param string value 
-*/
-void CTextToCPP::addElement(LinkedList *&head, std::string value)
+ * @brief Function to add elements to a linked list by a pointer to the head node.
+ * @param *&head pointer to head node
+ * @param string value
+ */
+void CTextToCPP::addElement(Node *&head, std::string value)
 {
     if (head == nullptr)
     {
         // The list is empty, create a new head node
-        head = new LinkedList{value, nullptr};
+        head = new Node{value, nullptr};
     }
     else
     {
         // Traverse the list to find the last node
-        LinkedList *current = head;
+        Node *current = head;
         while (current->next != nullptr)
         {
             current = current->next;
         }
 
         // Create a new node and link it to the last node
-        current->next = new LinkedList{value, nullptr};
+        current->next = new Node{value, nullptr};
     }
 }
 
-void CTextToCPP::sort()
+void CTextToCPP::sort(Node **head)
 {
-    std::cout << "Hiii" << std::endl;
+    // Check, if zero or only one element
+    if (*head == nullptr || (*head)->next == nullptr)
+    {
+        return;
+    }
+    //->um auf ein Element in einem Objekt oder Zeiger auf ein Objekt zuzugreifen
+    // Bubblesort
+    bool sorted = false;
+    while (!sorted)
+    {
+        sorted = true;
+        Node *current = *head;
+        Node *previous = nullptr;
+        Node *nextNode = (*head)->next;
+
+        while (nextNode != nullptr)
+        {
+            if (current->data > nextNode->data)
+            {
+                // Trade Positions of current and next element
+                if (previous != nullptr)
+                {
+                    previous->next = nextNode;
+                }
+                else
+                {
+                    *head = nextNode;
+                }
+                current->next = nextNode->next;
+                nextNode->next = current;
+                previous = nextNode;
+                nextNode = current->next;
+                sorted = false;
+            }
+            else
+            {
+                previous = current;
+                current = nextNode;
+                nextNode = nextNode->next;
+            }
+        }
+    }
 }
 
-void CTextToCPP::clear()
+void CTextToCPP::clear(Node *&head) // To free storage space
 {
-    std::cout << "Hiii" << std::endl;
+    while (head != nullptr)
+    {
+        Node *temp = head;
+        head = head->next;
+        delete temp;
+    }
 }
 
 CTextToCPP::~CTextToCPP()

@@ -30,11 +30,4 @@ struct VariableStruct
 };
 void printVariableStruct(const VariableStruct &variableStruct);
 
-struct LinkedList
-{
-    std::string data;
-    LinkedList *next;
-};
-void printLinkedList(LinkedList *head);
-
 #endif // PARAMETER_H
