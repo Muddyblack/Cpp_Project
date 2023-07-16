@@ -9,15 +9,23 @@
  * @param inputString ASCII string to be converted.
  * @return hexStream Content of the hexStream as string.
  */
-std::string CTextToHexSeq::convert(std::string inputString)
+std::string CTextToHexSeq::convert(std::string inputString, int varLine, std::string inputFile, std::string nl)
 {
-    std::stringstream hexStream;
-    hexStream << std::hex << std::setfill('0');
-    for (char c : inputString)
+
+    std::stringstream stream;
+    stream << std::hex << std::setfill('0');
+    unsigned int charPos = 0;
+
+    // checkNewLine(inputString, nl);
+
+    for (unsigned char c : inputString)
     {
-        hexStream << "\\x" << std::setw(2) << static_cast<int>(c);
+        checkASCII(c, varLine, charPos, inputFile);
+
+        stream << "\\x" << std::setw(2) << static_cast<int>(c);
+        charPos++;
     }
-    return hexStream.str();
+    return stream.str();
 }
 
 // constructor to initialize an instance of the CTextToEscSeq class

@@ -10,7 +10,7 @@ public:
     ~CTextToHexSeq();
 
 private:
-    std::string convert(std::string inputString) override;
+    std::string convert(std::string inputString, int varLine, std::string inputFile, std::string nl) override;
 };
 
 #endif // CTEXTTOHEXSEQ_H
