@@ -4,7 +4,7 @@
 
 #include <CTextToOctSeq.h>
 
-std::string CTextToOctSeq::convert(std::string inputString, int varLine, std::string inputFile, std::string nl)
+std::string CTextToOctSeq::convert(std::string &inputString, const int &varLine, const std::string &inputFile, const std::string &nl)
 {
     std::stringstream stream;
     stream << std::oct << std::setfill('0');

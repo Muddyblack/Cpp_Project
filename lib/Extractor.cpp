@@ -44,7 +44,7 @@ void extractOptionsAndVariables(const std::string &inputFilePath, std::map<std::
     bool work = false;
     bool started = false;
 
-    // Differentiates between different @�s
+    // Differentiates between different @'s
     const std::string startString = "@start";
     const std::string endString = "@end";
     const std::string globalString = "@global";
@@ -55,7 +55,7 @@ void extractOptionsAndVariables(const std::string &inputFilePath, std::map<std::
     int lineNumber = 0;
 
     std::ifstream inputFile(inputFilePath);
-    std::string inputString((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
+    const std::string inputString((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
     char x = '@';
 
     // Check if @ even exists in the file
@@ -89,13 +89,13 @@ void extractOptionsAndVariables(const std::string &inputFilePath, std::map<std::
         {
             if (globalString == line.substr(0, line.find(' ')) && currentVariable == false)
             {
-                std::string::size_type startPos = line.find("{");
-                std::string::size_type endPos = line.find("}");
+                const std::string::size_type startPos = line.find("{");
+                const std::string::size_type endPos = line.find("}");
                 if (startPos != std::string::npos)
                 {
-                    std::string variableString = line.substr(startPos, endPos - startPos + 1);
+                    const std::string variableString = line.substr(startPos, endPos - startPos + 1);
 
-                    std::map<std::string, std::string> tempOptions = parseJsonString(variableString);
+                    const std::map<std::string, std::string> tempOptions = parseJsonString(variableString);
                     options.insert(tempOptions.begin(), tempOptions.end());
                 }
             }
@@ -103,11 +103,11 @@ void extractOptionsAndVariables(const std::string &inputFilePath, std::map<std::
             {
                 currentVarDic.clear();
 
-                std::string::size_type startPos = line.find("{");
-                std::string::size_type endPos = line.find("}");
+                const std::string::size_type startPos = line.find("{");
+                const std::string::size_type endPos = line.find("}");
                 if (startPos != std::string::npos)
                 {
-                    std::string variableString = line.substr(startPos, endPos - startPos + 1);
+                    const std::string variableString = line.substr(startPos, endPos - startPos + 1);
 
                     currentVarDic = parseJsonString(variableString);
                     currentVarDic.insert({"VariableLineNumber", std::to_string(lineNumber)});

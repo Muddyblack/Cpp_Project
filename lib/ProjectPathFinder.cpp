@@ -14,19 +14,19 @@ ProjectPathFinder::ProjectPathFinder()
 
 std::string ProjectPathFinder::getExecutablePath()
 {
-    fs::path path = fs::current_path();
+    const fs::path path = fs::current_path();
 
     return path.string();
 }
 
-std::string ProjectPathFinder::getProjectFolderPath(std::string &PROJECT_NAME, bool useFile)
+std::string ProjectPathFinder::getProjectFolderPath(const std::string &PROJECT_NAME, const bool useFile)
 {
     std::string executablePath;
 
     if (useFile)
     {
         // __FILE__ gives the complete Path to the current File during the Compilation time
-        fs::path filePath(__FILE__);
+        const fs::path filePath(__FILE__);
         executablePath = filePath.parent_path().string();
     }
     else
@@ -56,7 +56,7 @@ std::string ProjectPathFinder::getProjectFolderPath(std::string &PROJECT_NAME, b
             return executablePath;
         }
 
-        fs::path projectFolderPath = executableDir / PROJECT_NAME;
+        const fs::path projectFolderPath = executableDir / PROJECT_NAME;
 
         if (fs::exists(projectFolderPath))
         {

@@ -42,7 +42,7 @@ private:
      * @param  nl New line character depending on os type
      * @return Modified ouput string with escape sequences.
      */
-    std::string convert(std::string inputString, int varLine, std::string inputFile, std::string nl) override;
+    std::string convert(std::string &inputString, const int &varLine, const std::string &inputFile, const std::string &nl) override;
 };
 
 #endif // CTEXTTORAWHEXSEQ_H

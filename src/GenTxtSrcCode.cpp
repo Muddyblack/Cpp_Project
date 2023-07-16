@@ -78,7 +78,7 @@ std::string GenTxtSrcCode::checkLanguageType(const std::string &input)
 void GenTxtSrcCode::isValidFileName(const std::string &fileName)
 {
     // Regular expression pattern for valid file name
-    std::regex pattern(R"([^\x00-\x1F\x7F\\/:*?"<>|]+)");
+    const std::regex pattern(R"([^\x00-\x1F\x7F\\/:*?"<>|]+)");
 
     if (std::regex_match(fileName, pattern) == false)
     {
@@ -90,7 +90,7 @@ void GenTxtSrcCode::isValidFileName(const std::string &fileName)
 void GenTxtSrcCode::isValidNamespace(const std::string &ns)
 {
     // Regular expression pattern for valid C++ namespace
-    std::regex pattern("^(::)?[a-zA-Z_][a-zA-Z0-9_]*(::[a-zA-Z_][a-zA-Z0-9_]*)*$");
+    const std::regex pattern("^(::)?[a-zA-Z_][a-zA-Z0-9_]*(::[a-zA-Z_][a-zA-Z0-9_]*)*$");
 
     // Check if the string matches the pattern
     if ((std::regex_match(ns, pattern) == false) && !ns.empty())
@@ -167,12 +167,9 @@ void GenTxtSrcCode::parseOptions()
         {
         case 'H':
             parameterInfo.headerDir = checkPath(optarg);
-            ;
-            // isValidPath(optionName, headerDir);
             break;
         case 'S':
             parameterInfo.sourceDir = checkPath(optarg);
-            // isValidPath(optionName, sourceDir);
             break;
         case 't':
             parameterInfo.outputType = checkLanguageType(optarg);
@@ -349,7 +346,7 @@ void GenTxtSrcCode::checkVariable(std::map<std::string, std::string> &variable, 
     variableInfo.content = variable["content"];
 }
 
-void GenTxtSrcCode::printExtraction(std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables)
+void GenTxtSrcCode::printExtraction(const std::map<std::string, std::string> &options, const std::vector<std::map<std::string, std::string>> &variables)
 {
     std::cout << "Options:\n";
     for (const auto &option : options)
@@ -380,15 +377,15 @@ void GenTxtSrcCode::codeGeneration()
                 std::string headerCode = "";
                 std::string sourceCode = "";
                 // This is where the magic happens
-                std::string userInputFileName = argv[i];
-                std::string inputFilePath = checkPath(PROJECT_PATH + "\\" + userInputFileName);
+                const std::string userInputFileName = argv[i];
+                const std::string inputFilePath = checkPath(PROJECT_PATH + "\\" + userInputFileName);
 
                 std::map<std::string, std::string> options;
                 std::vector<std::map<std::string, std::string>> variables;
                 std::vector<VariableStruct> variablesInfos;
 
-                std::filesystem::path filePath(inputFilePath);
-                std::string inputFileName = filePath.stem().string();
+                const std::filesystem::path filePath(inputFilePath);
+                const std::string inputFileName = filePath.stem().string();
 
                 extractOptionsAndVariables(inputFilePath, options, variables);
                 checkOptions(options);
@@ -408,7 +405,7 @@ void GenTxtSrcCode::codeGeneration()
                 }
 
                 // Start creating the Code
-                std::string definitionName = "_" + toUpperCase(inputFileName) + "_";
+                const std::string definitionName = "_" + toUpperCase(inputFileName) + "_";
                 headerCode.append("#ifndef " + definitionName + "\n");
                 headerCode.append("#define " + definitionName + "\n");
 
@@ -416,7 +413,7 @@ void GenTxtSrcCode::codeGeneration()
 
                 if ((parameterInfo.outputType == "cpp") && !(parameterInfo.namespaceName.empty()))
                 {
-                    std::string nameSpaceText = "namespace " + parameterInfo.namespaceName + "{\n";
+                    const std::string nameSpaceText = "namespace " + parameterInfo.namespaceName + "{\n";
                     headerCode.append(nameSpaceText);
                     sourceCode.append(nameSpaceText);
                 }
@@ -424,7 +421,7 @@ void GenTxtSrcCode::codeGeneration()
                 if ((variables.empty()))
                 {
                     std::ifstream inputFile(inputFilePath);
-                    std::string inputString((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
+                    const std::string inputString((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
                     variableInfo.content = inputString;
 
                     headerCode.append("extern const char *const " + inputFileName + ";\n");
@@ -461,7 +458,7 @@ void GenTxtSrcCode::codeGeneration()
 
                 if ((parameterInfo.outputType == "cpp") && !(parameterInfo.namespaceName.empty()))
                 {
-                    std::string nameSpaceText = "}\n";
+                    const std::string nameSpaceText = "}\n";
                     headerCode.append(nameSpaceText);
                     sourceCode.append(nameSpaceText);
                 }
@@ -469,8 +466,8 @@ void GenTxtSrcCode::codeGeneration()
 
                 // Write to the files
 
-                std::filesystem::path headerFilePath = parameterInfo.headerDir + "\\" + inputFileName + ".h";
-                std::filesystem::path sourceFilePath = parameterInfo.sourceDir + "\\" + inputFileName + "." + parameterInfo.outputType;
+                const std::filesystem::path headerFilePath = parameterInfo.headerDir + "\\" + inputFileName + ".h";
+                const std::filesystem::path sourceFilePath = parameterInfo.sourceDir + "\\" + inputFileName + "." + parameterInfo.outputType;
 
                 std::filesystem::create_directories(headerFilePath.parent_path());
                 std::filesystem::create_directories(sourceFilePath.parent_path());

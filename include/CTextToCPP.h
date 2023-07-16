@@ -36,7 +36,7 @@ protected:
      * @param pos The position of the character in the variable-part string.
      * @param inputFile The name of the input file.
      */
-    void checkASCII(unsigned char &input, int &line, unsigned int &pos, std::string &inputFile);
+    void checkASCII(const unsigned char &input, const int &line, const unsigned int &pos, const std::string &inputFile);
 
     /**
      * @brief Checks and handles the presence of new line characters in the input string.
@@ -122,7 +122,7 @@ private:
      *
      * @return The modified output string with the desired format.
      */
-    virtual std::string convert(std::string inputString, int varLine, std::string inputFile, std::string nl) = 0;
+    virtual std::string convert(std::string &inputString, const int &varLine, const std::string &inputFile, const std::string &nl) = 0;
 
     /**
      * @brief Function to insert line breaks after certain amount of signs per line.
@@ -133,7 +133,7 @@ private:
      * @param seq Type of text.
      * @return The modified text with each line not longer than the given number of signs per line.
      */
-    std::vector<std::string> insertLineBreaks(const int &signPerLine, std::string &text, const std::string &nl, const std::string &seq);
+    std::vector<std::string> insertLineBreaks(const int &signPerLine, const std::string &text, const std::string &nl, const std::string &seq);
 
     /**
      * @brief Represents project path.

@@ -41,7 +41,7 @@ public:
      *
      * @return The project folder path.
      */
-    std::string getProjectFolderPath(std::string &PROJECT_NAME, bool useFile = true);
+    std::string getProjectFolderPath(const std::string &PROJECT_NAME, const bool useFile = true);
 
 private:
     std::string PROJECT_NAME; /**< The name of the project. */

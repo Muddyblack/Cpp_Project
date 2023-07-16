@@ -10,9 +10,9 @@
 
 #include <CTextToCPP.h>
 
-void CTextToCPP::checkASCII(unsigned char &input, int &line, unsigned int &pos, std::string &inputFile)
+void CTextToCPP::checkASCII(const unsigned char &input, const int &line, const unsigned int &pos, const std::string &inputFile)
 {
-    int value = static_cast<int>(input);
+    const int value = static_cast<int>(input);
     if (value >= 0x80)
     {
         BOOST_LOG_TRIVIAL(fatal) << RED_COLOR << "ASCII ERROR in: " << BLUE_COLOR << inputFile << RED_COLOR
@@ -42,12 +42,12 @@ void CTextToCPP::checkNewLine(std::string &input, const std::string &nl)
 
     if (input.substr((input.length() - width)) == newLineSeperator)
     {
-        input.erase((input.length() - 8));
+        input.erase((input.length() - width));
     }
 }
 
 // Function to insert line breaks after certain amount of signs per line
-std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, std::string &text, const std::string &nl, const std::string &seq)
+std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, const std::string &text, const std::string &nl, const std::string &seq)
 {
     char separator = ' ';
     std::string newLineChar = "\\n";
@@ -248,8 +248,8 @@ std::string CTextToCPP::writeImplementation()
     }
 
     sourceText.append(" = {\n");
-    std::string convertedContent = convert(variable.content, variable.VariableLineNumber, parameter.outputFilename, variable.nl);
-    std::vector<std::string> adoptedContent = insertLineBreaks(parameter.signPerLine, convertedContent, variable.nl, variable.seq);
+    const std::string convertedContent = convert(variable.content, variable.VariableLineNumber, parameter.outputFilename, variable.nl);
+    const std::vector<std::string> adoptedContent = insertLineBreaks(parameter.signPerLine, convertedContent, variable.nl, variable.seq);
 
     for (std::string line : adoptedContent)
     {
@@ -265,7 +265,7 @@ std::string CTextToCPP::writeImplementation()
 
     if (variable.addtextsegment)
     {
-        std::string originalTextComment = "/*\nOriginaltext aus der Variablensektion '" + variable.name + "'\n\n" + variable.content + "*/\n";
+        const std::string originalTextComment = "/*\nOriginaltext aus der Variablensektion '" + variable.name + "'\n\n" + variable.content + "*/\n";
         sourceText.append(originalTextComment);
     }
 

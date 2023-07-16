@@ -18,7 +18,6 @@
 #include <Parameter.h>
 
 /**
-/**
  * @class GenTxtSrcCode
  * @brief Handles the generation of C/C++ code based on user input parameters.
  *
@@ -138,7 +137,7 @@ private:
      * @param options The extracted options as a map of option names to option values.
      * @param variables The extracted variables as a vector of maps, where each map represents a variable's properties.
      */
-    void printExtraction(std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables);
+    void printExtraction(const std::map<std::string, std::string> &options, const std::vector<std::map<std::string, std::string>> &variables);
 
     /**
      * @brief Generates the code based on the parsed command-line options and input files.

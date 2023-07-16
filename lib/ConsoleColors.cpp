@@ -3,7 +3,7 @@
 
 void EnableConsoleColors()
 {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    const HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     DWORD dwMode = 0;
     GetConsoleMode(hConsole, &dwMode);
     SetConsoleMode(hConsole, dwMode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);

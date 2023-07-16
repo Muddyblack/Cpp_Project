@@ -4,7 +4,7 @@
 
 #include <CTextToRawHexSeq.h>
 
-std::string CTextToRawHexSeq::convert(std::string inputString, int varLine, std::string inputFile, std::string nl)
+std::string CTextToRawHexSeq::convert(std::string &inputString, const int &varLine, const std::string &inputFile, const std::string &nl)
 {
     std::stringstream stream;
     stream << std::hex << std::setfill('0');
