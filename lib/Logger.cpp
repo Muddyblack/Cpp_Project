@@ -16,11 +16,6 @@ namespace attrs = boost::log::attributes;
 namespace keywords = boost::log::keywords;
 namespace sinks = boost::log::sinks;
 
-/**
- * @brief initialize the configuration
- * @param logFilePath
- */
-
 void setup_logging(const std::string &logFilePath)
 {
     logging::add_file_log(

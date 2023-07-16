@@ -1,3 +1,7 @@
+/**
+ * @file Extractor.h
+ * @brief Contains functions for parsing JSON strings and extracting options and variables from input files.
+ */
 #ifndef EXTRACTOR_H
 #define EXTRACTOR_H
 

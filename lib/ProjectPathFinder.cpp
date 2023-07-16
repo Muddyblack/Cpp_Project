@@ -12,10 +12,6 @@ ProjectPathFinder::ProjectPathFinder()
 {
 }
 
-/**
- * @brief gets path for file
- * @return the path in a string
- */
 std::string ProjectPathFinder::getExecutablePath()
 {
     fs::path path = fs::current_path();
@@ -23,12 +19,6 @@ std::string ProjectPathFinder::getExecutablePath()
     return path.string();
 }
 
-/**
- * @brief 
- * @param PROJECT_NAME name of the Project file
- * @param useFile
- * @return directory of the File
- */
 std::string ProjectPathFinder::getProjectFolderPath(std::string &PROJECT_NAME, bool useFile)
 {
     std::string executablePath;

@@ -1,6 +1,6 @@
 /**
  * @file Logger.h
- * @brief Initializes the logger
+ * @brief Contains functions for initializing the logger.
  */
 
 #ifndef LOGGER_H
@@ -10,9 +10,12 @@
 #include <string>
 
 /**
- * Setting up the logger
+ * @brief Sets up the logger with the specified log file path.
  *
- * @param logFilePath The input string containing the path where the log should be saved
+ * This function initializes the logger and configures it to write log messages to both a file and the console.
+ * The log messages with severity level equal to or higher than `info` will be logged.
+ *
+ * @param logFilePath The path where the log file should be saved.
  */
 void setup_logging(const std::string &logFilePath);
 

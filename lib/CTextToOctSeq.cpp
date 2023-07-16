@@ -4,11 +4,6 @@
 
 #include <CTextToOctSeq.h>
 
-/**
- * @brief Converts ascii-string to octal sequence.
- * @param inputString ASCII string to be converted.
- * @return octStream Content of the octStream as string.
- */
 std::string CTextToOctSeq::convert(std::string inputString, int varLine, std::string inputFile, std::string nl)
 {
     std::stringstream stream;

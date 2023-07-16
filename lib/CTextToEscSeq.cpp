@@ -5,12 +5,6 @@
 
 #include <CTextToEscSeq.h>
 
-
-/**
-* @brief Function to convert escape characters to corresponding escape sequence
-* @param input string that is being modified
-* @return modified ouput string with escape sequences
- */
 std::string CTextToEscSeq::convert(std::string inputString, int varLine, std::string inputFile, std::string nl)
 {
     std::stringstream stream;

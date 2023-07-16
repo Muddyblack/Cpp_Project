@@ -14,12 +14,6 @@
 #include <ConsoleColors.h>
 #include <Extractor.h>
 
-/**
- * @brief Saves a Json string in a dictionary
- * @param jsonString 
- * @return dictionary of key-value pairs
- */
-
 std::map<std::string, std::string> parseJsonString(const std::string &jsonString)
 {
     std::map<std::string, std::string> dictionary;
@@ -40,13 +34,6 @@ std::map<std::string, std::string> parseJsonString(const std::string &jsonString
     return dictionary;
 }
 
-/**
- * @brief extracts all Options and Variables from the input File
- * @param inputFilePath Path of the File you want to read from
- * @param options different options that are fixed in the input File
- * @param variables different variables that are fixed in the input File
- */
-
 void extractOptionsAndVariables(const std::string &inputFilePath, std::map<std::string, std::string> &options, std::vector<std::map<std::string, std::string>> &variables)
 {
     boost::char_separator<char> newlineSeparator("\n");
@@ -57,7 +44,7 @@ void extractOptionsAndVariables(const std::string &inputFilePath, std::map<std::
     bool work = false;
     bool started = false;
 
-    // Differentiates between different @´s
+    // Differentiates between different @ï¿½s
     const std::string startString = "@start";
     const std::string endString = "@end";
     const std::string globalString = "@global";
@@ -80,7 +67,8 @@ void extractOptionsAndVariables(const std::string &inputFilePath, std::map<std::
     std::istringstream iss(inputString);
     std::string line;
 
-    // Read all lines of the file, one after another
+    // Read all lines of the file, one after another ignoring text before @start and after @endcond
+    // puts correct parameter in correct dictionary. Uses Boost to parse the parameter of the tags which have JSON Format
     while (std::getline(iss, line))
     {
         lineNumber++;
@@ -97,10 +85,8 @@ void extractOptionsAndVariables(const std::string &inputFilePath, std::map<std::
             work = false;
             break;
         }
-        // If the first if condition is true:
         else if (work)
         {
-            // If @global and everything before the first ' ' are the same
             if (globalString == line.substr(0, line.find(' ')) && currentVariable == false)
             {
                 std::string::size_type startPos = line.find("{");
@@ -113,7 +99,6 @@ void extractOptionsAndVariables(const std::string &inputFilePath, std::map<std::
                     options.insert(tempOptions.begin(), tempOptions.end());
                 }
             }
-            // If @variable and everything before the first ' ' are the same
             else if (variableString == line.substr(0, line.find(' ')) && currentVariable == false)
             {
                 currentVarDic.clear();

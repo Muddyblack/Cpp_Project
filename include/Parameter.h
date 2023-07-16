@@ -1,9 +1,18 @@
+/**
+ * @file Parameter.h
+ * @brief Contains structures and functions for handling parameters and variables.
+ */
+
 #ifndef PARAMTER_H
 #define PARAMTER_H
 
 #include <string>
 #include <iostream>
 
+/**
+ * @struct ParamStruct
+ * @brief Structure to hold parameter information.
+ */
 struct ParamStruct
 {
     std::string headerDir;      /**< Header file directory */
@@ -15,8 +24,15 @@ struct ParamStruct
     bool sortByVarname = 0;     /**< sets if variable names should be sorted*/
 };
 
+/**
+ * @brief Prints the information contained in a ParamStruct object.
+ * @param paramStruct The ParamStruct object to print.
+ */
 void printParamStruct(const ParamStruct &paramStruct);
 
+/**
+ * @brief Structure to hold variable information.
+ */
 struct VariableStruct
 {
     int VariableLineNumber; /**< This is the line where the variable has been defined in the input-File*/
@@ -28,6 +44,11 @@ struct VariableStruct
     bool addtextsegment;    /**< If true. Original text of variable will be added as comment*/
     std::string doxygen;    /**< Text for the doxygen*/
 };
+
+/**
+ * @brief Prints the information contained in a VariableStruct object.
+ * @param variableStruct The VariableStruct object to print.
+ */
 void printVariableStruct(const VariableStruct &variableStruct);
 
 #endif // PARAMETER_H

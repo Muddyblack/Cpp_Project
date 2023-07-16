@@ -1,5 +1,5 @@
 #ifdef _WIN32
-#include <windows.h> // Include the Windows header
+#include <windows.h>
 
 void EnableConsoleColors()
 {

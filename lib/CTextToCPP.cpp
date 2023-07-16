@@ -80,17 +80,8 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
 
     int count = 0;
 
-    /**
-     * @brief Vector for extracted substrings.
-     */
     std::vector<std::string> characters;
-    /**
-     * @brief Stringstream object with text.
-     */
     std::stringstream ss(text);
-    /**
-     * @brief Text between separation characters.
-     */
     std::string item;
 
     /**
@@ -99,8 +90,11 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
     while (std::getline(ss, item, separator))
 
     {
+        // Have to look ESC sequnces separately cause they are sticky
+        // Divide them again and look if we find line seperators and add them seperately to the characters
         if (seq == "ESC")
         {
+            // find positions of newlineSeperators
             std::vector<size_t> positions;
             for (size_t i = 0; i < item.size(); ++i)
             {
@@ -112,6 +106,7 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
                 }
             }
 
+            // Adding to the Characters
             size_t startPos = 0;
             for (size_t pos : positions)
             {
@@ -133,13 +128,8 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
 
     bool dosNext = false;
 
-    /**
-     * @brief Iteration over characters without leading and trailing whitespaces.
-     * Construct the character string depending on the value of seq.
-     * For octal and hexadecimals join the current item together with the separator character except the last item.
-     * Then count the length of the appendet character and check if exceeds the number of signs per line.
-     * New lines are added according to the os type.
-     */
+    // Creating the result string with a speicifig length
+    // if existing newline it creates new element so later it can be used as separte line
     for (size_t i = 0; i < characters.size(); i++)
     {
         std::string currentItem = characters[i];
@@ -270,11 +260,7 @@ std::string CTextToCPP::writeImplementation()
         }
         sourceText.append(quotes + line + quotes + " \\\n");
     }
-    /*
-    +
-    +   Missing content of variable
-    +
-    */
+
     sourceText.append("};\n");
 
     if (variable.addtextsegment)
@@ -286,11 +272,6 @@ std::string CTextToCPP::writeImplementation()
     return sourceText;
 }
 
-/**
- * @brief Function to add elements to a linked list by a pointer to the head node.
- * @param *&head pointer to head node
- * @param string value
- */
 void CTextToCPP::addElement(Node *&head, std::string value)
 {
     if (head == nullptr)

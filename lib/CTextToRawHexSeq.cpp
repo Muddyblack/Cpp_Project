@@ -4,11 +4,6 @@
 
 #include <CTextToRawHexSeq.h>
 
-/**
- * @brief Converts ascii-string to raw hexadicimal sequence.
- * @param inputString ASCII string to be converted.
- * @return rawHexStream Content of the rawHexStream as string.
- */
 std::string CTextToRawHexSeq::convert(std::string inputString, int varLine, std::string inputFile, std::string nl)
 {
     std::stringstream stream;

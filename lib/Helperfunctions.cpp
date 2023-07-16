@@ -3,11 +3,6 @@
 
 #include <Helperfunctions.h>
 
-/**
- * @brief Change all Text to UpperCase
- * @param str a string with text
- * @return the string in UpperCase
- */
 std::string toUpperCase(const std::string &str)
 {
     std::string result;
@@ -18,11 +13,6 @@ std::string toUpperCase(const std::string &str)
     return result;
 }
 
-/**
- * @brief Change all Text to LowerCase
- * @param str a string with text
- * @return the string in LowerCase
- */
 std::string toLowerCase(const std::string &str)
 {
     std::string result;
@@ -33,11 +23,6 @@ std::string toLowerCase(const std::string &str)
     return result;
 }
 
-/**
- * @brief check if the path is correct
- * @param path
- * @return modified path, if needed
- */
 std::string checkPath(const std::string &path)
 {
     std::filesystem::path fsPath(path);

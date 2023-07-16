@@ -4,11 +4,6 @@
 
 #include <CTextToHexSeq.h>
 
-/**
- * @brief Converts ascii-string to hex.
- * @param inputString ASCII string to be converted.
- * @return hexStream Content of the hexStream as string.
- */
 std::string CTextToHexSeq::convert(std::string inputString, int varLine, std::string inputFile, std::string nl)
 {
 
