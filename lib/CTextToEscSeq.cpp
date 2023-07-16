@@ -5,64 +5,72 @@
 
 #include <CTextToEscSeq.h>
 
-std::string CTextToEscSeq::convert(std::string inputString)
+std::string CTextToEscSeq::convert(std::string &inputString, const int &varLine, const std::string &inputFile, const std::string &nl)
 {
-    std::string output = "";
-    for (char c : inputString)
+    std::stringstream stream;
+    unsigned int charPos = 0;
+    checkNewLine(inputString, nl);
+    // check each character in the input string and replace escape characters
+    for (unsigned char c : inputString)
+
     {
+        checkASCII(c, varLine, charPos, inputFile);
+
         switch (c)
         {
         case '\a':
-            output += "\\a";
+            stream << "\\a";
             break;
         case '\b':
-            output += "\\b";
+            stream << "\\b";
             break;
         case '\e':
-            output += "\\e";
+            stream << "\\e";
             break;
         case '\f':
-            output += "\\f";
+            stream << "\\f";
             break;
         case '\n':
-            output += "\\n";
+            stream << "\\n";
             break;
         case '\r':
-            output += "\\r";
+            stream << "\\r";
             break;
         case '\t':
-            output += "\\t";
+            stream << "\\t";
             break;
         case '\v':
-            output += "\\v";
+            stream << "\\v";
             break;
         case '\\':
-            output += "\\\\";
+            stream << "\\\\";
             break;
         case '\'':
-            output += "\\'";
+            stream << "\\'";
             break;
         case '\"':
-            output += "\\\"";
+            stream << "\\\"";
             break;
         case '\?':
-            output += "\\?";
+            stream << "\\?";
             break;
         default:
-            output += c;
+            stream << c;
             break;
         }
+        charPos++;
     }
-    return output;
+    return stream.str();
 }
 
-CTextToEscSeq::CTextToEscSeq(const VariableStruct &variable) : CTextToCPP(variable)
+// constructor to initialize an instance of the CTextToEscSeq class
+CTextToEscSeq::CTextToEscSeq(const VariableStruct &variable, const ParamStruct &parameter) : CTextToCPP(variable, parameter)
 {
     // constructor implementation
 }
 
+// destructor for the CTextToEscSeq class
 CTextToEscSeq::~CTextToEscSeq()
 {
     // destructor implementation
 }
-

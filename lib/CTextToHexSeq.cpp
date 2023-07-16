@@ -4,25 +4,33 @@
 
 #include <CTextToHexSeq.h>
 
-/**
- * @brief converts ascii-string to hex
- */
-std::string CTextToHexSeq::convert(std::string inputString)
+std::string CTextToHexSeq::convert(std::string &inputString, const int &varLine, const std::string &inputFile, const std::string &nl)
+
 {
-    std::stringstream hexStream;
-    hexStream << std::hex << std::setfill('0');
-    for (char c : inputString)
+
+    std::stringstream stream;
+    stream << std::hex << std::setfill('0');
+    unsigned int charPos = 0;
+
+    // checkNewLine(inputString, nl);
+
+    for (unsigned char c : inputString)
     {
-        hexStream << "\\x" << std::setw(2) << static_cast<int>(c);
+        checkASCII(c, varLine, charPos, inputFile);
+
+        stream << "\\x" << std::setw(2) << static_cast<int>(c);
+        charPos++;
     }
-    return hexStream.str();
+    return stream.str();
 }
 
-CTextToHexSeq::CTextToHexSeq(const VariableStruct &variable) : CTextToCPP(variable)
+// constructor to initialize an instance of the CTextToEscSeq class
+CTextToHexSeq::CTextToHexSeq(const VariableStruct &variable, const ParamStruct &parameter) : CTextToCPP(variable, parameter)
 {
     // constructor implementation
 }
 
+// destructor for the CTextToHexSeq class
 CTextToHexSeq::~CTextToHexSeq()
 {
     // destructor implementation

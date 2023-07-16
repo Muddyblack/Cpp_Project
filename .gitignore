@@ -47,6 +47,8 @@ build/
 *.exe
 *.out
 *.app
+
+.vs/
 *.sqlite
 *.db-shm
 *.db
@@ -55,3 +57,4 @@ build/
 *.lock
 *.vsidx
 *.ipch
+

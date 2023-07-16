@@ -4,25 +4,31 @@
 
 #include <CTextToOctSeq.h>
 
-/**
- * @brief converts ascii-string to octal
- */
-std::string CTextToOctSeq::convert(std::string inputString)
+std::string CTextToOctSeq::convert(std::string &inputString, const int &varLine, const std::string &inputFile, const std::string &nl)
 {
-    std::stringstream octStream;
-    octStream << std::oct << std::setfill('0');
-    for (char c : inputString)
+    std::stringstream stream;
+    stream << std::oct << std::setfill('0');
+    unsigned int charPos = 0;
+
+    // checkNewLine(inputString, nl);
+
+    for (unsigned char c : inputString)
     {
-        octStream << "\\" << std::setw(3) << static_cast<int>(c);
+        checkASCII(c, varLine, charPos, inputFile);
+
+        stream << "\\" << std::setw(3) << static_cast<int>(c);
+        charPos++;
     }
-    return octStream.str();
+    return stream.str();
 }
 
-CTextToOctSeq::CTextToOctSeq(const VariableStruct &variable) : CTextToCPP(variable)
+// constructor to initialize an instance of the CTextToOctSeq class
+CTextToOctSeq::CTextToOctSeq(const VariableStruct &variable, const ParamStruct &parameter) : CTextToCPP(variable, parameter)
 {
     // constructor implementation
 }
 
+// destructor for the CTextToOctSeq class
 CTextToOctSeq::~CTextToOctSeq()
 {
 }
