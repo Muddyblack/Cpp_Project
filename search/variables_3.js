@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['orange_5fcolor_0',['ORANGE_COLOR',['../_console_colors_8h.html#a3631b35f48617d3564b042d4b23b1e4c',1,'ConsoleColors.h']]]
+  ['data_0',['data',['../struct_node.html#a85af1fa0eeeecfa52b94c50674fb2129',1,'Node']]],
+  ['doxygen_1',['doxygen',['../struct_variable_struct.html#a46ff6d34aac429bcb264ec5fca7ab62d',1,'VariableStruct']]]
 ];

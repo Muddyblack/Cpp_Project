@@ -1,5 +1,6 @@
 var class_project_path_finder =
 [
-    [ "ProjectPathFinder", "class_project_path_finder.html#af2cdc792196aafa1edc8cc22c070e9bf", null ],
-    [ "GetProjectFolderPath", "class_project_path_finder.html#af324a026d7254af8abd0fbb3867b4caf", null ]
+    [ "ProjectPathFinder", "class_project_path_finder.html#a81155a79fc0151788e25ec8dbf87ea72", null ],
+    [ "getExecutablePath", "class_project_path_finder.html#a8f95587787d796d80b5bbe213eee8c16", null ],
+    [ "getProjectFolderPath", "class_project_path_finder.html#ad560b04a36794833f35e408c70e0a149", null ]
 ];

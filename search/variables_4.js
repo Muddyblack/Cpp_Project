@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['red_5fcolor_0',['RED_COLOR',['../_console_colors_8h.html#af4ff33f31f564390ae6768a68afa3d5c',1,'ConsoleColors.h']]],
-  ['reset_5fcolor_1',['RESET_COLOR',['../_console_colors_8h.html#aa005b68015f17d6b056d43249230b8e5',1,'ConsoleColors.h']]]
+  ['green_5fcolor_0',['GREEN_COLOR',['../_console_colors_8h.html#aea71658c8b9226f3a57cb8792ac71be3',1,'ConsoleColors.h']]]
 ];

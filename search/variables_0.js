@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['black_5fcolor_0',['BLACK_COLOR',['../_console_colors_8h.html#a3c7d30eb302c253f3669a84dd3dd283e',1,'ConsoleColors.h']]],
-  ['blue_5fcolor_1',['BLUE_COLOR',['../_console_colors_8h.html#a444489245126b68dd3d0949c6cf982cb',1,'ConsoleColors.h']]]
+  ['addtextpos_0',['addtextpos',['../struct_variable_struct.html#a898636a421c8e4cfacfaec78ba6800e0',1,'VariableStruct']]],
+  ['addtextsegment_1',['addtextsegment',['../struct_variable_struct.html#a5b17e0621f4e788b316f23bf944c0cf2',1,'VariableStruct']]]
 ];

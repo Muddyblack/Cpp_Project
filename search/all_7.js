@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['strong_5fgreen_5fcolor_0',['STRONG_GREEN_COLOR',['../_console_colors_8h.html#af56ab47a67007cee3164efdf69a93168',1,'ConsoleColors.h']]]
+  ['logger_2ecpp_0',['Logger.cpp',['../_logger_8cpp.html',1,'']]],
+  ['logger_2eh_1',['Logger.h',['../_logger_8h.html',1,'']]]
 ];

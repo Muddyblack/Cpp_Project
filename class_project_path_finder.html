@@ -119,30 +119,41 @@ $(document).ready(function(){initNavTree('class_project_path_finder.html',''); i
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af2cdc792196aafa1edc8cc22c070e9bf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_project_path_finder.html#af2cdc792196aafa1edc8cc22c070e9bf">ProjectPathFinder</a> (const std::string &amp;projectName)</td></tr>
-<tr class="memdesc:af2cdc792196aafa1edc8cc22c070e9bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="class_project_path_finder.html" title="A class that helps in finding the project folder path.">ProjectPathFinder</a> object with the specified project name.  <br /></td></tr>
-<tr class="separator:af2cdc792196aafa1edc8cc22c070e9bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af324a026d7254af8abd0fbb3867b4caf"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_project_path_finder.html#af324a026d7254af8abd0fbb3867b4caf">GetProjectFolderPath</a> ()</td></tr>
-<tr class="memdesc:af324a026d7254af8abd0fbb3867b4caf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the project folder path.  <br /></td></tr>
-<tr class="separator:af324a026d7254af8abd0fbb3867b4caf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81155a79fc0151788e25ec8dbf87ea72"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_project_path_finder.html#a81155a79fc0151788e25ec8dbf87ea72">ProjectPathFinder</a> ()</td></tr>
+<tr class="memdesc:a81155a79fc0151788e25ec8dbf87ea72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="class_project_path_finder.html" title="A class that helps in finding the project folder path.">ProjectPathFinder</a> object with the specified project name.  <br /></td></tr>
+<tr class="separator:a81155a79fc0151788e25ec8dbf87ea72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f95587787d796d80b5bbe213eee8c16"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_project_path_finder.html#a8f95587787d796d80b5bbe213eee8c16">getExecutablePath</a> ()</td></tr>
+<tr class="memdesc:a8f95587787d796d80b5bbe213eee8c16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the path of the current executable.  <br /></td></tr>
+<tr class="separator:a8f95587787d796d80b5bbe213eee8c16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad560b04a36794833f35e408c70e0a149"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_project_path_finder.html#ad560b04a36794833f35e408c70e0a149">getProjectFolderPath</a> (const std::string &amp;PROJECT_NAME, const bool useFile=true)</td></tr>
+<tr class="memdesc:ad560b04a36794833f35e408c70e0a149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the project folder path.  <br /></td></tr>
+<tr class="separator:ad560b04a36794833f35e408c70e0a149"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A class that helps in finding the project folder path. </p>
+<p>The <a class="el" href="class_project_path_finder.html" title="A class that helps in finding the project folder path.">ProjectPathFinder</a> class provides functions to retrieve the path of the current executable and the project folder path. It can be used to determine the location of the project folder based on the current source file or the current executable. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af2cdc792196aafa1edc8cc22c070e9bf" name="af2cdc792196aafa1edc8cc22c070e9bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2cdc792196aafa1edc8cc22c070e9bf">&#9670;&#160;</a></span>ProjectPathFinder()</h2>
+<a id="a81155a79fc0151788e25ec8dbf87ea72" name="a81155a79fc0151788e25ec8dbf87ea72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81155a79fc0151788e25ec8dbf87ea72">&#9670;&#160;</a></span>ProjectPathFinder()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">ProjectPathFinder::ProjectPathFinder </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>projectName</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Constructs a <a class="el" href="class_project_path_finder.html" title="A class that helps in finding the project folder path.">ProjectPathFinder</a> object with the specified project name. </p>
@@ -156,14 +167,14 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af324a026d7254af8abd0fbb3867b4caf" name="af324a026d7254af8abd0fbb3867b4caf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af324a026d7254af8abd0fbb3867b4caf">&#9670;&#160;</a></span>GetProjectFolderPath()</h2>
+<a id="a8f95587787d796d80b5bbe213eee8c16" name="a8f95587787d796d80b5bbe213eee8c16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f95587787d796d80b5bbe213eee8c16">&#9670;&#160;</a></span>getExecutablePath()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string ProjectPathFinder::GetProjectFolderPath </td>
+          <td class="memname">std::string ProjectPathFinder::getExecutablePath </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -171,7 +182,45 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Retrieves the path of the current executable. </p>
+<dl class="section return"><dt>Returns</dt><dd>The path of the current executable. </dd></dl>
+
+</div>
+</div>
+<a id="ad560b04a36794833f35e408c70e0a149" name="ad560b04a36794833f35e408c70e0a149"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad560b04a36794833f35e408c70e0a149">&#9670;&#160;</a></span>getProjectFolderPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string ProjectPathFinder::getProjectFolderPath </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>PROJECT_NAME</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>useFile</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 <p>Retrieves the project folder path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PROJECT_NAME</td><td>The name of the project. </td></tr>
+    <tr><td class="paramname">useFile</td><td>If true, the function uses the file path of the current source file to determine the location of the project folder. If false, the function uses the path of the current executable.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>The project folder path. </dd></dl>
 
 </div>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['green_5fcolor_0',['GREEN_COLOR',['../_console_colors_8h.html#aea71658c8b9226f3a57cb8792ac71be3',1,'ConsoleColors.h']]]
+  ['content_0',['content',['../struct_variable_struct.html#a38188258e33fccae1bf6ac926bc1d4e4',1,'VariableStruct']]],
+  ['cyan_5fcolor_1',['CYAN_COLOR',['../_console_colors_8h.html#a5f407a95d0b458f7303cb3ea005c714e',1,'ConsoleColors.h']]]
 ];

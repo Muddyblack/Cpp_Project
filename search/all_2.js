@@ -1,8 +1,27 @@
 var searchData=
 [
-  ['generatecode_0',['generateCode',['../class_c_text_to_c_p_p.html#a53d3c9f648bb4da69cb02f6ee3a22708',1,'CTextToCPP']]],
-  ['gentxtsrccode_1',['GenTxtSrcCode',['../class_gen_txt_src_code.html',1,'GenTxtSrcCode'],['../class_gen_txt_src_code.html#aaad6e2a6e3f1b07a485396521ebf95cd',1,'GenTxtSrcCode::GenTxtSrcCode()'],['../index.html',1,'(Global Namespace)']]],
-  ['getexecutablepath_2',['GetExecutablePath',['../_project_path_finder_8h.html#a6207831db777e8cdfa0600a57e023b4b',1,'ProjectPathFinder.h']]],
-  ['getprojectfolderpath_3',['GetProjectFolderPath',['../class_project_path_finder.html#af324a026d7254af8abd0fbb3867b4caf',1,'ProjectPathFinder']]],
-  ['green_5fcolor_4',['GREEN_COLOR',['../_console_colors_8h.html#aea71658c8b9226f3a57cb8792ac71be3',1,'ConsoleColors.h']]]
+  ['checkascii_0',['checkASCII',['../class_c_text_to_c_p_p.html#a57144eafcce43321e9f624a13059f595',1,'CTextToCPP']]],
+  ['checknewline_1',['checkNewLine',['../class_c_text_to_c_p_p.html#acd81524bc91b964404e5b173fccb053b',1,'CTextToCPP']]],
+  ['checkpath_2',['checkPath',['../_helperfunctions_8cpp.html#a5075cf8463ef0095dc7eb7517c7f9aee',1,'checkPath(const std::string &amp;path):&#160;Helperfunctions.cpp'],['../_helperfunctions_8h.html#a5075cf8463ef0095dc7eb7517c7f9aee',1,'checkPath(const std::string &amp;path):&#160;Helperfunctions.cpp']]],
+  ['clear_3',['clear',['../class_c_text_to_c_p_p.html#a5430f25d6ad0e865f73ec24290e124a8',1,'CTextToCPP']]],
+  ['clearconsole_4',['clearConsole',['../_helperfunctions_8cpp.html#aff6c831918692405e75fc55c43424304',1,'clearConsole():&#160;Helperfunctions.cpp'],['../_helperfunctions_8h.html#aff6c831918692405e75fc55c43424304',1,'clearConsole():&#160;Helperfunctions.cpp']]],
+  ['consolecolors_2ecpp_5',['ConsoleColors.cpp',['../_console_colors_8cpp.html',1,'']]],
+  ['consolecolors_2eh_6',['ConsoleColors.h',['../_console_colors_8h.html',1,'']]],
+  ['content_7',['content',['../struct_variable_struct.html#a38188258e33fccae1bf6ac926bc1d4e4',1,'VariableStruct']]],
+  ['ctexttocpp_8',['CTextToCPP',['../class_c_text_to_c_p_p.html#acea3818e4098ebb63f43b1b3f0513a85',1,'CTextToCPP::CTextToCPP()'],['../class_c_text_to_c_p_p.html',1,'CTextToCPP']]],
+  ['ctexttocpp_2ecpp_9',['CTextToCPP.cpp',['../_c_text_to_c_p_p_8cpp.html',1,'']]],
+  ['ctexttocpp_2eh_10',['CTextToCPP.h',['../_c_text_to_c_p_p_8h.html',1,'']]],
+  ['ctexttoescseq_11',['CTextToEscSeq',['../class_c_text_to_esc_seq.html',1,'CTextToEscSeq'],['../class_c_text_to_esc_seq.html#a0d649ffd1574efb39d51f2af8706eea2',1,'CTextToEscSeq::CTextToEscSeq()']]],
+  ['ctexttoescseq_2ecpp_12',['CTextToEscSeq.cpp',['../_c_text_to_esc_seq_8cpp.html',1,'']]],
+  ['ctexttoescseq_2eh_13',['CTextToEscSeq.h',['../_c_text_to_esc_seq_8h.html',1,'']]],
+  ['ctexttohexseq_14',['CTextToHexSeq',['../class_c_text_to_hex_seq.html',1,'CTextToHexSeq'],['../class_c_text_to_hex_seq.html#ae336784a5b8241319053b3645376cd31',1,'CTextToHexSeq::CTextToHexSeq()']]],
+  ['ctexttohexseq_2ecpp_15',['CTextToHexSeq.cpp',['../_c_text_to_hex_seq_8cpp.html',1,'']]],
+  ['ctexttohexseq_2eh_16',['CTextToHexSeq.h',['../_c_text_to_hex_seq_8h.html',1,'']]],
+  ['ctexttooctseq_17',['CTextToOctSeq',['../class_c_text_to_oct_seq.html',1,'CTextToOctSeq'],['../class_c_text_to_oct_seq.html#a04e71b9880b7bb03ea3ae5e685a98628',1,'CTextToOctSeq::CTextToOctSeq()']]],
+  ['ctexttooctseq_2ecpp_18',['CTextToOctSeq.cpp',['../_c_text_to_oct_seq_8cpp.html',1,'']]],
+  ['ctexttooctseq_2eh_19',['CTextToOctSeq.h',['../_c_text_to_oct_seq_8h.html',1,'']]],
+  ['ctexttorawhexseq_20',['CTextToRawHexSeq',['../class_c_text_to_raw_hex_seq.html#aba9753c8928f9ced5174e7ce86cb8dc8',1,'CTextToRawHexSeq::CTextToRawHexSeq()'],['../class_c_text_to_raw_hex_seq.html',1,'CTextToRawHexSeq']]],
+  ['ctexttorawhexseq_2ecpp_21',['CTextToRawHexSeq.cpp',['../_c_text_to_raw_hex_seq_8cpp.html',1,'']]],
+  ['ctexttorawhexseq_2eh_22',['CTextToRawHexSeq.h',['../_c_text_to_raw_hex_seq_8h.html',1,'']]],
+  ['cyan_5fcolor_23',['CYAN_COLOR',['../_console_colors_8h.html#a5f407a95d0b458f7303cb3ea005c714e',1,'ConsoleColors.h']]]
 ];

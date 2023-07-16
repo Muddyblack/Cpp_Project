@@ -107,42 +107,79 @@ $(document).ready(function(){initNavTree('class_c_text_to_c_p_p.html',''); initR
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_c_text_to_c_p_p-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">CTextToCPP Class Reference</div></div>
+  <div class="headertitle"><div class="title">CTextToCPP Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 
+<p>Base class for data management.  
+ <a href="class_c_text_to_c_p_p.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_c_text_to_c_p_p_8h_source.html">CTextToCPP.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for CTextToCPP:</div>
+<div class="dyncontent">
+<div class="center"><!-- SVG 0 --></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a53d3c9f648bb4da69cb02f6ee3a22708"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_text_to_c_p_p.html#a53d3c9f648bb4da69cb02f6ee3a22708">generateCode</a> (const std::string &amp;inputFileName, const std::string &amp;outputDir, const std::string &amp;outputType)</td></tr>
-<tr class="separator:a53d3c9f648bb4da69cb02f6ee3a22708"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acea3818e4098ebb63f43b1b3f0513a85"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_text_to_c_p_p.html#acea3818e4098ebb63f43b1b3f0513a85">CTextToCPP</a> (const <a class="el" href="struct_variable_struct.html">VariableStruct</a> &amp;variable, const <a class="el" href="struct_param_struct.html">ParamStruct</a> &amp;parameter)</td></tr>
+<tr class="memdesc:acea3818e4098ebb63f43b1b3f0513a85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="class_c_text_to_c_p_p.html" title="Base class for data management.">CTextToCPP</a> class that takes a <a class="el" href="struct_variable_struct.html" title="Structure to hold variable information.">VariableStruct</a> object and a <a class="el" href="struct_param_struct.html" title="Structure to hold parameter information.">ParamStruct</a> object as arguments.  <br /></td></tr>
+<tr class="separator:acea3818e4098ebb63f43b1b3f0513a85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7af2d1645316178807fb825150398a4"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_text_to_c_p_p.html#aa7af2d1645316178807fb825150398a4">~CTextToCPP</a> ()</td></tr>
+<tr class="memdesc:aa7af2d1645316178807fb825150398a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for the <a class="el" href="class_c_text_to_c_p_p.html" title="Base class for data management.">CTextToCPP</a> class.  <br /></td></tr>
+<tr class="separator:aa7af2d1645316178807fb825150398a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a108f7850c2dd2101afc8b10e143905c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_text_to_c_p_p.html#a108f7850c2dd2101afc8b10e143905c5">addElement</a> (<a class="el" href="class_c_text_to_c_p_p.html">CTextToCPP</a> *element)</td></tr>
+<tr class="memdesc:a108f7850c2dd2101afc8b10e143905c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for adding a new element to the LinkedList.  <br /></td></tr>
+<tr class="separator:a108f7850c2dd2101afc8b10e143905c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26aa748dfef1a2bdd6d2e64fcf8da76a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_text_to_c_p_p.html#a26aa748dfef1a2bdd6d2e64fcf8da76a">sort</a> (<a class="el" href="struct_variable_struct.html">VariableStruct</a> variable)</td></tr>
+<tr class="memdesc:a26aa748dfef1a2bdd6d2e64fcf8da76a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to sort elements of the LinkedList alphabetically.  <br /></td></tr>
+<tr class="separator:a26aa748dfef1a2bdd6d2e64fcf8da76a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5430f25d6ad0e865f73ec24290e124a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_text_to_c_p_p.html#a5430f25d6ad0e865f73ec24290e124a8">clear</a> ()</td></tr>
+<tr class="memdesc:a5430f25d6ad0e865f73ec24290e124a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to delete all elements of the LinkedList.  <br /></td></tr>
+<tr class="separator:a5430f25d6ad0e865f73ec24290e124a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3178fa43dda1a5581333f085d5d21f1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_text_to_c_p_p.html#ae3178fa43dda1a5581333f085d5d21f1">writeDeclaration</a> ()</td></tr>
+<tr class="memdesc:ae3178fa43dda1a5581333f085d5d21f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to generate the declaration text for the input file.  <br /></td></tr>
+<tr class="separator:ae3178fa43dda1a5581333f085d5d21f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9f8733715492402645129f99cf31d37"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_text_to_c_p_p.html#ac9f8733715492402645129f99cf31d37">writeImplementation</a> ()</td></tr>
+<tr class="memdesc:ac9f8733715492402645129f99cf31d37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to generate the source text for the input file.  <br /></td></tr>
+<tr class="separator:ac9f8733715492402645129f99cf31d37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a57144eafcce43321e9f624a13059f595"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_text_to_c_p_p.html#a57144eafcce43321e9f624a13059f595">checkASCII</a> (const unsigned char &amp;input, const int &amp;line, const unsigned int &amp;pos, const std::string &amp;inputFile)</td></tr>
+<tr class="memdesc:a57144eafcce43321e9f624a13059f595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the input character is an ASCII character and raises an error if it's not.  <br /></td></tr>
+<tr class="separator:a57144eafcce43321e9f624a13059f595"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd81524bc91b964404e5b173fccb053b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_text_to_c_p_p.html#acd81524bc91b964404e5b173fccb053b">checkNewLine</a> (std::string &amp;input, const std::string &amp;nl)</td></tr>
+<tr class="memdesc:acd81524bc91b964404e5b173fccb053b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks and handles the presence of new line characters in the input string.  <br /></td></tr>
+<tr class="separator:acd81524bc91b964404e5b173fccb053b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a53d3c9f648bb4da69cb02f6ee3a22708" name="a53d3c9f648bb4da69cb02f6ee3a22708"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53d3c9f648bb4da69cb02f6ee3a22708">&#9670;&#160;</a></span>generateCode()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base class for data management. </p>
+<ul>
+<li></li>
+</ul>
+<p>This class provides the base functionality for converting text to C++ code and managing data. It includes functions for checking ASCII characters, handling new line characters, adding elements to a linked list, sorting elements, clearing the linked list, generating declaration and implementation texts, and inserting line breaks in the text. It is intended to be inherited by derived classes that implement specific text-to-C++ conversion functionality. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="acea3818e4098ebb63f43b1b3f0513a85" name="acea3818e4098ebb63f43b1b3f0513a85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acea3818e4098ebb63f43b1b3f0513a85">&#9670;&#160;</a></span>CTextToCPP()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void CTextToCPP::generateCode </td>
+          <td class="memname">CTextToCPP::CTextToCPP </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>inputFileName</em>, </td>
+          <td class="paramtype">const <a class="el" href="struct_variable_struct.html">VariableStruct</a> &amp;&#160;</td>
+          <td class="paramname"><em>variable</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>outputDir</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>outputType</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_param_struct.html">ParamStruct</a> &amp;&#160;</td>
+          <td class="paramname"><em>parameter</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -151,6 +188,274 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Constructor for the <a class="el" href="class_c_text_to_c_p_p.html" title="Base class for data management.">CTextToCPP</a> class that takes a <a class="el" href="struct_variable_struct.html" title="Structure to hold variable information.">VariableStruct</a> object and a <a class="el" href="struct_param_struct.html" title="Structure to hold parameter information.">ParamStruct</a> object as arguments. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">variable</td><td>The <a class="el" href="struct_variable_struct.html" title="Structure to hold variable information.">VariableStruct</a> object representing the variable. </td></tr>
+    <tr><td class="paramname">parameter</td><td>The <a class="el" href="struct_param_struct.html" title="Structure to hold parameter information.">ParamStruct</a> object representing the parameter. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa7af2d1645316178807fb825150398a4" name="aa7af2d1645316178807fb825150398a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7af2d1645316178807fb825150398a4">&#9670;&#160;</a></span>~CTextToCPP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">CTextToCPP::~CTextToCPP </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destructor for the <a class="el" href="class_c_text_to_c_p_p.html" title="Base class for data management.">CTextToCPP</a> class. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a108f7850c2dd2101afc8b10e143905c5" name="a108f7850c2dd2101afc8b10e143905c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a108f7850c2dd2101afc8b10e143905c5">&#9670;&#160;</a></span>addElement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CTextToCPP::addElement </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_c_text_to_c_p_p.html">CTextToCPP</a> *&#160;</td>
+          <td class="paramname"><em>element</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function for adding a new element to the LinkedList. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">head</td><td>A pointer to the head node of the linked list. </td></tr>
+    <tr><td class="paramname">value</td><td>value </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a57144eafcce43321e9f624a13059f595" name="a57144eafcce43321e9f624a13059f595"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57144eafcce43321e9f624a13059f595">&#9670;&#160;</a></span>checkASCII()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CTextToCPP::checkASCII </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned char &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>line</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>inputFile</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if the input character is an ASCII character and raises an error if it's not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>The input character to check. </td></tr>
+    <tr><td class="paramname">line</td><td>The line number of the variable in the input file. </td></tr>
+    <tr><td class="paramname">pos</td><td>The position of the character in the variable-part string. </td></tr>
+    <tr><td class="paramname">inputFile</td><td>The name of the input file. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acd81524bc91b964404e5b173fccb053b" name="acd81524bc91b964404e5b173fccb053b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd81524bc91b964404e5b173fccb053b">&#9670;&#160;</a></span>checkNewLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CTextToCPP::checkNewLine </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>nl</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks and handles the presence of new line characters in the input string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>The input string to check and modify. </td></tr>
+    <tr><td class="paramname">nl</td><td>The new line character depending on the operating system type. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5430f25d6ad0e865f73ec24290e124a8" name="a5430f25d6ad0e865f73ec24290e124a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5430f25d6ad0e865f73ec24290e124a8">&#9670;&#160;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CTextToCPP::clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to delete all elements of the LinkedList. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">head</td><td>A pointer to the head node of the linked list. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a26aa748dfef1a2bdd6d2e64fcf8da76a" name="a26aa748dfef1a2bdd6d2e64fcf8da76a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26aa748dfef1a2bdd6d2e64fcf8da76a">&#9670;&#160;</a></span>sort()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CTextToCPP::sort </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_variable_struct.html">VariableStruct</a>&#160;</td>
+          <td class="paramname"><em>variable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to sort elements of the LinkedList alphabetically. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">head</td><td>A pointer to the head node of the linked list. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae3178fa43dda1a5581333f085d5d21f1" name="ae3178fa43dda1a5581333f085d5d21f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3178fa43dda1a5581333f085d5d21f1">&#9670;&#160;</a></span>writeDeclaration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string CTextToCPP::writeDeclaration </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to generate the declaration text for the input file. </p>
+<p>Function to generate content of header file.</p>
+<p>This function generates the declaration text for the input file. It constructs the declaration code based on the variable name, type, and other options. If a doxygen comment is provided for the variable, it is included in the declaration.</p>
+<dl class="section return"><dt>Returns</dt><dd>Declaration text.</dd>
+<dd>
+declarationText Text to be declared in header file. </dd></dl>
+<p>Holds the generated declaration code.</p>
+
+</div>
+</div>
+<a id="ac9f8733715492402645129f99cf31d37" name="ac9f8733715492402645129f99cf31d37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9f8733715492402645129f99cf31d37">&#9670;&#160;</a></span>writeImplementation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string CTextToCPP::writeImplementation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to generate the source text for the input file. </p>
+<p>Function to generate text of the source file. The text is to be converted and new lines are to be inserted.</p>
+<dl class="section return"><dt>Returns</dt><dd>The generated Source text.</dd>
+<dd>
+Source text. </dd></dl>
+<p>Holds the generated source code.</p>
 
 </div>
 </div>

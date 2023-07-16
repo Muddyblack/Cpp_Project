@@ -27,16 +27,19 @@ var NAVTREE =
   [ "GenTxtSrcCode", "index.html", [
     [ "Classes", "annotated.html", [
       [ "Documentation", "index.html#autotoc_md0", null ],
-      [ "Startup", "index.html#autotoc_md1", [
-        [ "Windows", "index.html#autotoc_md2", null ],
-        [ "Linux", "index.html#autotoc_md3", null ]
+      [ "Problem", "index.html#autotoc_md1", null ],
+      [ "Startup", "index.html#autotoc_md2", [
+        [ "Windows", "index.html#autotoc_md3", null ],
+        [ "Linux", "index.html#autotoc_md4", null ]
       ] ],
-      [ "Libraries", "index.html#autotoc_md4", null ],
+      [ "Libraries", "index.html#autotoc_md5", null ],
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
+      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ]
+        [ "Functions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [

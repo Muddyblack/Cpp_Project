@@ -1,5 +1,6 @@
 var _console_colors_8h =
 [
+    [ "EnableConsoleColors", "_console_colors_8h.html#a4673d50fd1e09e7bceabd7350f95ca7f", null ],
     [ "BLACK_COLOR", "_console_colors_8h.html#a3c7d30eb302c253f3669a84dd3dd283e", null ],
     [ "BLUE_COLOR", "_console_colors_8h.html#a444489245126b68dd3d0949c6cf982cb", null ],
     [ "CYAN_COLOR", "_console_colors_8h.html#a5f407a95d0b458f7303cb3ea005c714e", null ],

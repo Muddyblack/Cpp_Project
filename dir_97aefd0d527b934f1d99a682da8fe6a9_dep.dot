@@ -7,5 +7,5 @@ digraph "c:/Users/Muddyblack/OneDrive - bwedu/12 Studium/01 DHBW/2. Semester/18 
   compound=true
   dir_97aefd0d527b934f1d99a682da8fe6a9 [label="lib", fillcolor="#daedff", color="grey25", style="filled,bold", URL="dir_97aefd0d527b934f1d99a682da8fe6a9.html",tooltip=""];
   dir_d44c64559bbebec7f509842c48db8b23 [label="include", fillcolor="#daedff", color="grey25", style="filled", URL="dir_d44c64559bbebec7f509842c48db8b23.html",tooltip=""];
-  dir_97aefd0d527b934f1d99a682da8fe6a9->dir_d44c64559bbebec7f509842c48db8b23 [headlabel="5", labeldistance=1.5 headhref="dir_000001_000000.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_97aefd0d527b934f1d99a682da8fe6a9->dir_d44c64559bbebec7f509842c48db8b23 [headlabel="15", labeldistance=1.5 headhref="dir_000001_000000.html" color="steelblue1" fontcolor="steelblue1"];
 }

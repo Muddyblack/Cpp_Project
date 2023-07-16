@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['main_0',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
-  ['main_2ecpp_1',['main.cpp',['../main_8cpp.html',1,'']]]
+  ['data_0',['data',['../struct_node.html#a85af1fa0eeeecfa52b94c50674fb2129',1,'Node']]],
+  ['doxygen_1',['doxygen',['../struct_variable_struct.html#a46ff6d34aac429bcb264ec5fca7ab62d',1,'VariableStruct']]]
 ];

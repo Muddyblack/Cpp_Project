@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['projectpathfinder_2ecpp_0',['ProjectPathFinder.cpp',['../_project_path_finder_8cpp.html',1,'']]],
-  ['projectpathfinder_2eh_1',['ProjectPathFinder.h',['../_project_path_finder_8h.html',1,'']]]
+  ['helperfunctions_2ecpp_0',['Helperfunctions.cpp',['../_helperfunctions_8cpp.html',1,'']]],
+  ['helperfunctions_2eh_1',['Helperfunctions.h',['../_helperfunctions_8h.html',1,'']]]
 ];
