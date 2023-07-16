@@ -11,27 +11,24 @@
 std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, std::string &text, const std::string &nl, const std::string &seq)
 {
     char seperator = ' ';
-    std::string newLineChar = "\n";
-    std::string returnChar = "\r";
+    std::string newLineChar = "\\n";
+    std::string returnChar = "\\r";
 
     if (seq == "RAWHEX")
     {
         seperator = ',';
-        // 0x0d = \r , 0x0a = \n
         newLineChar = "0x0a";
         returnChar = "0x0d";
     }
     else if (seq == "HEX")
     {
         seperator = '\\';
-        // 0x0d = \r , 0x0a = \n
         newLineChar = "x0a";
         returnChar = "x0d";
     }
     else if (seq == "OCT")
     {
         seperator = '\\';
-        // 0x0d = \r , 0x0a = \n
         newLineChar = "012";
         returnChar = "015";
     }
@@ -45,7 +42,45 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
     std::string item;
     while (std::getline(ss, item, seperator))
     {
-        characters.push_back(item);
+        if (seq == "ESC")
+        {
+
+            std::vector<size_t> positions;
+            for (size_t i = 0; i < item.size(); ++i)
+            {
+                std::string complete;
+                complete += item[i];
+                if (i < item.size() - 1)
+                {
+                    complete += item[i + 1];
+                }
+
+                if ((complete == newLineChar) || (complete == returnChar))
+
+                {
+                    positions.push_back(i);
+                    i += 1;
+                }
+            }
+
+            size_t startPos = 0;
+            for (size_t pos : positions)
+            {
+                characters.push_back(item.substr(startPos, pos - startPos));
+                characters.push_back(item.substr(pos, 2)); // Add the line break character as a separate substring
+                startPos = pos + 2;
+            }
+
+            // Handle the remaining portion of the string after the last line break
+            if (startPos < item.size())
+            {
+                characters.push_back(item.substr(startPos));
+            }
+        }
+        else
+        {
+            characters.push_back(item);
+        }
     }
 
     bool dosNext = false;
@@ -67,9 +102,22 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
                 character = currentItem;
             }
         }
+        else if ((seq == "ESC") && ((currentItem == newLineChar) || (currentItem == returnChar)))
+        {
+
+            character = currentItem;
+        }
+
         else
         {
-            character = currentItem + seperator;
+            if (i < (characters.size() - 2))
+            {
+                character = currentItem + seperator;
+            }
+            else
+            {
+                character = currentItem;
+            }
         }
 
         int lenghte = character.length();
@@ -98,10 +146,6 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
         }
     }
 
-    if ((seq == "ESC") || (seq == "RAWHEX"))
-    {
-        result[result.size() - 1].pop_back();
-    }
     return result;
 }
 
