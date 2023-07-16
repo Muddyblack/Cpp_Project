@@ -10,6 +10,7 @@ std::string CTextToEscSeq::convert(std::string &inputString, const int &varLine,
     std::stringstream stream;
     unsigned int charPos = 0;
     checkNewLine(inputString, nl);
+
     // check each character in the input string and replace escape characters
     for (unsigned char c : inputString)
 

@@ -49,6 +49,7 @@ void CTextToCPP::checkNewLine(std::string &input, const std::string &nl)
 // Function to insert line breaks after certain amount of signs per line
 std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, const std::string &text, const std::string &nl, const std::string &seq)
 {
+
     char separator = ' ';
     std::string newLineChar = "\\n";
     std::string returnChar = "\\r";
@@ -167,13 +168,14 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, co
         }
 
         line.append(character);
+
         if ((nl == "DOS" && currentItem == returnChar))
         {
             dosNext = true;
             continue;
         }
 
-        if ((nl == "UNIX" && currentItem == newLineChar) || (nl == "MAC" && currentItem == returnChar) || dosNext)
+        if ((nl == "UNIX" && currentItem == newLineChar) || (nl == "MAC" && currentItem == returnChar) || dosNext || (i == (characters.size() - 1)))
         {
             result.push_back(line);
             line = "";
