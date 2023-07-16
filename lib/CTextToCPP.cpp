@@ -13,6 +13,7 @@
 * @param text Text to be processed. 
 * @param  nl New line character depending on os type
 * @param seq Type of text.
+* @return Text with each line not longer than the given number of signs per line.
  */
 std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, std::string &text, const std::string &nl, const std::string &seq)
 {
@@ -29,6 +30,9 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
     */
     std::string returnChar = "\r";
 
+    /**
+    * @brief Assign characters for separation, new line and carriage return for each text type.
+    */
     if (seq == "RAWHEX")
     {
         seperator = ',';
@@ -51,13 +55,35 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
         returnChar = "015";
     }
 
+    /**
+    * @brief Text in each line.
+    */
     std::string line;
+    /**
+    * @brief Resulting Text with lines that do not exceed the given number of signs per line.
+    */
     std::vector<std::string> result;
+    /**
+    * @brief Counter for characters.
+    */
     int count = 0;
 
+    /**
+    * @brief Vector for extracted substrings.
+    */
     std::vector<std::string> characters;
+    /**
+    * @brief Stringstream object with text.
+    */
     std::stringstream ss(text);
+    /**
+    * @brief Text between separation characters.
+    */
     std::string item;
+
+    /**
+    * @brief Extract substrings from text using separator as delimiter and adding them to characters.
+    */
     while (std::getline(ss, item, seperator))
     {
         characters.push_back(item);
@@ -65,6 +91,13 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
 
     bool dosNext = false;
 
+    /**
+    * @brief Iteration over characters without leading and trailing whitespaces.
+    * Construct the character string depending on the value of seq.
+    * For octal and hexadecimals join the current item together with the separator character except the last item.
+    * Then count the length of the appendet character and check if exceeds the number of signs per line.
+    * New lines are added according to the os type.
+    */
     for (size_t i = 0; i < characters.size(); i++)
     {
         std::string currentItem = characters[i];
@@ -151,6 +184,12 @@ std::string CTextToCPP::writeDeclaration()
     return declarationText;
 }
 
+
+/**
+* @brief Function to generate source text.
+* The text is to be converted and new lines are to be inserted.
+* @return Source text.
+*/
 std::string CTextToCPP::writeImplementation()
 { // source stuff
     std::string sourceText;
@@ -196,6 +235,12 @@ std::string CTextToCPP::writeImplementation()
     return sourceText;
 }
 
+
+/**
+* @brief Function to add elements to a linked list by a pointer to the head node.
+* @param *&head pointer to head node
+* @param string value 
+*/
 void CTextToCPP::addElement(LinkedList *&head, std::string value)
 {
     if (head == nullptr)

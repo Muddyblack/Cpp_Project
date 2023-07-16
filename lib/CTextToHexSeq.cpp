@@ -5,7 +5,9 @@
 #include <CTextToHexSeq.h>
 
 /**
- * @brief converts ascii-string to hex
+ * @brief Converts ascii-string to hex.
+ * @param inputString ASCII string to be converted.
+ * @return hexStream Content of the hexStream as string.
  */
 std::string CTextToHexSeq::convert(std::string inputString)
 {
@@ -18,11 +20,13 @@ std::string CTextToHexSeq::convert(std::string inputString)
     return hexStream.str();
 }
 
+// constructor to initialize an instance of the CTextToEscSeq class
 CTextToHexSeq::CTextToHexSeq(const VariableStruct &variable, const ParamStruct &parameter) : CTextToCPP(variable, parameter)
 {
     // constructor implementation
 }
 
+// destructor for the CTextToHexSeq class
 CTextToHexSeq::~CTextToHexSeq()
 {
     // destructor implementation
