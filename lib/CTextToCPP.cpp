@@ -7,14 +7,7 @@
 
 #include <CTextToCPP.h>
 
-/**
-* @brief Function to insert line breaks after certain amount of signs per line.
-* @param signPerLine Number of signs per line.
-* @param text Text to be processed. 
-* @param  nl New line character depending on os type
-* @param seq Type of text.
-* @return Text with each line not longer than the given number of signs per line.
- */
+//Function to insert line breaks after certain amount of signs per line.
 std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, std::string &text, const std::string &nl, const std::string &seq)
 {
     /**
@@ -153,8 +146,15 @@ std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, st
     return result;
 }
 
+/**
+* @brief Function to generate content of header file.
+* @return declarationText Text to be declared in header file.
+*/
 std::string CTextToCPP::writeDeclaration()
 { // header stuff
+    /**
+    * @brief Holds the generated declaration code.
+    */
     std::string declarationText;
 
     // Check Doxygentext
@@ -186,12 +186,15 @@ std::string CTextToCPP::writeDeclaration()
 
 
 /**
-* @brief Function to generate source text.
+* @brief Function to generate text of the source file.
 * The text is to be converted and new lines are to be inserted.
 * @return Source text.
 */
 std::string CTextToCPP::writeImplementation()
 { // source stuff
+    /**
+    * @brief Holds the generated source code.
+    */
     std::string sourceText;
 
     sourceText.append("const char ");
