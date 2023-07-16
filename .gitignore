@@ -47,3 +47,11 @@ build/
 *.exe
 *.out
 *.app
+*.sqlite
+*.db-shm
+*.db
+*.opendb
+*.db-wal
+*.lock
+*.vsidx
+*.ipch
