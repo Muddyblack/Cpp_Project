@@ -439,25 +439,25 @@ void GenTxtSrcCode::codeGeneration()
                 {
                     if (variable.seq == "ESC")
                     {
-                        CTextToEscSeq converter(variable);
+                        CTextToEscSeq converter(variable, parameterInfo);
                         headerCode.append(converter.writeDeclaration());
                         sourceCode.append(converter.writeImplementation());
                     }
                     else if (variable.seq == "HEX")
                     {
-                        CTextToHexSeq converter(variable);
+                        CTextToHexSeq converter(variable, parameterInfo);
                         headerCode.append(converter.writeDeclaration());
                         sourceCode.append(converter.writeImplementation());
                     }
                     else if (variable.seq == "OCT")
                     {
-                        CTextToOctSeq converter(variable);
+                        CTextToOctSeq converter(variable, parameterInfo);
                         headerCode.append(converter.writeDeclaration());
                         sourceCode.append(converter.writeImplementation());
                     }
                     else if (variable.seq == "RAWHEX")
                     {
-                        CTextToRawHexSeq converter(variable);
+                        CTextToRawHexSeq converter(variable, parameterInfo);
                         headerCode.append(converter.writeDeclaration());
                         sourceCode.append(converter.writeImplementation());
                     }

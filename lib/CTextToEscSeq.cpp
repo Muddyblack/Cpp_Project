@@ -56,7 +56,7 @@ std::string CTextToEscSeq::convert(std::string inputString)
     return output;
 }
 
-CTextToEscSeq::CTextToEscSeq(const VariableStruct &variable) : CTextToCPP(variable)
+CTextToEscSeq::CTextToEscSeq(const VariableStruct &variable, const ParamStruct &parameter) : CTextToCPP(variable, parameter)
 {
     // constructor implementation
 }
@@ -65,4 +65,3 @@ CTextToEscSeq::~CTextToEscSeq()
 {
     // destructor implementation
 }
-

@@ -18,7 +18,7 @@ std::string CTextToOctSeq::convert(std::string inputString)
     return octStream.str();
 }
 
-CTextToOctSeq::CTextToOctSeq(const VariableStruct &variable) : CTextToCPP(variable)
+CTextToOctSeq::CTextToOctSeq(const VariableStruct &variable, const ParamStruct &parameter) : CTextToCPP(variable, parameter)
 {
     // constructor implementation
 }

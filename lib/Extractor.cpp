@@ -54,12 +54,10 @@ void extractOptionsAndVariables(const std::string &inputFilePath, std::map<std::
 
     std::ifstream inputFile(inputFilePath);
     std::string inputString((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
+    char x = '@';
 
-    std::cout << inputString << std::endl;
-
-    if (inputString.find('@') != std::string::npos)
+    if (inputString.find(x) == std::string::npos)
     {
-        std::cout << "hiiii" << std::endl;
         return;
     }
 

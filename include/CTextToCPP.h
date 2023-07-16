@@ -9,7 +9,7 @@
 class CTextToCPP
 {
 public:
-    CTextToCPP(const VariableStruct &variable);
+    CTextToCPP(const VariableStruct &variable, const ParamStruct &parameter);
     virtual ~CTextToCPP();
 
     void addElement(LinkedList *&head, std::string value);
@@ -24,6 +24,7 @@ private:
     struct VariableStruct variable;
 
     virtual std::string convert(std::string inputString) = 0;
+    std::vector<std::string> insertLineBreaks(const int &signPerLine, std::string &text, const std::string &nl, const std::string &seq);
 
     std::string PROJECT_PATH;
     std::string inputFilePath;

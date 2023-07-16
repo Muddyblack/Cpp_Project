@@ -18,7 +18,7 @@ std::string CTextToHexSeq::convert(std::string inputString)
     return hexStream.str();
 }
 
-CTextToHexSeq::CTextToHexSeq(const VariableStruct &variable) : CTextToCPP(variable)
+CTextToHexSeq::CTextToHexSeq(const VariableStruct &variable, const ParamStruct &parameter) : CTextToCPP(variable, parameter)
 {
     // constructor implementation
 }

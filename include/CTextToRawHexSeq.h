@@ -6,7 +6,7 @@
 class CTextToRawHexSeq : public CTextToCPP
 {
 public:
-    CTextToRawHexSeq(const VariableStruct &variable);
+    CTextToRawHexSeq(const VariableStruct &variable, const ParamStruct &parameter);
     ~CTextToRawHexSeq();
 
 private:

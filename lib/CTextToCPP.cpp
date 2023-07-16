@@ -1,7 +1,100 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <iomanip>
+#include <sstream>
+#include <boost/algorithm/string.hpp>
+
 #include <CTextToCPP.h>
+
+// Function to insert line breaks after certain amount of signs per line
+std::vector<std::string> CTextToCPP::insertLineBreaks(const int &signPerLine, std::string &text, const std::string &nl, const std::string &seq)
+{
+    char seperator = ' ';
+    std::string newLineChar = "\n";
+    std::string returnChar = "\r";
+
+    if (seq == "RAWHEX")
+    {
+        seperator = ',';
+        // 0x0d = \r , 0x0a = \n
+        newLineChar = "0x0a";
+        returnChar = "0x0d";
+    }
+    else if (seq == "HEX")
+    {
+        seperator = '\\';
+        // 0x0d = \r , 0x0a = \n
+        newLineChar = "x0a";
+        returnChar = "x0d";
+    }
+    else if (seq == "OCT")
+    {
+        seperator = '\\';
+        // 0x0d = \r , 0x0a = \n
+        newLineChar = "012";
+        returnChar = "015";
+    }
+
+    std::string line;
+    std::vector<std::string> result;
+    int count = 0;
+
+    std::vector<std::string> characters;
+    std::stringstream ss(text);
+    std::string item;
+    while (std::getline(ss, item, seperator))
+    {
+        characters.push_back(item);
+    }
+
+    for (int i = 0; i < characters.size(); i++)
+    {
+        std::string currentItem = characters[i];
+        boost::algorithm::trim(currentItem);
+
+        std::string character;
+        if ((seq == "HEX") || (seq == "OCT"))
+        {
+            if (i > 0)
+            {
+                character = seperator + currentItem;
+            }
+            else
+            {
+                character = currentItem;
+            }
+        }
+        else
+        {
+            character = currentItem + seperator;
+        }
+
+        int lenghte = character.length();
+        count += lenghte;
+
+        if (count > signPerLine)
+        {
+            result.push_back(line);
+            line = "";
+            count = lenghte;
+        }
+
+        line.append(character);
+        if ((currentItem == newLineChar) || (currentItem == returnChar))
+        {
+            result.push_back(line);
+            line = "";
+            count = 0;
+        }
+    }
+
+    if ((seq == "ESC") || (seq == "RAWHEX"))
+    {
+        result[result.size() - 1].pop_back();
+    }
+    return result;
+}
 
 std::string CTextToCPP::writeDeclaration()
 { // header stuff
@@ -18,7 +111,7 @@ std::string CTextToCPP::writeDeclaration()
         declarationText.append("*/\n");
     }
 
-    declarationText.append("extern const char ");
+    declarationText.append("const char ");
     if (variable.seq != "RAWHEX")
     {
         declarationText.append("*const ");
@@ -38,7 +131,7 @@ std::string CTextToCPP::writeImplementation()
 { // source stuff
     std::string sourceText;
 
-    sourceText.append("extern const char ");
+    sourceText.append("const char ");
     if (variable.seq != "RAWHEX")
     {
         sourceText.append("*const ");
@@ -52,6 +145,17 @@ std::string CTextToCPP::writeImplementation()
 
     sourceText.append(" = {\n");
     std::string convertedContent = convert(variable.content); // have to adapt it to signperLine
+    std::vector<std::string> adoptedContent = insertLineBreaks(parameter.signPerLine, convertedContent, variable.nl, variable.seq);
+
+    for (std::string line : adoptedContent)
+    {
+        std::string quotes = "\"";
+        if (variable.seq == "RAWHEX")
+        {
+            quotes = "";
+        }
+        sourceText.append(quotes + line + quotes + " \\\n");
+    }
     /*
     +
     +   Missing content of variable
@@ -103,6 +207,6 @@ CTextToCPP::~CTextToCPP()
 {
 }
 
-CTextToCPP::CTextToCPP(const VariableStruct &variable) : variable(variable)
+CTextToCPP::CTextToCPP(const VariableStruct &variable, const ParamStruct &parameter) : parameter(parameter), variable(variable)
 {
 }

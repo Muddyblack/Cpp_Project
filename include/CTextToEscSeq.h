@@ -6,7 +6,7 @@
 class CTextToEscSeq : public CTextToCPP
 {
 public:
-    CTextToEscSeq(const VariableStruct &variable);
+    CTextToEscSeq(const VariableStruct &variable, const ParamStruct &parameter);
     ~CTextToEscSeq();
 
 private:

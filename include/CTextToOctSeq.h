@@ -6,7 +6,7 @@
 class CTextToOctSeq : public CTextToCPP
 {
 public:
-    CTextToOctSeq(const VariableStruct &variable);
+    CTextToOctSeq(const VariableStruct &variable, const ParamStruct &parameter);
     ~CTextToOctSeq();
 
 private:
